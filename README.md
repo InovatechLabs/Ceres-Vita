@@ -24,7 +24,7 @@ de vida e bem-estar.
 
 
 ### Tecnologias Utilizadas
-- **Prototipagem:** [Figma]()
+- **Prototipagem:** [Figma](https://www.figma.com/design/Ny1gtxP6uqtkRBuB9SEq3K/Untitled?node-id=0-1&m=dev&t=UqvkDj8HeqUnEeog-1)
 - **Frontend:** React Typescript
 - **Backend:** Node.js, Express, Typescript
 - **Banco de Dados:** PostgreSQL
