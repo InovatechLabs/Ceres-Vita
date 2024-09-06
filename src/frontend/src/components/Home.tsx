@@ -2,12 +2,13 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import './styles/Home.css';
+import logo from '../logo.jpg';
 
 function Home() {
   
     return (
       <>
-       
+
         <div className='topGreenContainer'></div>
         <nav>
 
@@ -26,6 +27,14 @@ function Home() {
         </ul>
 
         </nav>
+        <div className='website-development'>
+        <img src={logo} className='imagem'></img>     
+          <div className='login-div'>
+            <input type='email' name='email' placeholder='e-mail'/>
+            <input type='password' name='password' placeholder='senha'/>
+            <button className='login-btn'>Entrar</button>
+          </div>
+        </div>
      
       </>
     )
