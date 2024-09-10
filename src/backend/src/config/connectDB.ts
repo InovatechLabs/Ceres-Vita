@@ -5,9 +5,9 @@ import path from "path";
 
 
 const pool = new Pool({
-    user: "postgres",
+    user: "users",
     host: "localhost",
-    database: "teste",
+    database: "users_auth",
     password: "123",
   });
   

@@ -2,17 +2,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Lavishly+Yours&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Aldrich&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bowlby+One+SC&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Carattere&display=swap');
 
 
 body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    overflow-x: hidden;
+
 }
 
 .topGreenContainer {
-    width: 100%;
+    width: 100vw;
     height: 50px;
     background-color: #A3B68A; 
     position: relative;
@@ -133,11 +135,115 @@ ul li:hover::after{
   }
 
   .website-development {
-    position: relative;
-    text-align: center;
-    margin: 0; /* Remover margem extra */
-    padding: 0; /* Remover padding extra */
+    display: flex;
+    flex-direction: column;
   }
+
+  .banner-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .presentation-text-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: 80%;
+    justify-content: center;
+    height: 60%;
+    transition: .4s;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 20px; 
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+
+  .presentation-text-container:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+
+  }
+
+  .presentation-text {
+    color: #fff;
+    letter-spacing: 2px;
+    font-family: 'Hubballi', sans-serif;
+  }
+
+  .presentation-text > h1 {
+    font-size: 4vw;
+    margin-top: 0px;
+    text-shadow:
+    -1px -1px 0 #000,  
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000;
+     margin-bottom: 5px;
+  }
+
+  .banner-info {
+    font-size: 1.7vw;
+    text-shadow:
+    -1px -1px 0 #000,  
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000;
+    
+  }
+
+  .buttons-logged-div {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .register-btn {
+    padding: 1.3em 3em;
+    font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 45px;
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  
+  }
+  .register-btn:hover {
+    color: #fff;
+    background-color: #000;
+  }
+
+  .logged-buttons {
+    padding: 1.3em 3em;
+    font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 45px;
+  transition: all 0.35s ease 0s;
+  cursor: pointer;
+  outline: none;
+  }
+
+  .logged-buttons:hover {
+    color: #fff;
+    background-color: #60ff9d;
+  }
+
+  #register-text {
+    color: #fff;
+    font-size: 1.7em;
+    font-family: 'Hubballi', sans-serif; 
+    margin-bottom: 20px;
+    margin-top: 20px;
+ }
 
   .imagem {
     width: 100vw;
@@ -159,22 +265,91 @@ ul li:hover::after{
   }
 
 
-  .login-div > input {
+  form {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+  }
+
+  form > input {
+    background-color: #D9D9D9;
+    border: none;
+    height: 55px;
+    width: 300px;
+    margin-right: 40px;
+    font-size: 2rem;
+    font-family: 'Hubballi', sans-serif;
+    font-weight: bolder;
+    text-align: center;
+    outline: none;
+  }
+ 
+
+  .input-password {
     background-color: #D9D9D9;
     border: none;
     height: 45px;
     width: 300px;
-    margin-right: 30px;
+    margin-right: 40px;
+    font-size: 2rem;
+    font-family: 'Hubballi', sans-serif;
+    font-weight: bolder;
+    text-align: center;
   }
 
-  .login-div > input::placeholder {
+  form > input::placeholder {
     font-size: 1.3rem;
     font-family: 'Aldrich', sans-serif;
     text-align: center;
     text-transform: uppercase;
   }
 
-  .login-div > button {
+  .input-password::placeholder {
+    font-size: 1.3rem;
+    font-family: 'Aldrich', sans-serif;
+    text-align: center;
+    text-transform: uppercase;
+    margin-left: -50px;
+  }
+
+  .input-password {
+    margin-right: 0px;
+  }
+  .password-container {
+    display: flex;
+    align-items: center;
+    background-color: #D9D9D9;
+    margin-right: 40px;
+    border: none;
+    outline: none;
+  }
+  
+  .password-container input {
+    flex: 1; 
+    background-color: #D9D9D9;
+    border: none;
+    height: 45px;
+    width: 250px;
+    font-size: 2rem;
+    font-family: 'Hubballi', sans-serif;
+    font-weight: bolder;
+    text-align: center;
+    outline: none;
+  }
+  
+  .password-container button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 25px; 
+  }
+  
+  .password-container button:focus {
+    outline: none; 
+  }
+
+  form > button {
     padding: 12px 20px;
     background-color: #3A5028;
     border: none;
@@ -182,17 +357,64 @@ ul li:hover::after{
     font-family: 'Bolwby One SC', sans-serif;
     text-transform: uppercase;
     font-size: 1.2rem;
-    margin-right: 20px;
+    margin-right: 40px;
     font-weight: 800;
     cursor: pointer;
     transition: .3s;
   }
 
-  .login-div > button:hover {
+  form > button:hover {
     background-color: #183810;
   }
 
-  .website-development > h1 {
-    position: absolute;
+
+  .midsection {
+    width: 100vw;
+    padding: 50px 0;
+    background: url('https://i.imgur.com/2DXqpUz.png');
+    object-fit: cover;
+    position: relative;
+    background-repeat: no-repeat;
+   
+
+  }
+
+  .title {
+    width: 100%;
+    text-align: center;
     
   }
+  .title > h1 {
+    position: absolute;
+    margin-top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Carattere';
+    font-size: 6rem;
+    letter-spacing: 20px;
+    width: 100%;
+    color: #354A2F;
+  }
+
+  .grid-container {
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colunas iguais */
+    gap: 200px; /* Espaçamento entre os cards */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    padding: 50px;
+    
+    padding-bottom: 0;
+    max-width: 1600px;
+  }
+
+  .grid-container .card {
+    background-color: #e27c1d;
+    width: 500px;
+    border-radius: 35px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 250px;
+  }
+
+  

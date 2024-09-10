@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Formik, Field, FormikProps, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { registerUser } from "../../service/index.service";
+import { useNavigate } from 'react-router-dom'; 
+import './Register.css';
 
 interface FormValues {
   username: string;
@@ -11,14 +13,23 @@ interface FormValues {
 }
 
 const Register: React.FC = () => {
+  const emailInputRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();  // Para redirecionar
+  const [isLogin, setIsLogin] = useState(false);  // Controla se está na página de Login ou Cadastro
+
+  useEffect(() => {
+    if (emailInputRef.current) {
+      emailInputRef.current.focus(); 
+    }
+  }, []); 
   const [success, setSuccess] = useState("");
 
   const validationSchema = Yup.object().shape({
-    username: Yup.string().required("Name is required"),
+    username: Yup.string().required("Por favor, insira seu nome"),
     email: Yup.string()
-      .email("Invalid email address")
-      .required("Email is required"),
-    password: Yup.string().required("Password is required"),
+      .email("E-mail inválido")
+      .required("Por favor, insira seu e-mail"),
+    password: Yup.string().required("Por favor, insira sua senha"),
   });
 
   const handleSubmit = async (
@@ -32,12 +43,26 @@ const Register: React.FC = () => {
     setSubmitting(false);
   };
 
+  const handleLoginClick = () => {
+    setIsLogin(true);  // Esconde o campo de nome
+    navigate("/login");  // Redireciona para a rota /login
+  };
+
   return (
-    <div className="mx-auto max-w-md space-y-6">
+    <div className="bg">
+    <div className="mx-auto max-w-md space-y-6 card" >
+    <div className="flex justify-between items-center auth-choice"> {/* Container dos textos */}
+          <button className="text-2xl font-bold cursor-pointer auth-choice-register" onClick={() => setIsLogin(false)}>
+            Cadastro
+          </button>
+          <button className="text-2xl font-bold cursor-pointer auth-choice-login" onClick={handleLoginClick}>
+            Login
+          </button>
+        </div>
       <div className="space-y-2 text-center">
-        <h1 className="text-3xl font-bold">Create an account</h1>
-        <p className="text-gray-500 dark:text-gray-400">
-          Enter your details to get started.
+        <h1 className="text-3xl font-bold card-title">Ceres Vita</h1>
+        <p className="text-gray-500 dark:text-gray-400 card-subtitle">
+          Nutrição
         </p>
       </div>
       <Formik
@@ -46,7 +71,7 @@ const Register: React.FC = () => {
         onSubmit={handleSubmit}
       >
         {({ handleSubmit }: FormikProps<FormValues>) => (
-          <Form className="space-y-4" onSubmit={handleSubmit}>
+          <Form className="space-y-4 form" onSubmit={handleSubmit}>
             {success && (
               <div
                 className="text-green-500 "
@@ -62,27 +87,28 @@ const Register: React.FC = () => {
                 {success}
               </div>
             )}
-            <Form.Group className="mb-3" controlId="name">
-              <Form.Label>Username</Form.Label>
-              <Field type="text" name="username" as={Form.Control} />
+            <Form.Group className="mb-3 form" controlId="name">
+              
+              <Field type="text" name="username" as={Form.Control} placeholder='Nome' />
               <Form.Control.Feedback type="invalid" />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="email">
-              <Form.Label>Email</Form.Label>
-              <Field type="email" name="email" as={Form.Control} />
+            <Form.Group className="mb-3 form" controlId="email">
+              
+              <Field type="email" name="email" as={Form.Control} placeholder='E-mail' />
               <Form.Control.Feedback type="invalid" />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="password">
-              <Form.Label>Password</Form.Label>
-              <Field type="password" name="password" as={Form.Control} />
+            <Form.Group className="mb-3 form" controlId="password">
+              
+              <Field type="password" name="password" as={Form.Control} placeholder='Senha'/>
               <Form.Control.Feedback type="invalid" />
             </Form.Group>
-            <Button variant="primary" type="submit" className="w-full">
-              Sign Up
+            <Button variant="primary" type="submit" className="w-full btn-register">
+              Cadastrar
             </Button>
           </Form>
         )}
       </Formik>
+    </div>
     </div>
   );
 };

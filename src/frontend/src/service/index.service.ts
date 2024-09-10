@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = "http://localhost:4000/api/";
+const apiUrl = "http://localhost:3030/api/";
 
 interface User {
   username: string;
@@ -10,7 +10,12 @@ interface User {
 
 interface ApiResponse {
   message: string;
-  // Adicione outros campos se necessário
+  token: string;
+}
+
+interface UserLogin {
+  email: string;
+  password: string;
 }
 
 // register the user service
@@ -19,18 +24,18 @@ export const registerUser = async (user: User): Promise<ApiResponse> => {
     const response = await axios.post<ApiResponse>(`${apiUrl}user/register`, user);
     return response.data;
   } catch (error) {
-    // Aqui você pode definir uma resposta padrão ou lançar um erro
+
     throw new Error("Failed to register user");
   }
 };
 
 // login the user service
-export const loginUser = async (user: User): Promise<ApiResponse> => {
+export const loginUser = async (user: UserLogin): Promise<ApiResponse> => {
   try {
     const response = await axios.post<ApiResponse>(`${apiUrl}user/login`, user);
     return response.data;
   } catch (error) {
-    // Aqui você pode definir uma resposta padrão ou lançar um erro
+   
     throw new Error("Failed to login user");
   }
 };
