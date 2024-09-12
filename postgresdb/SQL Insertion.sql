@@ -14,7 +14,10 @@ CREATE TABLE IF NOT EXISTS tb_usuario (
     idade INT NOT NULL,
     peso FLOAT NOT NULL,
     altura FLOAT NOT NULL,
+	senha VARCHAR(45) NOT NULL,
+	genero VARCHAR (45) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
+	imc FLOAT NOT NULL,
     dieta_id_dieta INT REFERENCES dieta (id_dieta)
 );
 
