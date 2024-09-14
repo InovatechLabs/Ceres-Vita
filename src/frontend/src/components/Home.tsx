@@ -10,6 +10,7 @@ import { loginUser } from '../service/index.service';
 
 function Home() {
   const navigate = useNavigate();
+  
 
   const handleRegisterClick = () => {
     navigate('/register'); // redireciona para a rota /register
@@ -34,6 +35,7 @@ function Home() {
       if (response.token) {
         sessionStorage.setItem('authToken', response.token);
         navigate('/home'); 
+       
       } else {
         setErrorMessage('Login falhou. Verifique suas credenciais.');
       }
@@ -118,25 +120,32 @@ function Home() {
          </div>
          <div className="grid-container">
       <div className="card">
-        <h1>Registre sua alimentação diária com facilidade</h1>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Asperiores quas eius natus nihil dignissimos ratione magnam non sapiente consequatur cupiditate dolore adipisci ducimus odit, sequi odio quaerat nesciunt aspernatur eum.</p>
+      <img src='https://i.imgur.com/6H0YmaM.png' className='img1'/>
+        <h1>Ingestão de Calorias</h1>
+        <p>
+        Registre os alimentos consumidos diariamente e acompanhe o seu progresso na dieta escolhida.</p>
       </div>
       <div className="card">
-        <h1>Cálculo Automático de Nutrientes</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat iste rem quisquam maxime eaque aliquid asperiores! Debitis culpa asperiores sint, molestiae, sunt iste ut vitae omnis, libero ullam incidunt ratione.</p>
+      <img src='https://iili.io/drHgwtR.png' className='img1' />
+        <h1>Cálculo de Nutrientes</h1>    
+        <p>
+        Calcule automaticamente a quantidade de calorias, proteínas e nutrientes de um alimento.</p>
       </div>
 
       <div className="card">
-        <h1>Acesse Seu Histórico Alimentar Completo</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam porro voluptates exercitationem odio, adipisci sequi labore ad pariatur optio incidunt similique deserunt in, itaque quasi, obcaecati nesciunt suscipit quia cumque!</p>
+        <img src='https://iili.io/drHghAJ.png' className='img1' />
+        <h1>Histórico de Consumo</h1>
+        <p>Consulte seu histórico de consumo em qualquer hora ou lugar e acompanhe sua trajetória.</p>
       </div>
       <div className="card">
-        <h1>Acesse Seu Histórico Alimentar Completo</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam porro voluptates exercitationem odio, adipisci sequi labore ad pariatur optio incidunt similique deserunt in, itaque quasi, obcaecati nesciunt suscipit quia cumque!</p>
+        <img src='https://iili.io/drHgX9a.png' className='img1' />
+        <h1>Relatórios e Gráficos</h1>
+        <p>Gere relatórios gráficos para visualizar seu consumo total de calorias e nutrientes.</p>
       </div>
       <div className="card">
-      <h1>Suporte a Dietas Específicas</h1>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam porro voluptates exercitationem odio, adipisci sequi labore ad pariatur optio incidunt similique deserunt in, itaque quasi, obcaecati nesciunt suscipit quia cumque!</p>
+        <img src='https://iili.io/drHgGF1.png' className='img1' />
+      <h1>Dietas Específicas</h1>
+      <p>Escolha um plano alimentar dentre inúmeras opções disponibilizadas em nosso aplicativo.</p>
     </div>
   
   </div>

@@ -5,12 +5,18 @@
 
 
 .bg {
-    background-color: #244929;
-    width: 100vw;
-    height: 100vh;
+    background: url('https://i.ibb.co/JBZB3Zf/Ceres2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+
 }
 
 .card {
