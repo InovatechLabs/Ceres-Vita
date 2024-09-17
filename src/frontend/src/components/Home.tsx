@@ -4,12 +4,19 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import './styles/Home.css';
 import logo from '../logo.jpg';
 import { useNavigate } from 'react-router-dom';
-
+import styled from 'styled-components';
 import { loginUser } from '../service/index.service';
 
 
 function Home() {
   const navigate = useNavigate();
+  const StyledParagraph = styled.p`
+    color: #AF5F18;
+    font-family: 'Hubballi', sans-serif;
+    margin: 0;
+    display: inline-block;
+    font-weight: 600;
+  `
   
 
   const handleRegisterClick = () => {
@@ -149,6 +156,16 @@ function Home() {
     </div>
   
   </div>
+        </section>
+        <section className='ourGoal'>
+          <div className='infos-container'>
+            <h1>Nossa Missão</h1>
+            <p>Na <StyledParagraph>Ceres Vita</StyledParagraph>, cada refeição é uma <StyledParagraph>oportunidade</StyledParagraph> para <StyledParagraph>transformar</StyledParagraph> a sua vida. Nossa plataforma foi criada para oferecer uma experiência de nutrição verdadeiramente <StyledParagraph>excepcional</StyledParagraph>, onde a <StyledParagraph>simplicidade</StyledParagraph> se une à <StyledParagraph>eficácia</StyledParagraph>, e a beleza ao bem-estar.</p>
+            <p>Cada refeição é uma chance de <StyledParagraph>revitalizar</StyledParagraph> sua jornada. Nossa plataforma foi desenvolvida para proporcionar uma <StyledParagraph>experiência nutricional única</StyledParagraph>, onde a <StyledParagraph>praticidade</StyledParagraph> se encontra com a <StyledParagraph>qualidade</StyledParagraph>, e o sabor se alia ao cuidado com a saúde.
+            
+            </p>
+            </div>
+            <img src='https://i.imgur.com/TAMgOtS.png' className='img-2'/>
         </section>
      
       </>
