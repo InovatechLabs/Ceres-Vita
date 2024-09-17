@@ -1,3 +1,58 @@
+CREATE SCHEMA IF NOT EXISTS db_ceres_vita;
+
+SET search_path TO db_ceres_vita;
+
+CREATE TABLE IF NOT EXISTS dieta(
+	id_dieta INT NOT NULL,
+	nome_dieta VARCHAR(255) NOT NULL,
+	PRIMARY KEY(id_dieta)
+)
+
+CREATE TABLE IF NOT EXISTS tb_usuario (
+    id_usuario SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    idade INT NOT NULL,
+    peso FLOAT NOT NULL,
+    altura FLOAT NOT NULL,
+	senha VARCHAR(45) NOT NULL,
+	genero VARCHAR (45) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+	imc FLOAT NOT NULL,
+    dieta_id_dieta INT REFERENCES dieta (id_dieta)
+);
+
+CREATE TABLE IF NOT EXISTS tb_diario (
+    id_data SERIAL PRIMARY KEY,
+    data DATE NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS tb_diario_has_tb_usuario (
+    tb_diario_id INT NOT NULL,
+    tb_usuario_id INT NOT NULL,
+    PRIMARY KEY (tb_diario_id, tb_usuario_id),
+    CONSTRAINT fk_tb_diario_has_tb_usuario_tb_diario
+        FOREIGN KEY (tb_diario_id)
+        REFERENCES tb_diario (id_data),
+    CONSTRAINT fk_tb_diario_has_tb_usuario_tb_usuario1
+        FOREIGN KEY (tb_usuario_id)
+        REFERENCES tb_usuario (id_usuario)
+);
+
+CREATE TABLE IF NOT EXISTS ibges_has_tb_diario_has_tb_usuario (
+    ibges_id BIGINT NOT NULL,
+    tb_diario_has_tb_usuario_tb_diario_id INT NOT NULL,
+    tb_diario_has_tb_usuario_tb_usuario_id INT NOT NULL,
+    PRIMARY KEY (ibges_id, tb_diario_has_tb_usuario_tb_diario_id, tb_diario_has_tb_usuario_tb_usuario_id),
+    CONSTRAINT fk_ibges_has_tb_diario_has_tb_usuario_ibges1
+        FOREIGN KEY (ibges_id)
+        REFERENCES ibges (id),
+    CONSTRAINT fk_ibges_has_tb_diario_has_tb_usuario_tb_diario_has_tb_usuario1
+        FOREIGN KEY (tb_diario_has_tb_usuario_tb_diario_id, tb_diario_has_tb_usuario_tb_usuario_id)
+        REFERENCES tb_diario_has_tb_usuario (tb_diario_id, tb_usuario_id)
+);
+
+
+
 CREATE TABLE ibges (
 	id SERIAL PRIMARY KEY,
     Codigo INT,
