@@ -53,13 +53,11 @@ CREATE TABLE IF NOT EXISTS ibges_has_tb_diario_has_tb_usuario (
 
 
 
-CREATE TABLE ibges (
+CREATE TABLE prodprep (
 	id SERIAL PRIMARY KEY,
     Codigo INT,
-    descricacao_do_alimento VARCHAR(255),
-    Categoria VARCHAR(255),
-    Codigo_de_preparacao INT,
-    descricao_da_preparacao VARCHAR(255),
+	fk_id_produto INT REFERENCES produto(id_produto),
+	fk_id_preparacao INT REFERENCES preparacao(id_preparacao),
     Energia_kcal DECIMAL(10, 2),
     Proteina_g DECIMAL(10, 2),
     Lipidios_totais_g DECIMAL(10, 2),
@@ -98,6 +96,25 @@ CREATE TABLE ibges (
     Vitami_na_E_mg DECIMAL(10, 2),
     Vitami_na_C_mg DECIMAL(10, 2)
 );
+
+CREATE TABLE preparacao (
+	id_preparacao SERIAL PRIMARY KEY,
+	descricao_da_preparacao VARCHAR(255)
+);
+
+CREATE TABLE grupo (
+	id_grupo SERIAL PRIMARY KEY,
+	grupo_descricao VARCHAR(255)
+);
+
+CREATE TABLE produto (
+	id_produto SERIAL PRIMARY KEY,
+	alimento_descricao VARCHAR(255),
+	grupo_id_grupo INT REFERENCES grupo (id_grupo)
+);
+
+
+
 -- Copiando dados para a tabela sistema_tabela_nutricional.ibges: ~10.524 rows (aproximadamente)
 INSERT INTO ibges (
     Codigo,
