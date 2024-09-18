@@ -26,7 +26,7 @@ Os entregáveis serão realizados conforme as datas previamente acordadas com o 
 | :two:   | :calendar: 11/10/2024 | :red_square: Não Iniciado         | :round_pushpin: [Ver Relatório](./misc/sprintbacklog2.md) | :round_pushpin: [Concluído](./misc/sprintretrospective2.md)   |
 | :three: | :calendar: 08/11/2024 | :red_square: Não Iniciado         | :round_pushpin: [Ver Relatório](./misc/sprintbacklog3.md) | :round_pushpin: [Concluído](./misc/sprintretrospective3.md)   |
 
-# :triangular_flag_on_post: Backlog do Produto (Provisório)
+# :triangular_flag_on_post: Backlog do Produto
 
 **★ Registro de Usuário:** Registro no banco de dados utilizando DML através da cláusula INSERT; autenticação através do método .get.
 
