@@ -2,15 +2,19 @@
 
 <div align="center">
 <h1>
-<a  href="#bookmark_tabs-entregas-de-sprints">Entrega das Sprints</a> | <a  href="https://www.google.com/">Trello</a> | <a  href="#bust_in_silhouette-user-stories">User Story</a> | <a  href="#triangular_flag_on_post-backlog-do-produto">Backlog do Produto</a> | <a  href="#chart_with_downwards_trend-gráfico-burndown-das-sprints">Burndown</a> | <a  href="#page_facing_up-wireframe">Wireframe</a> | <a  href="#busts_in_silhouette-equipe">Equipe</a> | <a  href="Requisitos de Cliente 1DSM - 2024-1.pdf">Requisitos</a>
+<a href="#bookmark_tabs-entregas-de-sprints">Entrega das Sprints</a> | <a href="https://trello.com/b/YXR56u2f/abp">Trello</a> | <a href="#bust_in_silhouette-user-stories">User Story</a> | <a href="#triangular_flag_on_post-backlog-do-produto">Backlog do Produto</a> | <a href="#chart_with_downwards_trend-gráfico-burndown-das-sprints">Burndown</a> | <a href="#page_facing_up-wireframe">Wireframe</a> | <a href="#busts_in_silhouette-equipe">Equipe</a> | <a href="Requisitos de Cliente 1DSM - 2024-1.pdf">Requisitos</a>
 </h1>
 </div>
 
 # :pencil: Sobre o Projeto
 
-Somos a Innovatech Labs, um grupo de desenvolvimento de software focado em criar soluções inovadoras. Este repositório apresenta o nosso mais recente projeto: uma plataforma que presta serviços de nutrição aos usuários, desenvolvida com tecnologias modernas da web. Nosso site para nutrição oferece uma experiência de de incríveis resultados. A plataforma foi projetada para ser intuitiva e acessível, permitindo que usuários sejam auxiliados e melhorem seus hábitos de alimentação, contribuindo assim para uma melhor qualidade de vida e bem-estar.
+Somos a Innovatech Labs, um grupo de desenvolvimento de software focado em criar soluções inovadoras. Este repositório apresenta o nosso mais recente projeto: uma plataforma que presta serviços de nutrição aos usuários, desenvolvida com tecnologias modernas da web. Nosso site para nutrição oferece uma experiência de resultados incríveis. A plataforma foi projetada para ser intuitiva e acessível, permitindo que os usuários sejam auxiliados e melhorem seus hábitos de alimentação, contribuindo assim para uma melhor qualidade de vida e bem-estar.
 
-### Status do Projeto: Em Andamento ❗
+### 🏹 Objetivos do Projeto
+- **Melhorar a Qualidade de Vida:** Facilitar o acesso a informações nutricionais.
+- **Apoio ao Usuário:** Proporcionar ferramentas para gestão da alimentação.
+
+### 🟨 Status do Projeto: Em Andamento❗
 
 # :bookmark_tabs: Entregas de Sprints
 
@@ -24,23 +28,23 @@ Os entregáveis serão realizados conforme as datas previamente acordadas com o 
 
 # :triangular_flag_on_post: Backlog do Produto (Provisório)
 
-**★ Registro de Usuário:** registro no banco de dados especificado utilizando DML através da cláusula INSERT; autenticação através do método .get.
+**★ Registro de Usuário:** Registro no banco de dados utilizando DML através da cláusula INSERT; autenticação através do método .get.
 
-**★ Gestão de Perfil do Usuário:** manipulação de dados pessoais, como idade, peso, altura e metas nutricionais.
+**★ Gestão de Perfil do Usuário:** Manipulação de dados pessoais, como idade, peso, altura e metas nutricionais.
 
-**★ Registro de Ingestão Diária:** possibilidade de registrar os alimentos consumidos diariamente; os alimentos serão inseridos em uma tabela específica que armazena informações de dietas de cada usuário.
+**★ Registro de Ingestão Diária:** Possibilidade de registrar os alimentos consumidos diariamente.
 
-**★ Cálculo Automático de Nutrientes:** o sistema deve calcular automaticamente a ingestão de calorias, proteínas, e todos nutrientes de um alimento.
+**★ Cálculo Automático de Nutrientes:** O sistema deve calcular automaticamente a ingestão de calorias, proteínas e outros nutrientes.
 
-**★ Histórico de Consumo:** armazenamento de ingestão de todos alimentos em um histórico que pode ser acessado a qualquer momento.
+**★ Histórico de Consumo:** Armazenamento da ingestão de alimentos em um histórico acessível a qualquer momento.
 
-**★ Alertas e Notificações:** modelo de decisão para verificar quando qual nutriente ingerido está acima ou abaixo do recomendado através de um JSON.
+**★ Alertas e Notificações:** Modelo de decisão para verificar quando a ingestão de nutrientes está acima ou abaixo do recomendado.
 
-**★ Relatórios e Gráficos:** capacidade de geração de relatórios gráficos para visualizar o consumo de calorias e nutrientes por parte do usuário.
+**★ Relatórios e Gráficos:** Geração de relatórios gráficos para visualizar o consumo de calorias e nutrientes.
 
-**★ Suporte a Dietas Específicas:** o usuário deve inserir e modificar os alertas que irá receber de acordo com as dietas especiais.
+**★ Suporte a Dietas Específicas:** Inserção e modificação de alertas de acordo com dietas especiais.
 
-**★ Prototipagem:** protótipo navegável da aplicação deve ser criado no Figma para validação e testes antes do desenvolvimento final.
+**★ Prototipagem:** Protótipo navegável da aplicação criado no Figma para validação antes do desenvolvimento final.
 
 # :chart_with_downwards_trend: Gráfico Burndown das Sprints
 
@@ -52,9 +56,10 @@ Os entregáveis serão realizados conforme as datas previamente acordadas com o 
 
 # :bust_in_silhouette: User Stories
 
-Em Construção
+![User Preview](https://via.placeholder.com/800x400?text=Wireframe+Preview)  
+[Link para a Documentação](https://www.figma.com/design/Ny1gtxP6uqtkRBuB9SEq3K/Untitled)
 
-## :wrench: Tecnologias Utilizadas
+# :wrench: Tecnologias Utilizadas
 
 ![Adobe InDesign](https://img.shields.io/badge/Adobe%20InDesign-49021F?style=for-the-badge&logo=adobeindesign&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
@@ -75,7 +80,8 @@ Em Construção
 
 ## :page_facing_up: Wireframe
 
-https://www.figma.com/design/Ny1gtxP6uqtkRBuB9SEq3K/Untitled
+![Wireframe Preview](https://via.placeholder.com/800x400?text=Wireframe+Preview)  
+[Link para o Figma](https://www.figma.com/design/Ny1gtxP6uqtkRBuB9SEq3K/Untitled)
 
 ## :busts_in_silhouette: Equipe
 
@@ -87,5 +93,33 @@ https://www.figma.com/design/Ny1gtxP6uqtkRBuB9SEq3K/Untitled
 | Dev Team      | Kainé Sant'anna                    | [![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Usahime)           |
 | Dev Team      | Bruno Alves                        | [![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/bWS7)              |
 | Dev Team      | Victor Carbajo                     | [![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Victor-Carbajo)    |
+
+## :page_facing_up: Instruções de Instalação
+
+Para instalar e executar o projeto localmente, siga estas etapas:
+
+1. **Clone o repositório:**
+   ```bash
+   git clone https://github.com/InovatechLabs/Ceres-Vita.git
+   ```
+2. **Acesse a pasta do projeto:**
+   ```bash
+   cd Ceres-Vita
+   ```
+3. **Instale as dependências:**
+   ```bash
+   npm install
+   ```
+4. **Execute o servidor:**
+   ```bash
+   npm start
+   ```
+5. **Abra o navegador e acesse:**
+   ```bash
+   http://localhost:3000
+   ```
+
+## :page_facing_up: Licença
+Este projeto está licenciado sob a MIT License. Veja o arquivo [LICENSE](LICENSE) para mais informações.
 
 ##### [:rocket: Voltar ao topo ](#bookmark_tabs-entregas-de-sprints)
