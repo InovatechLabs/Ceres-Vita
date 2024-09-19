@@ -114,6 +114,8 @@ Para instalar e executar o projeto localmente, siga estas etapas:
 2. **Acesse a pasta do projeto:**
    ```bash
    cd Ceres-Vita
+   cd src
+   cd frontend
    ```
 3. **Instale as dependências:**
    ```bash
@@ -125,7 +127,7 @@ Para instalar e executar o projeto localmente, siga estas etapas:
    ```
 5. **Abra o navegador e acesse:**
    ```bash
-   http://localhost:3000
+   http://localhost:5173
    ```
 
 ## :page_facing_up: Licença
