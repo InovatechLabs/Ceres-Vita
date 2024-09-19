@@ -2,7 +2,7 @@
 
 <div align="center">
 <h1>
-<a href="#bookmark_tabs-entregas-de-sprints">Entrega das Sprints</a> | <a href="https://trello.com/b/YXR56u2f/abp">Trello</a> | <a href="#bust_in_silhouette-user-stories">User Story</a> | <a href="#triangular_flag_on_post-backlog-do-produto">Backlog do Produto</a> | <a href="#chart_with_downwards_trend-gráfico-burndown-das-sprints">Burndown</a> | <a href="#page_facing_up-wireframe">Wireframe</a> | <a href="#busts_in_silhouette-equipe">Equipe</a> | <a href="Requisitos de Cliente 1DSM - 2024-1.pdf">Requisitos</a>
+<a href="#bookmark_tabs-entregas-de-sprints">Entrega das Sprints</a> | <a href="https://trello.com/b/YXR56u2f/abp">Trello</a> | <a href="#bust_in_silhouette-user-stories">User Story</a> | <a href="#triangular_flag_on_post-backlog-do-produto">Backlog do Produto</a> | <a href="#chart_with_downwards_trend-gráfico-burndown-das-sprints">Burndown</a> | <a href="#page_facing_up-wireframe">Wireframe</a> | <a href="#busts_in_silhouette-equipe">Equipe</a> | <a href="https://github.com/InovatechLabs/Ceres-Vita/blob/main/docs/Desafio%202DSM%20-%202024-2.docx">Requisitos</a>
 </h1>
 </div>
 
