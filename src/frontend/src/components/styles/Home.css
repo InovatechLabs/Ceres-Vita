@@ -292,7 +292,16 @@ ul li:hover::after{
       font-size: 33px;
     }
   }
-
+  @media (max-height: 960px) {
+    .presentation-text-container {
+      height: 60vh;
+    }
+  }
+  @media (max-height: 720px) {
+    .presentation-text-container {
+      height: 80vh;
+    }
+  }
 
   .login-div {
     width: 100%;
@@ -447,9 +456,7 @@ ul li:hover::after{
     .password-container > .input-password {
       width: 0;
     }
-    .password-container .toggle-password {
-      
-    }
+
     .login-btn {
       width: 70%;
       margin-left: 14%;
@@ -486,6 +493,32 @@ ul li:hover::after{
     color: #354A2F;
   }
 
+  @media (max-width: 1470px) {
+    .title > h1 {
+      font-size: 5rem;
+      letter-spacing: 10px;
+    }
+  }
+  @media (max-width: 1032px) {
+    .title > h1 {
+      font-size: 4rem;
+      letter-spacing: 10px;
+    }
+  }
+  @media (max-width: 887px) {
+    .title > h1 {
+      font-size: 3rem;
+      letter-spacing: 4px;
+    }
+  }
+  @media (max-width: 567px) {
+    .title > h1 {
+      font-size: 2.4rem;
+      letter-spacing: 3px;
+      margin-top: -40px;
+    }
+  }
+
   .grid-container {
 
     display: grid;
@@ -496,7 +529,7 @@ ul li:hover::after{
     padding-bottom: 0;
     max-width: 1700px;
     margin-top: 5%;
-    margin-left: 6%;
+    margin-left: 5%;
 
   }
 
@@ -561,6 +594,7 @@ ul li:hover::after{
   @media (max-width: 380px) {
     .grid-container {
       padding: 30px;
+      margin-top: 15%;
     }
     .grid-container .card {
       width: 260px;
@@ -674,6 +708,24 @@ ul li:hover::after{
     }
     .infos-container > p {
       font-size: 23px;
+    }
+  }
+  @media (max-height: 800px) {
+    .ourGoal {
+      height: 120vh;
+    }
+    .ourGoal .img-2 {
+      width: 500px;
+      height: 650px;
+    }
+  }
+  @media (max-height: 700px) {
+    .ourGoal .img-2 {
+      width: 500px;
+      height: 600px;
+    }
+    .ourGoal {
+      height: 130vh;
     }
   }
 

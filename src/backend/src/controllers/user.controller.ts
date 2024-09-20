@@ -40,7 +40,7 @@ export const register = async (req: Request, res: Response) => {
     await pool.query(query, [username, email, hashedPassword]);
 
     return res.status(200).json({
-      message: "User registered successfully",
+      message: "Cadastro realizado com sucesso",
     });
   } catch (error) {
     console.log(error);
@@ -59,7 +59,7 @@ export const login = async (req: Request, res: Response) => {
     // check if user data is provided
     if (!email || !password) {
       return res.status(400).json({
-        message: "Please provide all user details",
+        message: "Por favor, forneça todas informações necessárias!",
       });
     }
 
@@ -70,7 +70,7 @@ export const login = async (req: Request, res: Response) => {
 
     if (user.rows.length === 0) {
       return res.status(400).json({
-        message: "User does not exist",
+        message: "Este usuário não existe",
       });
     }
 
@@ -78,7 +78,7 @@ export const login = async (req: Request, res: Response) => {
     const validPassword = await bcrypt.compare(password, user.rows[0].password);
     if (!validPassword) {
       return res.status(400).json({
-        message: "Invalid password",
+        message: "Senha inválida",
       });
     }
 

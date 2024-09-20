@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import './styles/Home.css';
@@ -26,6 +26,7 @@ function Home() {
   const [errorMessage, setErrorMessage] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible); // alterna o estado da senha visível/invisível
@@ -40,8 +41,8 @@ function Home() {
       console.log(response);
   
       if (response.token) {
-        sessionStorage.setItem('authToken', response.token);
-        navigate('/home'); 
+        sessionStorage.setItem('token', response.token);
+        setIsLoggedIn(true);
        
       } else {
         setErrorMessage('Login falhou. Verifique suas credenciais.');
@@ -50,6 +51,18 @@ function Home() {
       setErrorMessage('Ocorreu um erro no login.');
     }
   };
+
+  useEffect(() => {
+    // Funçao para verificar o token no sessionStorage
+    const checkLoginStatus = () => {
+      const token = sessionStorage.getItem('token'); 
+      if (token) {
+        setIsLoggedIn(true); 
+      }
+    };
+
+    checkLoginStatus(); 
+  }, []);
   
     return (
       <>
@@ -98,28 +111,46 @@ function Home() {
         </div>
        
           <div className='login-div'>
-          <form onSubmit={handleLogin}>
-            <input type='email' name='email' placeholder='e-mail' className='emailinput' value={email } onChange={(e) => setEmail(e.target.value)}/>
-            <div className='password-container'>
-            <input
-            type={passwordVisible ? 'text' : 'password'}
-            name='password'
-            placeholder='senha'
-            className='input-password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button 
-            className='toggle-password' 
-            onClick={togglePasswordVisibility} 
-            type="button"
-          >
-            {passwordVisible ? '🙈' : '👁️'}
-          </button>
-        </div>
-            <button className='login-btn' type='submit'>Entrar</button>
+          <form onSubmit={handleLogin} />
+          {isLoggedIn ? (
+            <div style={{ color: 'orange', fontFamily: 'Aldrich', fontSize: '2.3rem',  position: 'absolute', 
+              left: '50%', 
+              transform: 'translateX(-50%)',
+              letterSpacing: '3px'  }}>
+              <h2>Seja bem-vindo!</h2>
+            </div>
+          ) : (
+            <form onSubmit={handleLogin}>
+              <input
+                type='email'
+                name='email'
+                placeholder='e-mail'
+                className='emailinput'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <div className='password-container'>
+                <input
+                  type={passwordVisible ? 'text' : 'password'}
+                  name='password'
+                  placeholder='senha'
+                  className='input-password'
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <button 
+                  className='toggle-password' 
+                  onClick={togglePasswordVisibility} 
+                  type="button"
+                >
+                  {passwordVisible ? '🙈' : '👁️'}
+                </button>
+              </div>
+              <button className='login-btn' type='submit'>Entrar</button>
             </form>
-          </div>
+          )}
+        </div>
+      
         </div>
         <section className='midsection'>
          <div className='title'>

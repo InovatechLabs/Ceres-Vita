@@ -79,7 +79,7 @@ const Register: React.FC = () => {
                   textAlign: "center",
                   fontSize: "1.2rem",
                   fontWeight: "bold",
-                  backgroundColor: "#f0f0f0",
+                  backgroundColor: "#23c483",
                   padding: "0.5rem",
                   borderRadius: "0.5rem",
                 }}
