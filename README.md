@@ -22,7 +22,7 @@ Os entregáveis serão realizados conforme as datas previamente acordadas com o 
 
 | Sprint  | Previsão de Entrega   | Status                            | Backlog das Sprints                                       | Retrospectiva das Sprints
 | ------- | --------------------- | --------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------- |
-| :one:   | :calendar: 20/09/2024 | :yellow_square: Em Andamento      | :round_pushpin: [Ver Relatório](./misc/sprintbacklog1.md) | :round_pushpin: [Concluído](./misc/sprintretrospective1.md)   |
+| :one:   | :calendar: 20/09/2024 | :green_square: Concluído          | :round_pushpin: [Ver Relatório](./misc/sprintbacklog1.md) | :round_pushpin: [Concluído](./misc/sprintretrospective1.md)   |
 | :two:   | :calendar: 11/10/2024 | :red_square: Não Iniciado         | :round_pushpin: [Ver Relatório](./misc/sprintbacklog2.md) | :round_pushpin: [Concluído](./misc/sprintretrospective2.md)   |
 | :three: | :calendar: 08/11/2024 | :red_square: Não Iniciado         | :round_pushpin: [Ver Relatório](./misc/sprintbacklog3.md) | :round_pushpin: [Concluído](./misc/sprintretrospective3.md)   |
 
@@ -44,7 +44,7 @@ Os entregáveis serão realizados conforme as datas previamente acordadas com o 
 
 | Burndown                                       | Link de Acesso                                               |
 |------------------------------------------------|--------------------------------------------------------------|
-| :yellow_square: Sprint 1 (Em Andamento)        | :round_pushpin: [Ver Relatório](/documentos/GBS1.jpg)        |
+| :green_square: Sprint 1 (Concluído)            | :round_pushpin: [Ver Relatório](/documentos/GBS1.jpg)        |
 | :red_square: Sprint 2 (Pendente)               | :round_pushpin: [Ver Relatório](/documentos/GBS2.jpg)        |
 | :red_square: Sprint 3 (Pendente)               | :round_pushpin: [Ver Relatório](/documentos/GBS3.png)        |
 
