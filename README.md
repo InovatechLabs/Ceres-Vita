@@ -28,17 +28,17 @@ Os entregáveis serão realizados conforme as datas previamente acordadas com o 
 
 # :triangular_flag_on_post: Backlog do Produto
 
-| Funcionalidade                               | Descrição                                                                                                  |
-|----------------------------------------------|------------------------------------------------------------------------------------------------------------|
-| **Registro de Usuário**                      | Registro no banco de dados utilizando DML através da cláusula INSERT; autenticação através do método .get. |
-| **Gestão de Perfil do Usuário**              | Manipulação de dados pessoais, como idade, peso, altura e metas nutricionais.                              |
-| **Registro de Ingestão Diária**              | Possibilidade de registrar os alimentos consumidos diariamente.                                            |
-| **Cálculo Automático de Nutrientes**         | O sistema deve calcular automaticamente a ingestão de calorias, proteínas e outros nutrientes.             |
-| **Histórico de Consumo**                     | Armazenamento da ingestão de alimentos em um histórico acessível a qualquer momento.                       |
-| **Alertas e Notificações**                   | Modelo de decisão para verificar quando a ingestão de nutrientes está acima ou abaixo do recomendado.      |
-| **Relatórios e Gráficos**                    | Geração de relatórios gráficos para visualizar o consumo de calorias e nutrientes.                         |
-| **Suporte a Dietas Específicas**             | Inserção e modificação de alertas de acordo com dietas especiais.                                          |
-| **Prototipagem**                             | Protótipo navegável da aplicação criado no Figma para validação antes do desenvolvimento final.            |
+| Funcionalidade                                       | Descrição                                                                                                  |
+|------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
+| **RF 01 - Registro de Usuário**                      | Registro no banco de dados utilizando DML através da cláusula INSERT; autenticação através do método .get. |
+| **RF 02 - Gestão de Perfil do Usuário**              | Manipulação de dados pessoais, como idade, peso, altura e metas nutricionais.                              |
+| **RF 03 - Registro de Ingestão Diária**              | Possibilidade de registrar os alimentos consumidos diariamente.                                            |
+| **RF 04 - Cálculo Automático de Nutrientes**         | O sistema deve calcular automaticamente a ingestão de calorias, proteínas e outros nutrientes.             |
+| **RF 05 - Histórico de Consumo**                     | Armazenamento da ingestão de alimentos em um histórico acessível a qualquer momento.                       |
+| **RF 06 - Alertas e Notificações**                   | Modelo de decisão para verificar quando a ingestão de nutrientes está acima ou abaixo do recomendado.      |
+| **RF 07 - Relatórios e Gráficos**                    | Geração de relatórios gráficos para visualizar o consumo de calorias e nutrientes.                         |
+| **RF 08 - Suporte a Dietas Específicas**             | Inserção e modificação de alertas de acordo com dietas especiais.                                          |
+| **RF 09 - Prototipagem**                             | Protótipo navegável da aplicação criado no Figma para validação antes do desenvolvimento final.            |
 
 # :chart_with_downwards_trend: Gráfico Burndown das Sprints
 
