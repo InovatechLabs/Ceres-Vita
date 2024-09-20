@@ -42,11 +42,11 @@ Os entregáveis serão realizados conforme as datas previamente acordadas com o 
 
 # :chart_with_downwards_trend: Gráfico Burndown das Sprints
 
-| Burndown                                       | Link de Acesso                                               |
-|------------------------------------------------|--------------------------------------------------------------|
-| :green_square: Sprint 1 (Concluído)            | :round_pushpin: [Ver Relatório](/documentos/GBS1.jpg)        |
-| :red_square: Sprint 2 (Pendente)               | :round_pushpin: [Ver Relatório](/documentos/GBS2.jpg)        |
-| :red_square: Sprint 3 (Pendente)               | :round_pushpin: [Ver Relatório](/documentos/GBS3.png)        |
+| Burndown                                       | Link de Acesso                                                        |
+|------------------------------------------------|-----------------------------------------------------------------------|
+| :green_square: Sprint 1 (Concluído)            | :round_pushpin: [Ver Relatório](/docs/burndown_ceres_vita.pdf)        |
+| :red_square: Sprint 2 (Pendente)               | :round_pushpin: [Ver Relatório](/documentos/GBS2.jpg)                 |
+| :red_square: Sprint 3 (Pendente)               | :round_pushpin: [Ver Relatório](/documentos/GBS3.png)                 |
 
 # :bust_in_silhouette: User Stories
 
