@@ -57,6 +57,9 @@ Os entregáveis serão realizados conforme as datas previamente acordadas com o 
 | Diagrama de Sequência 1   | [Diagrama de Sequência 1](https://raw.githubusercontent.com/InovatechLabs/Ceres-Vita/204dbc7c558086978e4e55149c0e0dcf4634513a/docs/Sequence%20Diagram1.jpg) |
 | Diagrama de Sequência 2   | [Diagrama de Sequência 2](https://raw.githubusercontent.com/InovatechLabs/Ceres-Vita/204dbc7c558086978e4e55149c0e0dcf4634513a/docs/Sequence%20Diagram2.jpg) |
 
+# 📰 Modelo Entidade Relacionamento
+
+![Modelo Entidade Relacionamento](https://raw.githubusercontent.com/InovatechLabs/Ceres-Vita/refs/heads/main/postgresdb/database_model_ceres_vita.png)
 
 # :bust_in_silhouette: User Stories
 
