@@ -40,6 +40,13 @@ function App() {
             </AuthenticatedRoute>
           }
         />
+         <Route
+          path="*"
+          element={
+            <Home />
+          }
+        />
+
       </Routes>
     </Router>
   );
