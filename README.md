@@ -48,6 +48,16 @@ Os entregáveis serão realizados conforme as datas previamente acordadas com o 
 | :red_square: Sprint 2 (Pendente)               | :round_pushpin: [Ver Relatório](/documentos/GBS2.jpg)                 |
 | :red_square: Sprint 3 (Pendente)               | :round_pushpin: [Ver Relatório](/documentos/GBS3.png)                 |
 
+# 💠 Linguagem de Modelagem Unificada (UML)
+
+| Tipo de Diagrama          | Link                                                                                                                                                        |
+|---------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Diagrama de Caso de Uso   | [Diagrama de Caso de Uso](https://raw.githubusercontent.com/InovatechLabs/Ceres-Vita/204dbc7c558086978e4e55149c0e0dcf4634513a/docs/UseCase%20Diagram0.jpg)  |
+| Diagrama de Classe        | [Diagrama de Classe](https://raw.githubusercontent.com/InovatechLabs/Ceres-Vita/204dbc7c558086978e4e55149c0e0dcf4634513a/docs/Class%20Diagram0.jpg)         |
+| Diagrama de Sequência 1   | [Diagrama de Sequência 1](https://raw.githubusercontent.com/InovatechLabs/Ceres-Vita/204dbc7c558086978e4e55149c0e0dcf4634513a/docs/Sequence%20Diagram1.jpg) |
+| Diagrama de Sequência 2   | [Diagrama de Sequência 2](https://raw.githubusercontent.com/InovatechLabs/Ceres-Vita/204dbc7c558086978e4e55149c0e0dcf4634513a/docs/Sequence%20Diagram2.jpg) |
+
+
 # :bust_in_silhouette: User Stories
 
 | ID  | História do Usuário                                                                                                                                                                      | Critérios de Aceitação                                                                                                                                                                                                                                     | Porquê                                                                                                                                                                         |
