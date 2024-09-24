@@ -129,11 +129,24 @@ Para instalar e executar o projeto localmente, siga estas etapas:
    ```bash
    npm install
    ```
-4. **Execute o servidor:**
+
+4. **Volte para a pasta backend, e instale as dependências:**
    ```bash
-   npm start
+   cd ..
+   cd backend
+   npm install
    ```
-5. **Abra o navegador e acesse:**
+5. **Execute o servidor:**
+   ```bash
+   npm run start
+   ```
+6. **Execute a visualização Vite no navegador (localhost):**
+```bash
+cd ..
+cd frontend
+npm run dev
+```
+7. **Abra o navegador e acesse:**
    ```bash
    http://localhost:5173
    ```
