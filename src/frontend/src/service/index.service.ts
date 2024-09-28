@@ -11,6 +11,9 @@ interface User {
 interface ApiResponse {
   message: string;
   token: string;
+  user: {
+    id: string;   
+  };
 }
 
 interface UserLogin {

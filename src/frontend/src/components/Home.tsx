@@ -6,6 +6,7 @@ import logo from '../logo.jpg';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { loginUser } from '../service/index.service';
+import axios from 'axios';
 
 
 function Home() {
@@ -47,6 +48,10 @@ function Home() {
       } else {
         setErrorMessage('Login falhou. Verifique suas credenciais.');
       }
+
+      if (response.user && response.user.id) {
+        sessionStorage.setItem('id', response.user.id);
+      }
     } catch (error) {
       setErrorMessage('Ocorreu um erro no login.');
     }
@@ -58,6 +63,8 @@ function Home() {
       const token = sessionStorage.getItem('token'); 
       if (token) {
         setIsLoggedIn(true); 
+      } else {
+        setIsLoggedIn(false);
       }
     };
 
