@@ -13,6 +13,7 @@ interface ApiResponse {
   token: string;
   user: {
     id: string;   
+    username: string;
   };
 }
 

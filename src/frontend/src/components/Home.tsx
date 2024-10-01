@@ -7,9 +7,20 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { loginUser } from '../service/index.service';
 import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 
 
 function Home() {
+  const [firstName, setFirstName] = useState('');
+
+  useEffect(() => {
+    const encodedUsername = sessionStorage.getItem('username');
+    if (encodedUsername) {
+      const username = atob(encodedUsername); // Decodificando com base64
+      const firstName = username.split(' ');
+      setFirstName(firstName[0]);
+    }
+  }, []);
   const navigate = useNavigate();
   const StyledParagraph = styled.p`
     color: #AF5F18;
@@ -52,10 +63,17 @@ function Home() {
       if (response.user && response.user.id) {
         sessionStorage.setItem('id', response.user.id);
       }
+
+      if(response.user && response.user.username) {
+        sessionStorage.setItem('username', btoa(response.user.username));
+      }
     } catch (error) {
       setErrorMessage('Ocorreu um erro no login.');
     }
+
   };
+
+
 
   useEffect(() => {
     // Funçao para verificar o token no sessionStorage
@@ -73,7 +91,7 @@ function Home() {
   
     return (
       <>
-
+        
         <div className='topGreenContainer'></div>
         <nav>
 
@@ -120,11 +138,11 @@ function Home() {
           <div className='login-div'>
           <form onSubmit={handleLogin} />
           {isLoggedIn ? (
-            <div style={{ color: 'orange', fontFamily: 'Aldrich', fontSize: '2.3rem',  position: 'absolute', 
+            <div style={{ color: 'orange', fontFamily: 'Aldrich', fontSize: '2rem',  position: 'absolute', 
               left: '50%', 
               transform: 'translateX(-50%)',
               letterSpacing: '3px'  }}>
-              <h2>Seja bem-vindo!</h2>
+              <h2>Seja bem-vindo, {firstName} !</h2>
             </div>
           ) : (
             <form onSubmit={handleLogin}>
@@ -208,6 +226,7 @@ function Home() {
      
       </>
     )
+    
   }
   
   export default Home;

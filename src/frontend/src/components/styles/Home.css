@@ -294,7 +294,7 @@ ul li:hover::after{
   }
   @media (max-height: 960px) {
     .presentation-text-container {
-      height: 60vh;
+      height: 55vh;
     }
   }
   @media (max-height: 720px) {
@@ -306,7 +306,7 @@ ul li:hover::after{
   .login-div {
     width: 100%;
     background-color: #5C724A;
-    height: 120px;
+    height: 150px;
     display: flex;
     justify-content: flex-end;
     align-items: center;  
