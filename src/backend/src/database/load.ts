@@ -1,69 +1,16 @@
-import { Pool } from "pg";
-import chalk from "chalk";
+import {pool, queryCommitRollback} from "../database/connection";
 
-// Database connection configuration
-const pool = new Pool({
-  user: "users",
-  host: "localhost",
-  database: "users_auth",
-  password: "123",
-  // Add search_path to ensure we use the 'mydb' schema by default
-  options: "-c search_path=mydb",
-});
-
-// Function to check if the schema and tables exist
-const schemaExists = async (schemaName: string) => {
+async function load() {
   try {
-    const result = await pool.query(
-      `
-      SELECT EXISTS (
-        SELECT 1
-        FROM information_schema.schemata
-        WHERE schema_name = $1
-      ) AS schema_exists;
-    `,
-      [schemaName]
-    );
+    await queryCommitRollback(`
+    DO
+    $$
+    BEGIN
+        SET search_path TO mydb;
+        TRUNCATE foods CASCADE;
+        TRUNCATE categories CASCADE;
 
-    return result.rows[0].schema_exists;
-  } catch (error) {
-    console.error(chalk.red("Error checking schema existence:"), error);
-    throw error;
-  }
-};
-
-// Function to create the schema and tables
-const createSchemaAndTables = async () => {
-  try {
-    const schemaName = "mydb";
-
-    // Check if the schema exists
-    const schemaAlreadyExists = await schemaExists(schemaName);
-
-    if (schemaAlreadyExists) {
-      console.log(
-        chalk.yellow(
-          `Schema "${schemaName}" already exists. Skipping creation.`
-        )
-      );
-      return;
-    }
-
-    // Create schema and tables if not exists
-    await pool.query(`
-      DO
-      $$
-      BEGIN
-
-      CREATE SCHEMA IF NOT EXISTS ${schemaName};
-      SET search_path TO ${schemaName};
-
-      CREATE TABLE IF NOT EXISTS categories (
-        id SERIAL PRIMARY KEY,
-        name VARCHAR(45) NOT NULL
-      );
-
-      INSERT INTO categories (id,name)
+        INSERT INTO categories (id,name)
         VALUES 
         (1,'Cereais e derivados'),
         (2,'Verduras, hortaliças e derivados'),
@@ -81,39 +28,7 @@ const createSchemaAndTables = async () => {
         (14,'Leguminosas e derivados'),
         (15,'Nozes e sementes');
 
-      CREATE TABLE IF NOT EXISTS foods (
-        id SERIAL PRIMARY KEY,
-        categories_id INT NOT NULL,
-        description VARCHAR(70) NOT NULL,
-        moisture FLOAT,
-        energy FLOAT,
-        protein FLOAT,
-        lipids FLOAT,
-        cholesterol FLOAT,
-        carbohydrate FLOAT,
-        dietary_fiber FLOAT,
-        ash FLOAT,
-        calcium FLOAT,
-        magnesium FLOAT,
-        manganese FLOAT,
-        phosphorus FLOAT,
-        iron FLOAT,
-        sodium FLOAT,
-        potassium FLOAT,
-        copper FLOAT,
-        zinc FLOAT,
-        retinol FLOAT,
-        re FLOAT,
-        era FLOAT,
-        thiamin FLOAT,
-        riboflavin FLOAT,
-        pyridoxine FLOAT,
-        niacin FLOAT,
-        vitamin_c FLOAT,
-        CONSTRAINT fk_foods_categories FOREIGN KEY (categories_id) REFERENCES categories (id) ON DELETE NO ACTION ON UPDATE NO ACTION
-      );
-
-      INSERT INTO foods (id,categories_id,description,moisture,energy,protein,lipids,cholesterol,carbohydrate,dietary_fiber,ash,calcium,magnesium,manganese,phosphorus,iron,sodium,potassium,copper,zinc,retinol,re,era,thiamin,riboflavin,pyridoxine,niacin,vitamin_c)
+        INSERT INTO foods (id,categories_id,description,moisture,energy,protein,lipids,cholesterol,carbohydrate,dietary_fiber,ash,calcium,magnesium,manganese,phosphorus,iron,sodium,potassium,copper,zinc,retinol,re,era,thiamin,riboflavin,pyridoxine,niacin,vitamin_c)
         VALUES
        (1,1,'Arroz, integral, cozido',70.1,124,2.6,1,NULL,25.8,2.7,0.5,5,59,0.63,106,0.3,1,75,0.02,0.7,NULL,NULL,NULL,0.08,NULL,0.08,NULL,NULL),
 (2,1,'Arroz, integral, cru',12.2,360,7.3,1.9,NULL,77.5,4.8,1.2,8,110,2.99,251,0.9,2,173,0.07,1.4,NULL,NULL,NULL,0.26,NULL,0.18,4.18,NULL),
@@ -713,107 +628,16 @@ const createSchemaAndTables = async () => {
 (596,15,'Pupunha, cozida',54.5,219,2.5,12.8,NULL,29.6,4.3,0.7,28,25,0.13,49,0.5,1,303,0.28,0.3,NULL,875,438,NULL,0.09,0.03,NULL,2.2),
 (597,15,'Noz, crua',6.2,620,14,59.4,NULL,18.4,7.2,2.1,105,153,4.05,396,2,5,533,0.75,2.1,NULL,NULL,NULL,0.38,NULL,0.13,1.08,NULL);
 
-      CREATE TABLE IF NOT EXISTS users (
-        id SERIAL PRIMARY KEY,
-        username VARCHAR(45) NOT NULL,
-        email VARCHAR(45) NOT NULL,
-        password VARCHAR(255) NOT NULL
-      );
-
-      CREATE TABLE IF NOT EXISTS profiles (
-        id SERIAL PRIMARY KEY,
-        users_id INT NOT NULL,
-        birth_date DATE NOT NULL,
-        weight FLOAT NOT NULL,
-        height FLOAT NOT NULL,
-        sex SMALLINT NOT NULL,
-        CONSTRAINT fk_profiles_users FOREIGN KEY (users_id) REFERENCES users (id) ON DELETE NO ACTION ON UPDATE NO ACTION
-      );
-
-      CREATE TABLE IF NOT EXISTS eat_foods (
-        id SERIAL PRIMARY KEY,
-        foods_id INT NOT NULL,
-        users_id INT NOT NULL,
-        date DATE NOT NULL,
-        quantity FLOAT NOT NULL,
-        CONSTRAINT fk_eat_foods_foods FOREIGN KEY (foods_id) REFERENCES foods (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-        CONSTRAINT fk_eat_foods_users FOREIGN KEY (users_id) REFERENCES users (id) ON DELETE NO ACTION ON UPDATE NO ACTION
-      );
-
-      CREATE TABLE IF NOT EXISTS products (
-        id SERIAL PRIMARY KEY,
-        users_id INT NOT NULL,
-        description VARCHAR(45) NOT NULL,
-        serving_size FLOAT,
-        serving_unit VARCHAR(10),
-        quantity_serving FLOAT,
-        quantity_unit VARCHAR(20),
-        energy FLOAT,
-        protein FLOAT,
-        carbohydrate FLOAT,
-        sugar FLOAT,
-        dietary_fiber FLOAT,
-        total_fat FLOAT,
-        saturated_fat FLOAT,
-        trans_fat FLOAT,
-        calcium FLOAT,
-        sodium FLOAT,
-        CONSTRAINT fk_products_users FOREIGN KEY (users_id) REFERENCES users (id) ON DELETE NO ACTION ON UPDATE NO ACTION
-      );
-
-      CREATE TABLE IF NOT EXISTS eat_products (
-        id SERIAL PRIMARY KEY,
-        users_id INT NOT NULL,
-        products_id INT NOT NULL,
-        date DATE NOT NULL,
-        quantity FLOAT NOT NULL,
-        activity INT NOT NULL,
-        imc FLOAT NOT NULL,
-        CONSTRAINT fk_eat_products_users FOREIGN KEY (users_id) REFERENCES users (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-        CONSTRAINT fk_eat_products_products FOREIGN KEY (products_id) REFERENCES products (id) ON DELETE NO ACTION ON UPDATE NO ACTION
-      );
-
-      CREATE TABLE IF NOT EXISTS diets (
-        id SERIAL PRIMARY KEY,
-        profiles_id INT NOT NULL,
-        name VARCHAR(45) NOT NULL,
-        description VARCHAR(70) NOT NULL,
-        adjustment FLOAT NOT NULL,
-        rec_kcal FLOAT NOT NULL,
-        CONSTRAINT fk_diets_profiles FOREIGN KEY (profiles_id) REFERENCES profiles (id) ON DELETE NO ACTION ON UPDATE NO ACTION
-      );
-
-      
-
-      END;
-      $$;
+    END;
+    $$;
     `);
-
-    console.log(
-      chalk.greenBright(
-        `Schema "${schemaName}" and tables created successfully`
-      )
-    );
-  } catch (error) {
-    console.error(chalk.red("Error creating schema and tables:"), error);
+    console.log("Comandos SQL submetidos ao SGBD.");
+  } catch (e: any) {
+    console.error("Erro ao submeter comandos SQL:", e.message);
+  } finally {
+    console.log("Finalizado");
+    pool.end();
   }
-};
+}
 
-// Function to connect to the database and initialize schema
-const connectDB = async () => {
-  try {
-    // Connect to the database
-    await pool.connect();
-    console.log(chalk.greenBright("Database connected successfully"));
-
-    // Initialize schema and tables
-    await createSchemaAndTables();
-  } catch (error) {
-    console.error(
-      chalk.red("Error connecting to database or initializing schema:"),
-      error
-    );
-  }
-};
-
-export { connectDB, pool };
+load();
