@@ -3,7 +3,7 @@ import chalk from "chalk";
 
 // Database connection configuration
 const pool = new Pool({
-  user: "users",
+  user: "postgres",
   host: "localhost",
   database: "users_auth",
   password: "123",
