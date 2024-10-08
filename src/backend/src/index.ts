@@ -25,7 +25,7 @@ const PORT = process.env.PORT || 3030;
 app.get("/", (req: Request, res: Response) => {
   try {
     return res.status(200).json({
-      message: "Welcome to CodeGenitor API",
+      message: "Welcome to Ceres Vita",
     });
   } catch (error) {
     return res.status(500).json({
@@ -39,6 +39,8 @@ app.use("/api/user", userRouter);
 
 // Food log routes
 app.use('/api/food', foodLogRouter); // Ensure this comes before the unknown route handler
+console.log("Food routes registered");
+
 
 // Unknown route handler
 app.use((req: Request, res: Response) => {

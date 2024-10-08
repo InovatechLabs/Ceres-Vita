@@ -37,6 +37,12 @@ html, body {
     width: 80%;
     border-radius: 30px;
     padding: 15px;
+    margin-top: 30px;
+}
+
+#card-title {
+    align-self: center;
+    text-align: center;
 }
 
 #food-search {
@@ -137,22 +143,32 @@ table {
     padding: 0; 
     text-align: center; 
     color: black;
-    background-color: rgb(225, 243, 253);
     font-size: 20px;
-    padding: 10px;
+    padding: 12px;
     
   }
 
-  tbody td:nth-child(odd) {
-    background-color: #f9f9f9; 
 
+
+  .table-scroll-container {
+    position: relative; 
+    overflow: hidden; 
   }
   
-  tbody tr:nth-child(even) {
-    background-color: #ffffff; 
+  .table-header-scroll {
+    overflow-x: auto; 
+    width: 100%;
+    white-space: nowrap; 
   }
+  
+  .scrollable-table {
+    display: inline-block;
+    min-width: 100%; 
+  }
+
+
 .table-header {
-    background-color: orange;
+    background-color: orange !important;
     color: white;
     height: 40px;
     font-weight: 700;
@@ -160,4 +176,38 @@ table {
   }
 
 
+  th {
+    padding-right: 40px;
+    
+  }
 
+  tr:nth-child(odd) {
+    background-color: #cbf4fa; 
+}
+
+
+tr:nth-child(even) {
+    background-color: #f0f0f0;
+}
+
+
+  .table-header-scroll::-webkit-scrollbar {
+    height: 10px; 
+    background-color: black; 
+  }
+  
+
+  .table-header-scroll::-webkit-scrollbar-thumb {
+    background-color: orange; 
+    border-radius: 5px; 
+    cursor: pointer;
+  }
+
+  .table-header-scroll::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(255, 202, 104);
+  }
+  
+  
+  .table-header-scroll::-webkit-scrollbar-track {
+    background-color: black; 
+  }

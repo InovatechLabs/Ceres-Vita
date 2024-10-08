@@ -61,3 +61,24 @@ export const searchFood = async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Error searching for food", error });
   }
 };
+
+export const eatFoodsRegister = async (req:Request, res:Response) => {
+
+  const { foods_id, users_id, date, quantity } = req.body;
+  
+  // Define quantidade padrão como 100g se não informada
+  const finalQuantity = quantity || 100;
+
+  const query = `
+    INSERT INTO eat_foods (foods_id, users_id, date, quantity)
+    VALUES ($1, $2, $3, $4)
+  `;
+  const values = [foods_id, users_id, date, finalQuantity];
+
+  pool.query(query, values)
+    .then(() => res.status(201).json({ message: 'Alimento consumido registrado com sucesso' }))
+    .catch(error => {
+      console.error('Erro ao salvar o alimento consumido:', error);
+      res.status(500).json({ error: 'Erro ao salvar no banco de dados' });
+    });
+};

@@ -7,10 +7,14 @@ import axios from 'axios';
 import Food  from '../../types/Food';
 
 const FoodRegister: React.FC = () => {
+        const userId = sessionStorage.getItem('id');
+        
 
         const [currentDate, setCurrentDate] = useState<string>('');
         const [foodName, setFoodName] = useState('');
-        const [foodData, setFoodData] = useState<any[]>([]);
+        const [foodData, setFoodData] = useState<Food[]>([]);
+        const [foods, setFoods] = useState([]);
+        const [selectedFoods, setSelectedFoods] = useState<Food[]>([]);
 
         const handleSearch = async () => {
             try {
@@ -19,9 +23,8 @@ const FoodRegister: React.FC = () => {
                 if (Array.isArray(response.data)) {
                   setFoodData(response.data);
                 } else {
-                  // Trate o caso em que a resposta não é um array
                   console.error("Resposta não é um array:", response.data);
-                  setFoodData([]); // Ou outra lógica que você quiser aplicar
+                  setFoodData([]); 
                 }
              
             } catch (error) {
@@ -29,6 +32,7 @@ const FoodRegister: React.FC = () => {
               setFoodData([]);
             }
           };
+
       
         useEffect(() => {
             const date = new Date();
@@ -41,6 +45,7 @@ const FoodRegister: React.FC = () => {
             const formattedDate = `${day}/${month}/${year}`;
             setCurrentDate(formattedDate);
           }, []);
+
 
           return (
             <>
@@ -63,7 +68,9 @@ const FoodRegister: React.FC = () => {
 
         </nav>
             <div className="main-registerfood">
+              
               <div className="card-registerfood">
+              <h1 id='card-title'>Registro de Ingestão</h1>
                 <label htmlFor="food-search" id='food-search-label'>Busque o alimento ou produto consumido:</label>
                 <input 
                   type="text" 
@@ -78,48 +85,76 @@ const FoodRegister: React.FC = () => {
                 
               
                 {foodData.length > 0 && (
+  <div className="table-scroll-container"> 
+  <div className="table-header-scroll">
+    <div className="scrollable-table">
   <table>
-    <thead>
-      <tr className="table-header">
-        <th>Nome</th>
-        <th>Calorias</th>
-        <th>Proteínas</th>
-        <th>Umidade</th>
-        <th>Carboidratos</th>
-        <th>Lipídios</th>
-        <th>Colesterol</th>
-        <th>Fibra Dietética</th>
-        <th>Vitamina C</th>
-        <th>Sódio</th>
-        <th>Potássio</th>
-        <th>Cálcio</th>
-        <th>Ferro</th>
-        <th>Magnésio</th>
+  <thead>
+    <tr className="table-header">
+      <th>Nome</th>
+      <th>Calorias</th>
+      <th>Carboidratos (g)</th>
+      <th>Proteínas (g)</th>
+      <th>Lipídios</th>
+      <th>Fibra Dietética (g)</th>
+      <th>Açúcares Totais</th>
+      <th>Açúcares Adicionados</th>
+      <th>Sódio (mg)</th>
+      <th>Potássio</th>
+      <th>Cálcio (mg)</th>
+      <th>Ferro</th>
+      <th>Magnésio</th>
+      <th>Vitamina C</th>
+      <th>Vitamina A</th>
+      <th>Vitamina D</th>
+      <th>Vitamina E</th>
+      <th>Tiamina</th>
+      <th>Riboflavina</th>
+      <th>Niacina</th>
+      <th>Folato</th>
+      <th>Piridoxina</th>
+      <th>Colesterol</th>
+    </tr>
+  </thead>
+  <tbody>
+    {foodData.map(food => (
+      <tr key={food.id}>
+        <td>
+        <input
+          type="checkbox"
+        />
+      </td>
+        <td>{food.description}</td>
+        <td>{food.energy !== null ? food.energy : 'N/A'}</td>
+        <td>{food.carbohydrate !== null ? food.carbohydrate : 'N/A'}</td>
+        <td>{food.protein !== null ? food.protein : 'N/A'}</td>
+        <td>{food.total_lipids !== null ? food.total_lipids : 'N/A'}</td>
+        <td>{food.dietary_fiber !== null ? food.dietary_fiber : 'N/A'}</td>
+        <td>{food.total_sugars !== null ? food.total_sugars : 'N/A'}</td>
+        <td>{food.added_sugars !== null ? food.added_sugars : 'N/A'}</td>
+        <td>{food.sodium !== null ? food.sodium : 'N/A'}</td>
+        <td>{food.potassium !== null ? food.potassium : 'N/A'}</td>
+        <td>{food.calcium !== null ? food.calcium : 'N/A'}</td>
+        <td>{food.iron !== null ? food.iron : 'N/A'}</td>
+        <td>{food.magnesium !== null ? food.magnesium : 'N/A'}</td>
+        <td>{food.vitamin_c !== null ? food.vitamin_c : 'N/A'}</td>
+        <td>{food.vitamin_a_rae !== null ? food.vitamin_a_rae : 'N/A'}</td>
+        <td>{food.vitamin_d !== null ? food.vitamin_d : 'N/A'}</td>
+        <td>{food.vitamin_e !== null ? food.vitamin_e : 'N/A'}</td>
+        <td>{food.thiamin !== null ? food.thiamin : 'N/A'}</td>
+        <td>{food.riboflavin !== null ? food.riboflavin : 'N/A'}</td>
+        <td>{food.niacin !== null ? food.niacin : 'N/A'}</td>
+        <td>{food.folate !== null ? food.folate : 'N/A'}</td>
+        <td>{food.pyridoxine !== null ? food.pyridoxine : 'N/A'}</td>
+        <td>{food.cholesterol !== null ? food.cholesterol : 'N/A'}</td>
         
       </tr>
-    </thead>
-    <tbody>
-      {foodData.map(food => (
-        <tr key={food.id}>
-          <td>{food.description}</td> 
-          <td>{food.energy}</td>
-          <td>{food.protein}</td>
-          <td>{food.moisture}</td>
-          <td>{food.carbohydrate}</td>
-          <td>{food.lipids}</td>
-          <td>{food.cholesterol !== null ? food.cholesterol : 'N/A'}</td>
-          <td>{food.dietary_fiber !== null ? food.dietary_fiber : 'N/A'}</td>
-          <td>{food.vitamin_c !== null ? food.vitamin_c : 'N/A'}</td>
-          <td>{food.sodium !== null ? food.sodium : 'N/A'}</td>
-          <td>{food.potassium}</td>
-          <td>{food.calcium}</td>
-          <td>{food.iron}</td>
-          <td>{food.magnesium}</td>
-          {/* Adicione mais colunas conforme necessário */}
-        </tr>
-      ))}
-    </tbody>
-  </table>
+    ))}
+  </tbody>
+</table>
+</div>
+</div>
+</div>
                 )}
         
                 <div className="food-infos">
@@ -128,16 +163,17 @@ const FoodRegister: React.FC = () => {
                     <input type='text' id='date-eaten' value={currentDate} />
                   </div>
                   <div className="info-group">
-                    <label htmlFor='quantity' id='quantity-label'>Quantidade (gramas):</label>
-                    <input type='text' id='quantity' />
+                    <label htmlFor='quantity' id='quantity-label'>Quantidade (padrão: 100g):</label>
+                    <input type='text' id='quantity' /> 
                   </div>
                 </div>
         
                 <div className='button-save'>
-                  <button>Salvar</button>
+                  <button >Salvar</button>
                 </div>
               </div>
             </div>
+    
             </>
           );
         };
