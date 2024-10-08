@@ -4,6 +4,8 @@ import Home from './components/Home'; // Componente da página inicial
 import Register from './components/register/Register';
 import Login from './components/login/Login';
 import AuthenticatedRoute from './components/auth/AuthenticatedRoute';
+import ProtectedRoute from './components/auth/ProtectedRoute';
+import FoodRegister from './components/food/FoodRegister';
 
 function App() {
   const isAuthenticated = !!sessionStorage.getItem('token'); // Verifica se o usuário está autenticado
@@ -38,6 +40,14 @@ function App() {
             <AuthenticatedRoute isAuthenticated={isAuthenticated}>
               <Login />
             </AuthenticatedRoute>
+          }
+        />
+         <Route
+          path="/food-register"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <FoodRegister />
+            </ProtectedRoute>
           }
         />
          <Route

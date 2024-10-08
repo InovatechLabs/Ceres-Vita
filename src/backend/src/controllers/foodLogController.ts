@@ -40,3 +40,24 @@ export const getFoodLog = async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Error fetching food log", error });
   }
 };
+
+export const searchFood = async (req: Request, res: Response) => {
+  let { name } = req.params; 
+  name = name.replace(" ","%");
+
+  try {
+    const result = await pool.query(
+      "SELECT * FROM foods WHERE description ILIKE $1", 
+      [`%${name}%`] 
+    );
+
+    if (result.rows.length > 0) {
+      return res.status(200).json(result.rows);
+    } else {
+      return res.status(404).json({ message: "No foods found." });
+    }
+  } catch (error) {
+    console.error("Error searching for food:", error);
+    return res.status(500).json({ message: "Error searching for food", error });
+  }
+};

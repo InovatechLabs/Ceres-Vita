@@ -34,6 +34,9 @@ function Home() {
   const handleRegisterClick = () => {
     navigate('/register'); // redireciona para a rota /register
   };
+  const handleRegisterFoodClick = () => {
+    navigate('/foodregister');
+  }
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [email, setEmail] = useState('');
@@ -128,7 +131,7 @@ function Home() {
             <p id='register-text'>Ou, se você já possui...</p>
             <div className='buttons-logged-div'>
             <button className='logged-buttons'>Meu perfil</button>
-            <button className='logged-buttons'>Histórico de ingestão</button>
+            <button className='logged-buttons' onClick={handleRegisterFoodClick}>Registro de ingestão</button>
             <button className='logged-buttons'>Dietas</button>
             </div>
             </div>
