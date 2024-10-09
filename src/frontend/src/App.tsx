@@ -41,13 +41,11 @@ function App() {
             </AuthenticatedRoute>
           }
         />
-                {/* Rota bloqueada para usuários autenticados */}
+                {/* Rota sem bloqueio */}
                 <Route
           path="/user-page"
           element={
-            <AuthenticatedRoute isAuthenticated={isAuthenticated}>
               <UserPage />
-            </AuthenticatedRoute>
           }
         />
       </Routes>
