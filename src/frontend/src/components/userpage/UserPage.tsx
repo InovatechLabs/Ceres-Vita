@@ -7,7 +7,6 @@ import { Error } from "../userpage/Error"
 import  PopupMessage  from "../userpage/PopupMessage"
 import { calculateAge, dateFormat } from "../calculate/date";
 import InputDatePicker from "./InputDatePicker";
-import './UserPage.css';
 
 export default function UserPage() {
   const [profile, setProfile] = useState<any>(null);
@@ -118,6 +117,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   height: 100vh;
   box-sizing: border-box;
+  background-color: #455f45; /* Cor de fundo */
 `;
 
 const LineSld = styled.div`
@@ -144,5 +144,10 @@ const FieldWrapper = styled.div`
   border: 1px solid #999;
   border-radius: 5px;
   box-sizing: border-box;
+  background-color: rgba(46, 229, 157, 0.4);
+  font-family: 'Hubballi', Courier, monospace;
+  font-size: 1.3rem;
 `;
+
+
 
