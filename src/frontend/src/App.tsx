@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home'; // Componente da página inicial
 import Register from './components/register/Register';
 import Login from './components/login/Login';
+import UserPage from './components/userpage/UserPage'
 import AuthenticatedRoute from './components/auth/AuthenticatedRoute';
 
 function App() {
@@ -40,7 +41,17 @@ function App() {
             </AuthenticatedRoute>
           }
         />
+                {/* Rota bloqueada para usuários autenticados */}
+                <Route
+          path="/user-page"
+          element={
+            <AuthenticatedRoute isAuthenticated={isAuthenticated}>
+              <UserPage />
+            </AuthenticatedRoute>
+          }
+        />
       </Routes>
+      
     </Router>
   );
 }

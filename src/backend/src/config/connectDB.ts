@@ -5,10 +5,10 @@ import path from "path";
 
 
 const pool = new Pool({
-    user: "users",
+    user: "postgres",
     host: "localhost",
     database: "users_auth",
-    password: "123",
+    password: "123456",
   });
   
   // Read the contents of the user.schema.sql file
