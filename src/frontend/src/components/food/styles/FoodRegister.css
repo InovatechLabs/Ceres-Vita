@@ -17,7 +17,6 @@ html, body {
     height: 100%;
     display: flex;
     justify-content: center;
-
     
     
 }
@@ -26,30 +25,35 @@ html, body {
 
     display: flex;
     justify-content: center;
+    
 }
 
 
 .card-registerfood {
 
-    background-color: #E09049;
+    background-color: rgba(224, 144, 73, 0.6);
     display: flex;
     flex-direction: column;
     width: 80%;
     border-radius: 30px;
     padding: 15px;
     margin-top: 30px;
+    margin-bottom: 50px;
 }
 
 #card-title {
     align-self: center;
     text-align: center;
+    font-family: 'Acme';
+    margin-bottom: 4%;
+    font-size: 3rem;
 }
 
 #food-search {
     height: 40px;
     border: none;
     outline: none;
-    width: 80%;
+    width: 57.5%;
     margin-left: 10px;
     font-size: 2em;
 }
@@ -99,13 +103,13 @@ html, body {
 .food-infos {
     display: flex;
     flex-direction: row; /* Manter os inputs lado a lado */
-    margin-top: 20px;
+    
 }
 
 .info-group {
     display: flex;
     flex-direction: column; /* Coloca a label em cima do input */
-    margin-right: 20px; /* Espaçamento entre os grupos */
+    margin-right: 50px; /* Espaçamento entre os grupos */
 }
 
 .info-group label {
@@ -137,12 +141,13 @@ html, body {
 table {
     border-collapse: collapse; 
     width: 100%; 
+    margin-top: 40px;
   }
 
   td {
     padding: 0; 
     text-align: center; 
-    color: black;
+    color: white;
     font-size: 20px;
     padding: 12px;
     
@@ -178,16 +183,21 @@ table {
 
   th {
     padding-right: 40px;
-    
+    background-color: orange !important;
+    color: white;
+    height: 40px;
+    font-weight: 700;
+    font-size: 20px;
   }
 
+  
   tr:nth-child(odd) {
-    background-color: #cbf4fa; 
+    background-color: #414141; 
 }
 
 
 tr:nth-child(even) {
-    background-color: #f0f0f0;
+    background-color: #505050;
 }
 
 
@@ -210,4 +220,58 @@ tr:nth-child(even) {
   
   .table-header-scroll::-webkit-scrollbar-track {
     background-color: black; 
+  }
+
+  input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+    background-color: rgb(37, 36, 36);
+  }
+  
+  
+  /* Adiciona o ícone de "check" quando o checkbox é marcado */
+  input[type="checkbox"]:checked::after {
+    content: '\2713'; /* Código do símbolo de check */
+    color: rgb(255, 154, 71);
+    font-size: 18px;
+    position: absolute;
+    left: 3px;
+    top: -2px;
+    font-weight: bolder;
+  }
+
+  .buttons-export-graph {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5%;
+  }
+
+  .buttons-export-graph > button{
+    background-color: #8F3F01;
+    border: none;
+    outline: none;
+    border-radius: 35px;
+    padding: 15px 15px;
+    font-family: 'Aldrich';
+    font-size: 14px;
+    font-weight: 100;
+    color: #fff;
+    letter-spacing: 4px;
+    cursor: pointer;
+    margin: 10px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .foodLogTable {
+
+    text-align: center;
+    margin-top: 5%;
   }

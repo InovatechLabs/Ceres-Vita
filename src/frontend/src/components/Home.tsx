@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { loginUser } from '../service/index.service';
 import axios from 'axios';
-import jwtDecode from 'jwt-decode';
 
 
 function Home() {
@@ -35,7 +34,7 @@ function Home() {
     navigate('/register'); // redireciona para a rota /register
   };
   const handleRegisterFoodClick = () => {
-    navigate('/foodregister');
+    navigate('/food-register');
   }
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -145,7 +144,7 @@ function Home() {
               left: '50%', 
               transform: 'translateX(-50%)',
               letterSpacing: '3px'  }}>
-              <h2>Seja bem-vindo, {firstName} !</h2>
+              <h2>Seja bem-vindo {firstName} !</h2>
             </div>
           ) : (
             <form onSubmit={handleLogin}>

@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import './styles/FoodRegister.css';
 import axios from 'axios';
-import Food  from '../../types/Food';
+import Food, { FoodLog }  from '../../types/Food';
+import FoodLogTable from './foodLogTable/FoodLogTable';
+import GlobalStyles from './styles/GlobalStyles';
 
 const FoodRegister: React.FC = () => {
         const userId = sessionStorage.getItem('id');
         
 
         const [currentDate, setCurrentDate] = useState<string>('');
+        const [originalDate, setOriginalDate] = useState<string>('');
         const [foodName, setFoodName] = useState('');
         const [foodData, setFoodData] = useState<Food[]>([]);
-        const [foods, setFoods] = useState([]);
-        const [selectedFoods, setSelectedFoods] = useState<Food[]>([]);
+        const [selectedFoods, setSelectedFoods] = useState<{ foodId: number, quantity: number }[]>([]);
+        const [foodLog, setFoodLog] = useState<FoodLog[]>([]); 
+        const [showFoodLog, setShowFoodLog] = useState(false);
+
 
         const handleSearch = async () => {
             try {
@@ -33,6 +37,59 @@ const FoodRegister: React.FC = () => {
             }
           };
 
+
+
+
+          const handleSelectFood = (foodId: number, quantity: number) => {
+            setSelectedFoods(prevSelectedFoods => {
+              const existingFood = prevSelectedFoods.find(food => food.foodId === foodId);
+              if (existingFood) {
+                // Atualiza a quantidade se o alimento já estiver selecionado
+                return prevSelectedFoods.map(food => food.foodId === foodId ? { ...food, quantity } : food);
+              } else {
+                // Adiciona o alimento à lista de selecionados
+                return [...prevSelectedFoods, { foodId, quantity }];
+              }
+            });
+          };
+
+
+
+        
+          const handleSubmit = async () => {
+            try {
+              for (const food of selectedFoods) {
+                await axios.post('http://localhost:3030/api/food/log-food', {
+                  foodId: food.foodId,
+                  userId,
+                  date: currentDate,
+                  quantity: food.quantity || 100, // Padrão 100g se não especificado
+                });
+              }
+              alert('Alimentos registrados com sucesso!');
+            } catch (error) {
+              console.error("Erro ao registrar alimentos:", error);
+              alert('Erro ao registrar os alimentos.');
+            }
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+              (checkbox as HTMLInputElement).checked = false;
+            });
+          };
+
+          const handleFetchFoodLog = async () => {
+            console.log(originalDate)
+            try {
+                const response = await axios.get<FoodLog[]>(`http://localhost:3030/api/food/get-food-log/${userId}${originalDate ? `/${originalDate}` : ''}`);
+                setFoodLog(response.data);
+                console.log(response.data)
+                setShowFoodLog(true);
+            } catch (error) {
+                console.error("Erro ao buscar o log de alimentos:", error);
+                setFoodLog([]);
+            }
+        };
+
       
         useEffect(() => {
             const date = new Date();
@@ -43,12 +100,15 @@ const FoodRegister: React.FC = () => {
         
             // Formata a data como 'DD/MM/YYYY'
             const formattedDate = `${day}/${month}/${year}`;
+            const originalDate = `${year}-${month}-${day}`;
             setCurrentDate(formattedDate);
+            setOriginalDate(originalDate);
           }, []);
 
 
           return (
             <>
+            <GlobalStyles />
             <div className='topGreenContainer'></div>
         <nav>
 
@@ -84,6 +144,18 @@ const FoodRegister: React.FC = () => {
                 </div>
                 
               
+                
+        
+                <div className="food-infos">
+                  <div className="info-group">
+                    <label htmlFor='date-eaten' id='date-eaten-label'>Data de Consumo:</label>
+                    <input type='text' id='date-eaten' value={currentDate} />
+                  </div>
+                  <div className="info-group">
+                    <label htmlFor='quantity' id='quantity-label'>Quantidade (padrão 100g):</label>
+                    <input type='text' id='quantity' /> 
+                  </div>
+                </div>
                 {foodData.length > 0 && (
   <div className="table-scroll-container"> 
   <div className="table-header-scroll">
@@ -91,6 +163,7 @@ const FoodRegister: React.FC = () => {
   <table>
   <thead>
     <tr className="table-header">
+    <th>Selecionar</th>
       <th>Nome</th>
       <th>Calorias</th>
       <th>Carboidratos (g)</th>
@@ -119,9 +192,10 @@ const FoodRegister: React.FC = () => {
   <tbody>
     {foodData.map(food => (
       <tr key={food.id}>
-        <td>
+      <td>
         <input
           type="checkbox"
+          onChange={(e) => handleSelectFood(food.id, e.target.checked ? 100 : 0)} 
         />
       </td>
         <td>{food.description}</td>
@@ -157,19 +231,18 @@ const FoodRegister: React.FC = () => {
 </div>
                 )}
         
-                <div className="food-infos">
-                  <div className="info-group">
-                    <label htmlFor='date-eaten' id='date-eaten-label'>Data de Consumo:</label>
-                    <input type='text' id='date-eaten' value={currentDate} />
-                  </div>
-                  <div className="info-group">
-                    <label htmlFor='quantity' id='quantity-label'>Quantidade (padrão: 100g):</label>
-                    <input type='text' id='quantity' /> 
-                  </div>
-                </div>
-        
                 <div className='button-save'>
-                  <button >Salvar</button>
+                  <button onClick={handleSubmit}>Salvar</button>
+                </div>
+                <div className='buttons-export-graph'>
+                  <button onClick={handleFetchFoodLog}>Gerar Histórico de Consumo</button>
+                  <button>Gerar Gráfico de Consumo</button>
+                  {showFoodLog && (
+        <div className='foodLogTable'>
+          <FoodLogTable foodLog={foodLog} />
+        </div>
+      )}
+                  
                 </div>
               </div>
             </div>

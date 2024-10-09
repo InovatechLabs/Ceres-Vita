@@ -43,3 +43,10 @@ export default interface Food {
   vitamin_e: number | null;
   vitamin_c: number | null;
 }
+
+export interface FoodLog {
+  food_name: string;
+  foodId: number;
+  quantity: number;
+  date: string; 
+}

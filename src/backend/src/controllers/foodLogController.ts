@@ -20,23 +20,75 @@ export const logFood = async (req: Request, res: Response) => {
 
 // Get the food log for a user based on the date
 export const getFoodLog = async (req: Request, res: Response) => {
-  const { userId } = req.params; // Assume userId is passed as a URL parameter
-  const { date } = req.query; // Date can be passed as a query parameter
+  const { userId, date } = req.params;
+
+  console.log("UserID:", userId);
+  console.log("Date:", date);
 
   try {
-    // SQL query to fetch the logged food data based on userId and date
-    const result = await pool.query(
-      "SELECT f.name, ufl.quantity FROM eat_foods ufl JOIN foods f ON ufl.foods_id = f.id WHERE ufl.users_id = $1 AND ufl.date::date = $2",
-      [userId, date]
-    );
+    let result;
+
+    if (date) {
+      // Consulta Sql para caso a data estiver presente no req params
+      result = await pool.query(
+        `SELECT eat_foods.id AS eat_id, 
+                eat_foods.foods_id, 
+                foods.description AS food_name, 
+                eat_foods.users_id AS user_id, 
+                eat_foods.date, 
+                eat_foods.quantity 
+         FROM eat_foods 
+         JOIN foods ON eat_foods.foods_id = foods.id 
+         WHERE eat_foods.users_id = $1 AND eat_foods.date = $2`,
+        [userId, date]
+      );
+    } else {
+      // Consulta Sql para caso a data não estiver presente no req params
+      result = await pool.query(
+        `SELECT eat_foods.id AS eat_id, 
+                eat_foods.foods_id, 
+                foods.description AS food_name, 
+                eat_foods.users_id AS user_id, 
+                eat_foods.date, 
+                eat_foods.quantity 
+         FROM eat_foods 
+         JOIN foods ON eat_foods.foods_id = foods.id 
+         WHERE eat_foods.users_id = $1`,
+        [userId]
+      );
+    }
 
     if (result.rows.length > 0) {
       return res.status(200).json(result.rows);
     } else {
-      return res.status(404).json({ message: "No food logs found for this date." });
+      console.log(result.rows);
+      return res.status(404).json({ message: "No food logs found for this user." });
     }
   } catch (error) {
     console.error("Error fetching food log:", error);
     return res.status(500).json({ message: "Error fetching food log", error });
   }
 };
+
+export const searchFood = async (req: Request, res: Response) => {
+  let { name } = req.params; 
+  name = name.replace(" ","%");
+
+  try {
+    const result = await pool.query(
+      "SELECT * FROM foods WHERE description ILIKE $1", 
+      [`%${name}%`] 
+    );
+
+    if (result.rows.length > 0) {
+      return res.status(200).json(result.rows);
+    } else {
+      return res.status(404).json({ message: "No foods found." });
+    }
+  } catch (error) {
+    console.error("Error searching for food:", error);
+    return res.status(500).json({ message: "Error searching for food", error });
+  }
+};
+
+
