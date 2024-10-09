@@ -2199,8 +2199,6 @@ INSERT INTO foods (
         products_id INT NOT NULL,
         date DATE NOT NULL,
         quantity FLOAT NOT NULL,
-        activity INT NOT NULL,
-        imc FLOAT NOT NULL,
         CONSTRAINT fk_eat_products_users FOREIGN KEY (users_id) REFERENCES users (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
         CONSTRAINT fk_eat_products_products FOREIGN KEY (products_id) REFERENCES products (id) ON DELETE NO ACTION ON UPDATE NO ACTION
       );
