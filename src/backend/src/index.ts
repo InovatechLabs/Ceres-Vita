@@ -5,6 +5,7 @@ import morgan from "morgan";
 import userRouter from "./routes/user.route";
 import { connectDB } from "./config/connectDB";
 import foodLogRouter from './routes/foodLogRoute';
+import productsRouter from './routes/productsRoute';
 
 // Initialize dotenv to access environment variables
 dotenv.config();
@@ -41,6 +42,8 @@ app.use("/api/user", userRouter);
 app.use('/api/food', foodLogRouter); // Ensure this comes before the unknown route handler
 console.log("Food routes registered");
 
+// Register the products routes
+app.use("/api/products", productsRouter);
 
 // Unknown route handler
 app.use((req: Request, res: Response) => {
