@@ -13,7 +13,7 @@ export default router;
 
 /* tutorial for the routes:
     -database should be named users_auth + used by postgres
-    -the route to log-in foods is POST /api/foods/log-food
+    -the route to log-in foods is POST /api/food/log-food
     -example of the json format:
     {
     "foodId": 76,
