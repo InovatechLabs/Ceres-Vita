@@ -45,6 +45,7 @@ export default interface Food {
 }
 
 export interface FoodLog {
+  meal: ReactNode;
   food_name: string;
   foodId: number;
   quantity: number;

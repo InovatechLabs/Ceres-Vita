@@ -3,13 +3,13 @@ import { pool } from "../config/connectDB"; // Correct import of pool
 
 // Log the food consumed by a user
 export const logFood = async (req: Request, res: Response) => {
-  const { foodId, userId, quantity, date } = req.body; // Now includes date
+  const { foodId, userId, quantity, date, meal } = req.body; // Incluindo o campo 'meal'
 
   try {
-    // Use pool.query for making the SQL query
+    // Adiciona o 'meal' na query de inserção
     await pool.query(
-      "INSERT INTO eat_foods (foods_id, users_id, date, quantity) VALUES ($1, $2, $3, $4)",
-      [foodId, userId, date, quantity] // Now using the provided date
+      "INSERT INTO eat_foods (foods_id, users_id, date, quantity, meal) VALUES ($1, $2, $3, $4, $5)",
+      [foodId, userId, date, quantity, meal] // Inclui o valor de 'meal'
     );
     return res.status(200).json({ message: "Food logged successfully!" });
   } catch (error) {
@@ -29,28 +29,30 @@ export const getFoodLog = async (req: Request, res: Response) => {
     let result;
 
     if (date) {
-      // Consulta Sql para caso a data estiver presente no req params
+      // Inclui o campo 'meal' na consulta SQL
       result = await pool.query(
         `SELECT eat_foods.id AS eat_id, 
                 eat_foods.foods_id, 
                 foods.description AS food_name, 
                 eat_foods.users_id AS user_id, 
                 eat_foods.date, 
-                eat_foods.quantity 
+                eat_foods.quantity, 
+                eat_foods.meal  -- Inclui o campo 'meal'
          FROM eat_foods 
          JOIN foods ON eat_foods.foods_id = foods.id 
          WHERE eat_foods.users_id = $1 AND eat_foods.date = $2`,
         [userId, date]
       );
     } else {
-      // Consulta Sql para caso a data não estiver presente no req params
+      // Inclui o campo 'meal' na consulta SQL quando a data não está presente
       result = await pool.query(
         `SELECT eat_foods.id AS eat_id, 
                 eat_foods.foods_id, 
                 foods.description AS food_name, 
                 eat_foods.users_id AS user_id, 
                 eat_foods.date, 
-                eat_foods.quantity 
+                eat_foods.quantity, 
+                eat_foods.meal  -- Inclui o campo 'meal'
          FROM eat_foods 
          JOIN foods ON eat_foods.foods_id = foods.id 
          WHERE eat_foods.users_id = $1`,
@@ -70,6 +72,7 @@ export const getFoodLog = async (req: Request, res: Response) => {
   }
 };
 
+// Search for a food by name
 export const searchFood = async (req: Request, res: Response) => {
   let { name } = req.params; 
   name = name.replace(" ","%");
@@ -90,5 +93,3 @@ export const searchFood = async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Error searching for food", error });
   }
 };
-
-
