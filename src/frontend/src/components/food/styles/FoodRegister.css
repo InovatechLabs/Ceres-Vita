@@ -121,6 +121,24 @@ html, body {
     margin: 10px;
 }
 
+/* Estilo da box de seleção do tipo de refeição */
+.info-group > select {
+  height: 45px; /* Altura igual ao campo de busca */
+  border: none;
+  outline: none;
+  width: 57.5%; /* Mesma largura do campo de busca */
+  margin-left: 10px; /* Alinhamento igual ao campo de busca */
+  font-size: 2em; /* Mesma fonte do campo de busca */
+  background-color: #fff; /* Fundo branco */
+  padding: 5px; /* Espaçamento interno */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra leve para combinar */
+}
+
+/* Mantendo o estilo de foco */
+.info-group > select:focus {
+  border: 2px solid #c26120; /* Destaque da borda ao focar */
+}
+
 table {
     border-collapse: collapse;
     width: 100%;

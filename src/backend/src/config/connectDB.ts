@@ -2168,6 +2168,7 @@ INSERT INTO foods (
         users_id INT NOT NULL,
         date DATE NOT NULL,
         quantity FLOAT NOT NULL,
+		meal VARCHAR(255) NOT NULL,
         CONSTRAINT fk_eat_foods_foods FOREIGN KEY (foods_id) REFERENCES foods (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
         CONSTRAINT fk_eat_foods_users FOREIGN KEY (users_id) REFERENCES users (id) ON DELETE NO ACTION ON UPDATE NO ACTION
       );

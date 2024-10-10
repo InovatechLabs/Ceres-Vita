@@ -24,7 +24,7 @@ const FoodRegister: React.FC = () => {
     // Função para calcular a soma dos nutrientes e outros dados
     const calculateTotal = (field: keyof Food) => {
         return foodLog.reduce((acc, logItem) => {
-            const food = foodData.find(f => f.id === logItem.foods_id); // Corrigido de 'food_id' para 'foods_id'
+            const food = foodData.find(f => f.id === logItem.foods_id);
             if (food && food[field] !== null) {
                 const quantityFactor = logItem.quantity / 100; // Ajuste da quantidade proporcional ao registro
                 return acc + (food[field] as number) * quantityFactor;
@@ -138,7 +138,7 @@ const FoodRegister: React.FC = () => {
                         type="text" 
                         id="food-search" 
                         value={foodName} 
-                        onChange={(e) => setFoodName(e.target.value)} 
+                        onChange={(e) => setFoodName(e.target.value)}  // Corrigido onChange
                     />
                     <div className="food-buttons">
                         <button className="food-button" onClick={handleSearch}>Alimento</button>
@@ -162,11 +162,21 @@ const FoodRegister: React.FC = () => {
                     <div className="food-infos">
                         <div className="info-group">
                             <label htmlFor='date-eaten' id='date-eaten-label'>Data de Consumo:</label>
-                            <input type='text' id='date-eaten' value={currentDate} />
+                            <input 
+                                type='text' 
+                                id='date-eaten' 
+                                value={currentDate} 
+                                readOnly  // Campo de data somente leitura
+                            />
                         </div>
                         <div className="info-group">
                             <label htmlFor='quantity' id='quantity-label'>Quantidade (padrão 100g):</label>
-                            <input type='text' id='quantity' />
+                            <input 
+                                type='text' 
+                                id='quantity' 
+                                value={100} // Exemplo, pode ser ajustado
+                                onChange={(e) => handleSelectFood(Number(e.target.value), 100)} // Adicionando um onChange
+                            />
                         </div>
                     </div>
 
