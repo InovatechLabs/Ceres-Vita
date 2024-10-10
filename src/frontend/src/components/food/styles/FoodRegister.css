@@ -56,6 +56,7 @@ html, body {
     width: 57.5%;
     margin-left: 10px;
     font-size: 2em;
+    border-radius: 5px;
 }
 
 #food-search-label {
@@ -117,6 +118,7 @@ html, body {
     font-size: 35px;
     font-weight: 500;
     margin: 10px; /* Espaçamento entre a label e o input */
+   
 }
 
 .food-infos > input {
@@ -125,7 +127,7 @@ html, body {
     outline: none;
     width: 100%; /* Para ocupar toda a largura do grupo */
     font-size: 2em;
-    
+    border-radius: 5px;
 }
 
 .info-group > input {
@@ -136,6 +138,7 @@ html, body {
     width: 100%; /* Para ocupar toda a largura do grupo */
     font-size: 2em;
     margin: 10px;
+    border-radius: 5px;
 }
 
 table {
@@ -274,4 +277,29 @@ tr:nth-child(even) {
 
     text-align: center;
     margin-top: 5%;
+  }
+
+  .info-group select {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+    width: 100%;
+    max-width: 300px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  
+  .info-group select:focus {
+    border-color: #89cdb3; 
+    box-shadow: 0 0 5px rgba(137, 205, 179, 0.5);
+    outline: none;
+  }
+  
+  .info-group select option {
+    padding: 10px;
+    background-color: #fff;
   }
