@@ -33,6 +33,7 @@ const Login: FC = () => {
         if (submit.token) {
           // Armazenar o token no sessionStorage, verificando se não é undefined
           sessionStorage.setItem("token", submit.token);
+          sessionStorage.setItem("id", submit.user.id);
         setIsLogin(true);
         navigate("/home");  // Redireciona o usuário após o login bem-sucedido
       } else {

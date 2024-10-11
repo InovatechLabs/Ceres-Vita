@@ -24,7 +24,7 @@ const FoodRegister: React.FC = () => {
     // Função para calcular a soma dos nutrientes e outros dados
     const calculateTotal = (field: keyof Food) => {
         return foodLog.reduce((acc, logItem) => {
-            const food = foodData.find(f => f.id === logItem.foods_id);
+            const food = foodData.find(f => f.id === logItem.foodId);
             if (food && food[field] !== null) {
                 const quantityFactor = logItem.quantity / 100; // Ajuste da quantidade proporcional ao registro
                 return acc + (food[field] as number) * quantityFactor;
@@ -52,7 +52,9 @@ const FoodRegister: React.FC = () => {
         setSelectedFoods(prevSelectedFoods => {
             const existingFood = prevSelectedFoods.find(food => food.foodId === foodId);
             if (existingFood) {
-                return prevSelectedFoods.map(food => food.foodId === foodId ? { ...food, quantity } : food);
+                return prevSelectedFoods.map(food => 
+                    food.foodId === foodId ? { ...food, quantity } : food
+                );
             } else {
                 return [...prevSelectedFoods, { foodId, quantity }];
             }
@@ -62,11 +64,12 @@ const FoodRegister: React.FC = () => {
     const handleSubmit = async () => {
         try {
             for (const food of selectedFoods) {
+                const quantityDivided = food.quantity / 100;
                 await axios.post('http://localhost:3030/api/food/log-food', {
                     foodId: food.foodId,
                     userId,
                     date: currentDate,
-                    quantity: food.quantity || 100,
+                    quantity: quantityDivided || 1,
                     meal: selectedMeal
                 });
             }
@@ -166,21 +169,15 @@ const FoodRegister: React.FC = () => {
                                 type='text' 
                                 id='date-eaten' 
                                 value={currentDate} 
-                                readOnly  // Campo de data somente leitura
+                                readOnly  
                             />
                         </div>
                         <div className="info-group">
-                            <label htmlFor='quantity' id='quantity-label'>Quantidade (padrão 100g):</label>
-                            <input 
-                                type='text' 
-                                id='quantity' 
-                                value={100} // Exemplo, pode ser ajustado
-                                onChange={(e) => handleSelectFood(Number(e.target.value), 100)} // Adicionando um onChange
-                            />
+                            
                         </div>
                     </div>
 
-                    {/* Apenas exibe a tabela de busca se houver dados de alimentos */}
+                    
                     {foodData.length > 0 && (
                         <div className="table-scroll-container">
                             <div className="table-header-scroll">
@@ -189,6 +186,7 @@ const FoodRegister: React.FC = () => {
                                         <thead>
                                             <tr className="table-header">
                                                 <th>Selecionar</th>
+                                                <th>Quantidade</th>
                                                 <th>Nome</th>
                                                 <th>Calorias</th>
                                                 <th>Carboidratos (g)</th>
@@ -204,14 +202,24 @@ const FoodRegister: React.FC = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {foodData.map(food => (
-                                                <tr key={food.id}>
-                                                    <td>
-                                                        <input
-                                                            type="checkbox"
-                                                            onChange={(e) => handleSelectFood(food.id, e.target.checked ? 100 : 0)}
-                                                        />
-                                                    </td>
+                                        {foodData.map(food => (
+    <tr key={food.id}>
+        <td>
+            <input
+                type="checkbox"
+                onChange={(e) => handleSelectFood(food.id, e.target.checked ? 100 : 0)}
+                className='select-g'
+            />
+        </td>
+        <td>
+            <input
+                type="number"
+                defaultValue={100}
+                onChange={(e) => handleSelectFood(food.id, Number(e.target.value))}
+                min="1"
+                className='select-g'
+            />
+        </td>
                                                     <td>{food.description}</td>
                                                     <td>{food.energy !== null ? food.energy : 'N/A'}</td>
                                                     <td>{food.carbohydrate !== null ? food.carbohydrate : 'N/A'}</td>
@@ -247,7 +255,7 @@ const FoodRegister: React.FC = () => {
 
                     {/* Tabela de Soma Total */}
                     {showFoodLog && (
-                        <div className="summary-table-container"> {/* Classe para manter largura da tabela */}
+                        <div className="summary-table-container"> 
                             <h2>Soma Total dos Nutrientes</h2>
                             <table className="food-table"> {/* Usando a mesma classe de estilo */}
                                 <thead>

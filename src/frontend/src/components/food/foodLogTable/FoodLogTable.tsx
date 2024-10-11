@@ -15,16 +15,16 @@ const FoodLogTable: React.FC<FoodLogTableProps> = ({ foodLog }) => {
                         <th>Alimento</th>
                         <th>Quantidade (g)</th>
                         <th>Data</th>
-                        <th>Refeição</th> {/* Nova coluna para Refeição */}
+                        <th>Refeição</th> 
                     </tr>
                 </thead>
                 <tbody>
                     {foodLog.map((logItem, index) => (
                         <tr key={index}>
                             <td>{logItem.food_name}</td>
-                            <td>{logItem.quantity}g</td>
+                            <td>{logItem.quantity * 100}g</td>
                             <td>{new Date(logItem.date).toLocaleDateString('pt-BR')}</td>
-                            <td>{logItem.meal}</td> {/* Exibe o tipo de refeição */}
+                            <td>{logItem.meal}</td> 
                         </tr>
                     ))}
                 </tbody>
