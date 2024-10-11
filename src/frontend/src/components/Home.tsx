@@ -25,6 +25,9 @@ function Home() {
   const handleRegisterClick = () => {
     navigate('/register'); // redireciona para a rota /register
   };
+  const handleUserPageClick = () => {
+    navigate('/user-page'); // redireciona para a rota /user-page
+  };
   const handleRegisterFoodClick = () => {
     navigate('/food-register');
   }
