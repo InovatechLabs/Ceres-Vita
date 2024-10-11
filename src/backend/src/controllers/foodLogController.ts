@@ -3,13 +3,13 @@ import { pool } from "../config/connectDB"; // Correct import of pool
 
 // Log the food consumed by a user
 export const logFood = async (req: Request, res: Response) => {
-  const { foodId, userId, quantity, date, meal } = req.body; // Incluindo o campo 'meal'
+  const { foodId, userId, quantity, date, meal } = req.body; // Incluindo o campo 'quantity' corretamente
 
   try {
-    // Adiciona o 'meal' na query de inserção
+    // Adiciona o 'quantity' na query de inserção
     await pool.query(
       "INSERT INTO eat_foods (foods_id, users_id, date, quantity, meal) VALUES ($1, $2, $3, $4, $5)",
-      [foodId, userId, date, quantity, meal] // Inclui o valor de 'meal'
+      [foodId, userId, date, quantity, meal] // Inclui o valor de 'quantity'
     );
     return res.status(200).json({ message: "Food logged successfully!" });
   } catch (error) {
@@ -29,7 +29,7 @@ export const getFoodLog = async (req: Request, res: Response) => {
     let result;
 
     if (date) {
-      // Inclui o campo 'meal' na consulta SQL
+      // Inclui o campo 'meal' e 'quantity' na consulta SQL
       result = await pool.query(
         `SELECT eat_foods.id AS eat_id, 
                 eat_foods.foods_id, 
@@ -37,14 +37,14 @@ export const getFoodLog = async (req: Request, res: Response) => {
                 eat_foods.users_id AS user_id, 
                 eat_foods.date, 
                 eat_foods.quantity, 
-                eat_foods.meal  -- Inclui o campo 'meal'
+                eat_foods.meal  
          FROM eat_foods 
          JOIN foods ON eat_foods.foods_id = foods.id 
          WHERE eat_foods.users_id = $1 AND eat_foods.date = $2`,
         [userId, date]
       );
     } else {
-      // Inclui o campo 'meal' na consulta SQL quando a data não está presente
+      // Inclui o campo 'meal' e 'quantity' na consulta SQL quando a data não está presente
       result = await pool.query(
         `SELECT eat_foods.id AS eat_id, 
                 eat_foods.foods_id, 
@@ -52,7 +52,7 @@ export const getFoodLog = async (req: Request, res: Response) => {
                 eat_foods.users_id AS user_id, 
                 eat_foods.date, 
                 eat_foods.quantity, 
-                eat_foods.meal  -- Inclui o campo 'meal'
+                eat_foods.meal  
          FROM eat_foods 
          JOIN foods ON eat_foods.foods_id = foods.id 
          WHERE eat_foods.users_id = $1`,
