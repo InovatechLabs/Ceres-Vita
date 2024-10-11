@@ -121,7 +121,7 @@ function Home() {
             <div className='buttons-logged-text'>
             <p id='register-text'>Ou, se você já possui...</p>
             <div className='buttons-logged-div'>
-            <button className='logged-buttons'>Meu perfil</button>
+            <button className='logged-buttons' onClick={handleUserPageClick}>Meu perfil</button>
             <button className='logged-buttons' onClick={handleRegisterFoodClick}>Registro de ingestão</button>
             <button className='logged-buttons'>Dietas</button>
             </div>
@@ -224,4 +224,3 @@ function Home() {
   }
   
   export default Home;
-  

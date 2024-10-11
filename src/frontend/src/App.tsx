@@ -6,6 +6,7 @@ import Login from './components/login/Login';
 import AuthenticatedRoute from './components/auth/AuthenticatedRoute';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import FoodRegister from './components/food/FoodRegister';
+import UserPage from './userpage/UserPage';
 
 function App() {
   const isAuthenticated = !!sessionStorage.getItem('token'); // Verifica se o usuário está autenticado
@@ -51,9 +52,9 @@ function App() {
           }
         />
          <Route
-          path="*"
+          path="/user-page"
           element={
-            <Home />
+              <UserPage />
           }
         />
 

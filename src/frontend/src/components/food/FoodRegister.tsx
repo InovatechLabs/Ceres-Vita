@@ -6,6 +6,7 @@ import axios from 'axios';
 import Food, { FoodLog } from '../../types/Food';
 import FoodLogTable from './foodLogTable/FoodLogTable';
 import GlobalStyles from './styles/GlobalStyles';
+import { useNavigate } from "react-router-dom";
 
 const FoodRegister: React.FC = () => {
     const userId = sessionStorage.getItem('id');
@@ -19,6 +20,12 @@ const FoodRegister: React.FC = () => {
     const [showFoodLog, setShowFoodLog] = useState(false);
     const [selectedMeal, setSelectedMeal] = useState<string>('');
     const [showHistory, setShowHistory] = useState(false);
+
+    const navigate = useNavigate(); // Hook de navegação
+
+    const handleRegisterClick = () => {
+        navigate('/home'); // Redireciona para a rota /home
+    };
 
     const mealOptions = ['Café da manhã', 'Lanche da manhã', 'Almoço', 'Lanche da tarde', 'Jantar', 'Ceia'];
 
@@ -102,7 +109,7 @@ const FoodRegister: React.FC = () => {
     const handleSubmit = async () => {
         const today = new Date();
         const selectedDate = new Date(originalDate);
-        
+
         if (selectedDate > today) {
             alert('Não é possível registrar alimentos para datas futuras!');
             return;
@@ -170,7 +177,7 @@ const FoodRegister: React.FC = () => {
                 </label>
                 <label className="logo">Ceres Vita</label>
                 <ul>
-                    <li>Home</li>
+                    <li onClick={handleRegisterClick}>Home</li>
                     <li>Missão</li>
                     <li>Planos</li>
                     <li>Receitas</li>
@@ -181,10 +188,10 @@ const FoodRegister: React.FC = () => {
                 <div className="card-registerfood">
                     <h1 id='card-title'>Registro de Ingestão</h1>
                     <label htmlFor="food-search" id='food-search-label'>Busque o alimento ou produto consumido:</label>
-                    <input 
-                        type="text" 
-                        id="food-search" 
-                        value={foodName} 
+                    <input
+                        type="text"
+                        id="food-search"
+                        value={foodName}
                         onChange={(e) => setFoodName(e.target.value)}
                     />
                     <div className="food-buttons">
@@ -209,10 +216,10 @@ const FoodRegister: React.FC = () => {
                     <div className="food-infos">
                         <div className="info-group">
                             <label htmlFor='date-eaten' id='date-eaten-label'>Data de Consumo:</label>
-                            <input 
-                                type='date' 
-                                id='date-eaten' 
-                                value={currentDate} 
+                            <input
+                                type='date'
+                                id='date-eaten'
+                                value={currentDate}
                                 onChange={handleDateChange}
                                 max={new Date().toISOString().split('T')[0]} // Impede datas futuras
                             />
