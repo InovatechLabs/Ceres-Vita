@@ -10,16 +10,8 @@ import axios from 'axios';
 
 
 function Home() {
-  const [firstName, setFirstName] = useState('');
 
-  useEffect(() => {
-    const encodedUsername = sessionStorage.getItem('username');
-    if (encodedUsername) {
-      const username = atob(encodedUsername); // Decodificando com base64
-      const firstName = username.split(' ');
-      setFirstName(firstName[0]);
-    }
-  }, []);
+ 
   const navigate = useNavigate();
   const StyledParagraph = styled.p`
     color: #AF5F18;
@@ -32,6 +24,9 @@ function Home() {
 
   const handleRegisterClick = () => {
     navigate('/register'); // redireciona para a rota /register
+  };
+  const handleUserPageClick = () => {
+    navigate('/user-page'); // redireciona para a rota /user-page
   };
   const handleRegisterFoodClick = () => {
     navigate('/food-register');
@@ -66,9 +61,6 @@ function Home() {
         sessionStorage.setItem('id', response.user.id);
       }
 
-      if(response.user && response.user.username) {
-        sessionStorage.setItem('username', btoa(response.user.username));
-      }
     } catch (error) {
       setErrorMessage('Ocorreu um erro no login.');
     }
@@ -144,7 +136,7 @@ function Home() {
               left: '50%', 
               transform: 'translateX(-50%)',
               letterSpacing: '3px'  }}>
-              <h2>Seja bem-vindo {firstName} !</h2>
+              <h2>Seja bem-vindo !</h2>
             </div>
           ) : (
             <form onSubmit={handleLogin}>

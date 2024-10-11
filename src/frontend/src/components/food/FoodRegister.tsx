@@ -110,11 +110,12 @@ const FoodRegister: React.FC = () => {
 
         try {
             for (const food of selectedFoods) {
+                const quantityDivided = food.quantity / 100;
                 await axios.post('http://localhost:3030/api/food/log-food', {
                     foodId: food.foodId,
                     userId,
                     date: currentDate,
-                    quantity: food.quantity,
+                    quantity: quantityDivided || 1,
                     meal: selectedMeal
                 });
             }
@@ -217,7 +218,6 @@ const FoodRegister: React.FC = () => {
                             />
                         </div>
                     </div>
-
                     {foodData.length > 0 && (
                         <div className="table-scroll-container">
                             <div className="table-header-scroll">
