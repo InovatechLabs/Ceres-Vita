@@ -22,9 +22,6 @@ export const logFood = async (req: Request, res: Response) => {
 export const getFoodLog = async (req: Request, res: Response) => {
   const { userId, date } = req.params;
 
-  console.log("UserID:", userId);
-  console.log("Date:", date);
-
   try {
     let result;
 

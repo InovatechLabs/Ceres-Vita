@@ -6,8 +6,8 @@ import logo from '../logo.jpg';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { loginUser } from '../service/index.service';
-import axios from 'axios';
-
+import HomeReceipts from './homereceipts/HomeReceipts';
+import { scrollToSection } from '../utils/smoothscroll';
 
 function Home() {
 
@@ -96,9 +96,9 @@ function Home() {
         <label className="logo">Ceres Vita</label>
         <ul>
             <li>Home</li>
-            <li>Missão</li>
+            <li onClick={() => scrollToSection('ourGoal')}>Missão</li>
             <li>Planos</li>
-            <li>Receitas</li>
+            <li onClick={() => scrollToSection('receipts')}>Receitas</li>
             <li>Contatos</li>
             
         </ul>
@@ -207,7 +207,7 @@ function Home() {
   
   </div>
         </section>
-        <section className='ourGoal'>
+        <section className='ourGoal' id='ourGoal'>
           <div className='infos-container'>
             <h1>Nossa Missão</h1>
             <p>Na <StyledParagraph>Ceres Vita</StyledParagraph>, cada refeição é uma <StyledParagraph>oportunidade</StyledParagraph> para <StyledParagraph>transformar</StyledParagraph> a sua vida. Nossa plataforma foi criada para oferecer uma experiência de nutrição verdadeiramente <StyledParagraph>excepcional</StyledParagraph>, onde a <StyledParagraph>simplicidade</StyledParagraph> se une à <StyledParagraph>eficácia</StyledParagraph>, e a beleza ao bem-estar.</p>
@@ -216,6 +216,12 @@ function Home() {
             </p>
             </div>
             <img src='https://i.imgur.com/TAMgOtS.png' className='img-2'/>
+        </section>
+        <section id='receipts'>
+          <div className='receipts-title'>
+            <h1>Receitas</h1>
+          </div>
+            <HomeReceipts />
         </section>
      
       </>

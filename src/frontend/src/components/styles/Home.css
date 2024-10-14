@@ -4,6 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Bowlby+One+SC&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Carattere&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Overlock:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dangrek&display=swap');
 
 
 html, body {
@@ -737,6 +738,28 @@ ul li:hover::after{
     height: 658px;
     margin-right: 20px;
 
+  }
+
+  #receipts {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #f0a260;
+  }
+
+  .receipts-title {
+    background-color: #C07029;
+    width: 100%;
+    font-family: 'Dangrek', sans-serif;
+    text-align: center;
+    font-size: 40px;
+  }
+
+  .receipts-title > h1 {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 10px;
   }
   
 

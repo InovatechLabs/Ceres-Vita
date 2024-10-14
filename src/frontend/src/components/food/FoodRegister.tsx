@@ -264,6 +264,7 @@ const FoodRegister: React.FC = () => {
                                                     <td>
                                                         <input
                                                             type="number"
+                                                            className='quantityinput'
                                                             value={getFoodQuantity(food.id)}
                                                             onChange={(e) => {
                                                                 const quantity = Number(e.target.value);

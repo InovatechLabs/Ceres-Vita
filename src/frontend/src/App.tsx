@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home'; // Componente da página inicial
 import Register from './components/register/Register';
@@ -10,12 +10,6 @@ import UserPage from './userpage/UserPage';
 
 function App() {
   const isAuthenticated = !!sessionStorage.getItem('token'); // Verifica se o usuário está autenticado
-
-  if(isAuthenticated) {
-      console.log('Tá logado')
-  } else {
-    console.log("nao tá logado")
-  }
 
   return (
     <Router>
@@ -55,6 +49,12 @@ function App() {
           path="/user-page"
           element={
               <UserPage />
+          }
+        />
+        <Route
+          path="*"
+          element={
+              <Home />
           }
         />
 
