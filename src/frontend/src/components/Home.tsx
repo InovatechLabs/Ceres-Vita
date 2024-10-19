@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import { loginUser } from '../service/index.service';
 import HomeReceipts from './homereceipts/HomeReceipts';
 import { scrollToSection } from '../utils/smoothscroll';
+import Contact from './contact/Contact';
 
 function Home() {
 
@@ -99,7 +100,7 @@ function Home() {
             <li onClick={() => scrollToSection('ourGoal')}>Missão</li>
             <li>Planos</li>
             <li onClick={() => scrollToSection('receipts')}>Receitas</li>
-            <li>Contatos</li>
+            <li onClick={() => scrollToSection('contact')}>Contatos</li>
             
         </ul>
 
@@ -223,7 +224,13 @@ function Home() {
           </div>
             <HomeReceipts />
         </section>
-     
+        <section  className='contact' id='contact'>
+            <Contact />
+            <div className='footer'>
+            &#169; Innovatech Labs. Todos direitos reservados.
+            </div>
+        </section>
+            
       </>
     )
     

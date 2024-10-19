@@ -10,8 +10,8 @@
 html, body {
     margin: 0;
     padding: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+   
 }
 
 .topGreenContainer {
@@ -538,9 +538,9 @@ ul li:hover::after{
     background-color: #E09049;
     width: 400px;
     border-radius: 35px;
-  padding: 20px;
+  padding: 30px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: 250px;
+    height: 270px;
     cursor: pointer;
     transition: .2s;
   }
@@ -562,7 +562,7 @@ ul li:hover::after{
     margin: 0;
     font-family: 'Overlock', sans-serif;
     color: #fff;
-    font-size: 28px;
+    font-size: 24px;
   }
 
   /* Seção de media queries para o layout do grid */
@@ -761,6 +761,20 @@ ul li:hover::after{
     text-transform: uppercase;
     letter-spacing: 10px;
   }
-  
 
+  .contact {
+      background-color: #A3B68A;
+      min-height: 100vh;
+  }
+
+  .footer {
+    background-color: #55834a;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    font-size: 25px;
+    margin-top: 30px;
+  }
+  
+  
   /* aaaa */

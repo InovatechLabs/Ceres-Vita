@@ -1,5 +1,6 @@
 import React from 'react';
-import './Contact.css'; // Arquivo de estilos separado
+import './Contact.css'; 
+import ContactMap from './Map/ContactMap';
 
 interface InfoItemProps {
   iconSrc: string;
@@ -26,6 +27,17 @@ const Contact: React.FC = () => {
       <InfoItem iconSrc="https://cdn0.iconfinder.com/data/icons/line-action-bar/48/email-512.png" text="contato@ceresvita.com.br" altText="Email Icon" />
       <InfoItem iconSrc="https://cdn4.iconfinder.com/data/icons/icon-flat-icon-set/50/localization-512.png" text="R. Faria Lima, 155 - Jardim Santa Maria, Jacareí - SP, 12328-070" altText="Address Icon" />
     </div>
+    <div className="container1">
+            <div className="left-section">
+                 <ContactMap />
+            </div>
+            <div className="right-section">
+                <input type="text" placeholder="Nome" className="input-text" required/>
+                <input type="email" placeholder="E-mail" className="input-text" />
+                <textarea placeholder="Deixe aqui sua dúvida ou sugestão" className="textarea"></textarea>
+                <button className="save-btn">Salvar</button>
+            </div>
+        </div>
     </div>
     </>
   );
