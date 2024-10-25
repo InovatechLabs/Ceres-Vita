@@ -60,7 +60,7 @@ Os entregáveis serão realizados conforme as datas previamente acordadas com o 
 
 # 📰 Modelo Entidade Relacionamento
 
-![Modelo Entidade Relacionamento](https://raw.githubusercontent.com/InovatechLabs/Ceres-Vita/refs/heads/main/postgresdb/database_model_ceres_vita.png)
+![Modelo Entidade Relacionamento](https://github.com/InovatechLabs/Ceres-Vita/blob/main/docs/EDR.png)
 
 # :bust_in_silhouette: User Stories
 
