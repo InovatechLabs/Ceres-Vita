@@ -23,7 +23,7 @@ Os entregáveis serão realizados conforme as datas previamente acordadas com o 
 | Sprint  | Previsão de Entrega   | Status                            | Backlog das Sprints                                       | Retrospectiva das Sprints
 | ------- | --------------------- | --------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------- |
 | :one:   | :calendar: 20/09/2024 | :green_square: Concluído          | :round_pushpin: [Ver Relatório](./docs/spb1.md)           | :round_pushpin: [Concluído](./docs/spr1.md)                   |
-| :two:   | :calendar: 11/10/2024 | :green_square: Concluído          | :round_pushpin: [Ver Relatório](./docs/spb2.md)           | :round_pushpin: [Pendente](./docs/spr2.md)                    |
+| :two:   | :calendar: 11/10/2024 | :green_square: Concluído          | :round_pushpin: [Ver Relatório](./docs/spb2.md)           | :round_pushpin: [Concluído](./docs/spr2.md)                   |
 | :three: | :calendar: 08/11/2024 | :red_square: Não Iniciado         | :round_pushpin: [Ver Relatório](./misc/sprintbacklog3.md) | :round_pushpin: [Pendente](./docs/spr3.md)                    |
 
 # :triangular_flag_on_post: Backlog do Produto
