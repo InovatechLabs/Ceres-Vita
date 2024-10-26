@@ -7,6 +7,7 @@ import Food, { FoodLog } from '../../types/Food';
 import FoodLogTable from './foodLogTable/FoodLogTable';
 import GlobalStyles from './styles/GlobalStyles';
 import { useNavigate } from "react-router-dom";
+import { NutritionalData, NutrientsTableProps } from '../../types/Calculate';
 
 const FoodRegister: React.FC = () => {
     const userId = sessionStorage.getItem('id');
@@ -20,6 +21,33 @@ const FoodRegister: React.FC = () => {
     const [showFoodLog, setShowFoodLog] = useState(false);
     const [selectedMeal, setSelectedMeal] = useState<string>('');
     const [showHistory, setShowHistory] = useState(false);
+    const [isTableVisible, setIsTableVisible] = useState(false);
+
+    const toggleTableVisibility = () => {
+        setIsTableVisible((prev) => !prev);
+      };
+
+    const [nutritionalData, setNutritionalData] = useState<NutritionalData | null>(null);
+
+    const formatNumber = (num: number) => {
+        return num !== null ? num.toFixed(2) : 0; 
+      };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('http://localhost:3030/api/food/calculate-nutrients/1/2024-10-25'); 
+                const data: NutritionalData = await response.json();
+                setNutritionalData(data);
+                console.log(data)
+            } catch (error) {
+                console.error("Erro ao buscar dados:", error);
+                setNutritionalData(null); // ou lidar com erro de outra forma
+            }
+        };
+
+        fetchData();
+    }, []);
 
     const navigate = useNavigate(); // Hook de navegação
 
@@ -310,6 +338,10 @@ const FoodRegister: React.FC = () => {
                         <button>Gerar Gráfico de Consumo</button>
                     </div>
 
+                    <button onClick={toggleTableVisibility} id='show-calculate'>
+        {isTableVisible ? 'Ocultar Tabela' : 'mostrar cálculo total de nutrientes'}
+      </button>
+
                     {showHistory && (
                         <>
                             <div className='button-save' style={{ textAlign: 'right' }}>
@@ -356,7 +388,396 @@ const FoodRegister: React.FC = () => {
                             </table>
                         </div>
                     )}
+                    <div>
+      {nutritionalData && isTableVisible ? (
+         <table>
+         <thead>
+           <tr>
+             <th>Nutriente</th>
+             <th>Quantidade</th>
+             <th>Unidade</th>
+           </tr>
+         </thead>
+         <tbody>
+         <tr>
+  <td>Calorias totais dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_energy_from_foods ?? 0)}</td>
+  <td>kcal</td>
+</tr>
+<tr>
+  <td>Proteína total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_protein_from_foods ?? 0)}</td>
+  <td>g</td>
+</tr>
+<tr>
+  <td>Lípidos totais dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_lipids_from_foods ?? 0)}</td>
+  <td>g</td>
+</tr>
+<tr>
+  <td>Carboidratos totais dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_carbohydrate_from_foods ?? 0)}</td>
+  <td>g</td>
+</tr>
+<tr>
+  <td>Fibra alimentar total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_dietary_fiber_from_foods ?? 0)}</td>
+  <td>g</td>
+</tr>
+<tr>
+  <td>Colesterol total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_cholesterol_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Ácidos graxos saturados totais dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_saturated_fatty_acids_from_foods ?? 0)}</td>
+  <td>g</td>
+</tr>
+<tr>
+  <td>Ácidos graxos monoinsaturados totais dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_monounsaturated_fatty_acids_from_foods ?? 0)}</td>
+  <td>g</td>
+</tr>
+<tr>
+  <td>Ácidos graxos poli-insaturados totais dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_polyunsaturated_fatty_acids_from_foods ?? 0)}</td>
+  <td>g</td>
+</tr>
+<tr>
+  <td>Ácido linoleico total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_linoleic_acid_from_foods ?? 0)}</td>
+  <td>g</td>
+</tr>
+<tr>
+  <td>Ácido linolênico total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_linolenic_acid_from_foods ?? 0)}</td>
+  <td>g</td>
+</tr>
+<tr>
+  <td>Ácidos graxos trans totais dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_trans_fatty_acids_from_foods ?? 0)}</td>
+  <td>g</td>
+</tr>
+<tr>
+  <td>Açúcares totais dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_sugars_from_foods ?? 0)}</td>
+  <td>g</td>
+</tr>
+<tr>
+  <td>Açúcares adicionados totais dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_added_sugars_from_foods ?? 0)}</td>
+  <td>g</td>
+</tr>
+<tr>
+  <td>Cálcio total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_calcium_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Magnésio total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_magnesium_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Manganês total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_manganese_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Fósforo total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_phosphorus_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Ferro total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_iron_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Sódio total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_sodium_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Sódio adicionado total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_added_sodium_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Potássio total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_potassium_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Cobre total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_copper_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Zinco total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_zinc_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Selênio total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_selenium_from_foods ?? 0)}</td>
+  <td>mcg</td>
+</tr>
+<tr>
+  <td>Retinol total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_retinol_from_foods ?? 0)}</td>
+  <td>mcg</td>
+</tr>
+<tr>
+  <td>Vitamina A (RAE) total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_vitamin_A_RAE_from_foods ?? 0)}</td>
+  <td>mcg</td>
+</tr>
+<tr>
+  <td>Tiamina total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_thiamin_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Riboflavina total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_riboflavin_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Niacina total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_niacin_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Equivalente de niacina total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_niacin_equivalent_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Piridoxina total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_pyridoxine_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Cobalamina total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_cobalamin_from_foods ?? 0)}</td>
+  <td>mcg</td>
+</tr>
+<tr>
+  <td>Ácido fólico total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_folate_from_foods ?? 0)}</td>
+  <td>mcg</td>
+</tr>
+<tr>
+  <td>Vitamina D total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_vitamin_D_from_foods ?? 0)}</td>
+  <td>mcg</td>
+</tr>
+<tr>
+  <td>Vitamina E total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_vitamin_E_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Vitamina C total dos alimentos</td>
+  <td>{formatNumber(nutritionalData.total_vitamin_C_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Energia total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_energy_from_products ?? 0)}</td>
+  <td>kcal</td>
+</tr>
+<tr>
+  <td>Proteína total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_protein_from_products ?? 0)}</td>
+  <td>g</td>
+</tr>
+<tr>
+  <td>Lípidos totais dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_lipids_from_foods ?? 0)}</td>
+  <td>g</td>
+</tr>
+<tr>
+  <td>Carboidratos totais dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_carbohydrate_from_products ?? 0)}</td>
+  <td>g</td>
+</tr>
+<tr>
+  <td>Fibra alimentar total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_dietary_fiber_from_products ?? 0)}</td>
+  <td>g</td>
+</tr>
+<tr>
+  <td>Colesterol total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_cholesterol_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Ácidos graxos saturados totais dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_saturated_fatty_acids_from_products ?? 0)}</td>
+  <td>g</td>
+</tr>
+<tr>
+  <td>Ácidos graxos monoinsaturados totais dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_monounsaturated_fatty_acids_from_foods ?? 0)}</td>
+  <td>g</td>
+</tr>
+<tr>
+  <td>Ácidos graxos poli-insaturados totais dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_polyunsaturated_fatty_acids_from_foods ?? 0)}</td>
+  <td>g</td>
+</tr>
+<tr>
+  <td>Ácido linoleico total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_linoleic_acid_from_foods ?? 0)}</td>
+  <td>g</td>
+</tr>
+<tr>
+  <td>Ácido linolênico total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_linolenic_acid_from_foods ?? 0)}</td>
+  <td>g</td>
+</tr>
+<tr>
+  <td>Ácidos graxos trans totais dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_trans_fatty_acids_from_products ?? 0)}</td>
+  <td>g</td>
+</tr>
+<tr>
+  <td>Açúcares totais dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_sugars_from_foods ?? 0)}</td>
+  <td>g</td>
+</tr>
+<tr>
+  <td>Açúcares adicionados totais dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_added_sugars_from_foods ?? 0)}</td>
+  <td>g</td>
+</tr>
+<tr>
+  <td>Cálcio total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_calcium_from_products ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Magnésio total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_magnesium_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Manganês total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_manganese_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Fósforo total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_phosphorus_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Ferro total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_iron_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Sódio total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_sodium_from_products ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Sódio adicionado total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_added_sodium_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Potássio total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_potassium_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Cobre total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_copper_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Zinco total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_zinc_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Selênio total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_selenium_from_foods ?? 0)}</td>
+  <td>mcg</td>
+</tr>
+<tr>
+  <td>Retinol total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_retinol_from_foods ?? 0)}</td>
+  <td>mcg</td>
+</tr>
+<tr>
+  <td>Vitamina A (RAE) total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_vitamin_A_RAE_from_foods ?? 0)}</td>
+  <td>mcg</td>
+</tr>
+<tr>
+  <td>Tiamina total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_thiamin_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Riboflavina total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_riboflavin_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Niacina total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_niacin_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Equivalente de niacina total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_niacin_equivalent_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Piridoxina total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_pyridoxine_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Cobalamina total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_cobalamin_from_foods ?? 0)}</td>
+  <td>mcg</td>
+</tr>
+<tr>
+  <td>Ácido fólico total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_folate_from_foods ?? 0)}</td>
+  <td>mcg</td>
+</tr>
+<tr>
+  <td>Vitamina D total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_vitamin_D_from_foods ?? 0)}</td>
+  <td>mcg</td>
+</tr>
+<tr>
+  <td>Vitamina E total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_vitamin_E_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+<tr>
+  <td>Vitamina C total dos produtos</td>
+  <td>{formatNumber(nutritionalData.total_vitamin_C_from_foods ?? 0)}</td>
+  <td>mg</td>
+</tr>
+         </tbody>
+       </table>
+      ) : (
+        <p></p>
+      )}
+      
+    </div>
                 </div>
+                
             </div>
         </>
     );

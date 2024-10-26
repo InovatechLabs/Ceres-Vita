@@ -4,7 +4,7 @@ import { pool } from "../config/connectDB";
 // Controller to calculate the total nutrients for a user on a specific date
 export const calculateNutrients = async (req: Request, res: Response) => {
   const { userId } = req.params;
-  const { date } = req.query;
+  const { date } = req.params;
 
   try {
     const result = await pool.query(

@@ -18,6 +18,7 @@ export default function UserPage() {
   const [error, setError] = useState<string | null>(null);
   const [showPopup, setShowPopup] = useState(false);
   const [messagePopup, setMessagePopup] = useState("");
+  const [userInfo, setUserInfo] = useState<{ username: string, email: string } | null>(null);
 
   const options = [
     { value: "female", label: "Feminino" },
@@ -30,6 +31,38 @@ export default function UserPage() {
     navigate('/home'); // Redireciona para a rota /home
   };
 
+  const fetchUserInfo = async () => {
+    const storedUserId = sessionStorage.getItem("id");
+    if (storedUserId) {
+      const userId = parseInt(storedUserId, 10);
+      try {
+        const response = await fetch("http://localhost:3030/api/user/verify-profile", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ userId })
+        });
+
+        if (!response.ok) {
+          console.log("Erro ao buscar dados do usuário");
+        }
+
+        const data = await response.json();
+
+        console.log(data);
+        setUserInfo(data.userinfo);
+
+      } catch (error) {
+        console.error("Erro ao buscar dados do usuário:", error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchUserInfo();
+  }, []);
+
   useEffect(() => {
     const storedProfile = sessionStorage.getItem("userProfile");
     if (storedProfile) {
@@ -40,7 +73,7 @@ export default function UserPage() {
       setHeight(parsedProfile.height);
       setSex(parsedProfile.sex);
     }
-  }, []);
+  }, []); 
 
   const saveProfileToSession = (profileData: any) => {
     sessionStorage.setItem("userProfile", JSON.stringify(profileData));
@@ -64,6 +97,34 @@ export default function UserPage() {
       setProfile(updatedProfile);
       setMessagePopup("Perfil salvo com sucesso");
       setShowPopup(true);
+  
+      const storedUser = sessionStorage.getItem("id");
+      if (storedUser) {
+        const userId = parseInt(storedUser, 10);
+  
+        try {
+          const response = await fetch("http://localhost:3030/api/user/save-profile", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ ...updatedProfile, userId }),
+          });
+  
+          const result = await response.json();
+          if (response.ok) {
+            console.log("Perfil salvo com sucesso no banco:", result);
+          } else {
+            console.error("Erro ao salvar perfil:", result.message);
+            setError("Erro ao salvar o perfil no servidor");
+          }
+        } catch (error) {
+          console.error("Erro de conexão com o servidor:", error);
+          setError("Erro ao se conectar com o servidor");
+        }
+      } else {
+        setError("Usuário não encontrado. Faça login novamente.");
+      }
     }
   };
 
@@ -79,54 +140,71 @@ export default function UserPage() {
   };
 
   return (
-    <div className="wrapper">
-      {/* Aqui você adiciona o nav */}
-      <nav>
-        <div className="logo">Ceres Vita</div>
-        <ul>
-          <li onClick={handleRegisterClick}>Home</li>
-          <li>Sobre</li>
-          <li>Contato</li>
-        </ul>
-      </nav>
+    <>
+      <div className="wrapper">
+        {/* Aqui você adiciona o nav */}
+        <nav>
+          <div className="logo">Ceres Vita</div>
+          <ul>
+            <li onClick={handleRegisterClick}>Home</li>
+            <li>Sobre</li>
+            <li>Contato</li>
+          </ul>
+        </nav>
 
-      {error && <Error>{error}</Error>}
-      {showPopup && (
-        <PopupMessage message={messagePopup} setShowPopup={setShowPopup} />
-      )}
-      <div className="fieldWrapper">
-        <div className="textSld">Perfil</div>
-        <InputDatePicker
-          label="Data de nascimento"
-          value={birthDate}
-          setValue={setBirthDate}
-        />
-        <Input
-          type="number"
-          id="weight"
-          label="Peso"
-          value={weight}
-          setValue={setWeight}
-        />
-        <Input
-          type="number"
-          id="height"
-          label="Altura (cm)"
-          value={height}
-          setValue={setHeight}
-        />
-        <Select
-          id="sex"
-          label="Sexo"
-          value={sex}
-          setValue={setSex}
-          options={options}
-        />
+        {error && <Error>{error}</Error>}
+        {showPopup && (
+          <PopupMessage message={messagePopup} setShowPopup={setShowPopup} />
+        )}
+        <div className="container">
+          {/* Lado Esquerdo - Perfil */}
+          <div className="container-left">
+            <h3>Perfil</h3>
+            <img src="https://avatars.githubusercontent.com/u/19499228?v=4" alt="Foto do usuário" id="profile-pic"/>
+            {/* Exibir nome de usuário e e-mail */}
+            {userInfo && (
+              <>
+                <h1 id="user-username">{userInfo.username}</h1>
+                <h2 id="user-email">{userInfo.email}</h2>
+              </>
+            )}
+          </div>
+
+          {/* Lado Direito - Inputs do Formulário */}
+          <div className="container-right">
+            <InputDatePicker
+              label="Data de nascimento"
+              value={birthDate}
+              setValue={setBirthDate}
+            />
+            <Input
+              type="number"
+              id="weight"
+              label="Peso"
+              value={weight}
+              setValue={setWeight}
+            />
+            <Input
+              type="number"
+              id="height"
+              label="Altura (cm)"
+              value={height}
+              setValue={setHeight}
+            />
+            <Select
+              id="sex"
+              label="Sexo"
+              value={sex}
+              setValue={setSex}
+              options={options}
+            />
+          </div>
+        </div>
         <div className="lineSld">
           <Button label="Salvar" click={handleSave} />
           {profile && <Button label="Excluir" click={handleDelete} />}
         </div>
       </div>
-    </div>
+    </>
   );
 }

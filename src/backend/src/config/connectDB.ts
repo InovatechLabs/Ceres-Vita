@@ -2158,7 +2158,7 @@ INSERT INTO foods (
         birth_date DATE NOT NULL,
         weight FLOAT NOT NULL,
         height FLOAT NOT NULL,
-        sex SMALLINT NOT NULL,
+        sex TEXT NOT NULL,
         CONSTRAINT fk_profiles_users FOREIGN KEY (users_id) REFERENCES users (id) ON DELETE NO ACTION ON UPDATE NO ACTION
       );
 

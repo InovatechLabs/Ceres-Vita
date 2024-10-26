@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@200..700&display=swap');
+
+
+
+
 /* Estilo da barra de navegação */
 nav {
     background-color: #D9D9D9; /* Cor de fundo da navegação */
@@ -8,6 +13,21 @@ nav {
     height: 150px;
     margin: 0;
     width: 100%;
+  }
+
+
+  .background-split {
+      height: 100vh; /* Usa toda a altura da viewport */
+      background: #98647c;
+  
+  }
+
+  .wrapper {
+    
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background:#A3B68A;
   }
   
   .logo {
@@ -21,40 +41,82 @@ nav {
   }
   
   /* Estilos existentes da página */
-  .wrapper {
+  .container {
     display: flex;
-    flex-direction: column;
-    height: 100vh;
-    box-sizing: border-box;
-    background-color: #455f45; /* Cor de fundo principal da página */
+    width: 80%;
+    height: 70%;
+    margin: 0 auto;
+    
+    background-color: #d9d9d9; /* Cor de fundo opcional */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 2%;
+    border-radius: 200px;
   }
   
-  .lineSld {
-    display: flex;
-    margin-top: 10px;
-  }
-  
-  .textSld {
-    display: flex;
-    font-size: 120%;
-    font-weight: bold;
-    color: #333; /* Cor do texto para contraste */
-    margin: 10px 0px;
-  }
-  
-  .fieldWrapper {
-    display: flex;
-    flex-direction: column;
-    width: 500px;
-    align-self: center;
-    margin-top: auto;
-    margin-bottom: auto;
+  .container-left,
+  .container-right {
+    flex: 1;
     padding: 20px;
-    border: 1px solid #999;
-    border-radius: 5px;
-    box-sizing: border-box;
-    background-color: rgba(46, 229, 157, 0.4);
-    font-family: 'Hubballi', Courier, monospace;
-    font-size: 1.3rem;
   }
   
+  .container-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-right: 2px solid #e0e0e0;
+    background-color: #b6b6b6aa;
+    border-radius: 200px;
+    height: 100%;
+  }
+
+  .container-left > h3 {
+    font-family: 'Yanone Kaffeesatz', Arial, Helvetica, sans-serif;
+    font-size: 4rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+  
+  .container-left img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+  
+  #profile-pic {
+    width: 40%;
+    height: auto;
+    margin: 0;
+  }
+  .container-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px; /* Espaçamento entre os inputs */
+  }
+
+  .lineSld {
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  #user-username {
+    font-family: 'Yanone Kaffeesatz', Arial, Helvetica, sans-serif;
+    font-size: 3rem;
+    margin-bottom: 0;
+    font-weight: 400;
+  }
+
+  #user-email {
+    font-family: 'Yanone Kaffeesatz', Arial, Helvetica, sans-serif;
+    font-size: 1.9rem;
+    font-weight: 300;
+    margin-top: 5px;
+  }
