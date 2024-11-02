@@ -39,6 +39,7 @@
      1px  1px 0 #000;
      color: #517751;
      letter-spacing: 4px;
+     cursor: pointer;
 }
 
 .card-subtitle {

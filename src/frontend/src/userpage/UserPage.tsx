@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // Importando o useNavigate
+import { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../userpage/Button";
 import { Input } from "../userpage/Input";
 import { Select } from "../userpage/Select";
@@ -7,9 +7,19 @@ import { Error } from "../userpage/Error";
 import PopupMessage from "../userpage/PopupMessage";
 import { calculateAge, dateFormat } from "../calculate/date";
 import InputDatePicker from "./InputDatePicker";
-import './UserPage.css'; // Importando o CSS separado
+import './UserPage.css'; 
+import { AuthContext } from "../components/contexts/AuthContext";
 
 export default function UserPage() {
+  const authContext = useContext(AuthContext);
+
+  const handleLogout = () => {
+    if (authContext?.logout) {
+      authContext.logout();
+      navigate("/home");
+    }
+  };
+
   const [profile, setProfile] = useState<any>(null);
   const [birthDate, setBirthDate] = useState<Date | null>(null);
   const [weight, setWeight] = useState("");
@@ -19,17 +29,38 @@ export default function UserPage() {
   const [showPopup, setShowPopup] = useState(false);
   const [messagePopup, setMessagePopup] = useState("");
   const [userInfo, setUserInfo] = useState<{ username: string, email: string } | null>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Funçao para verificar o token no sessionStorage
+    const checkLoginStatus = () => {
+      const token = sessionStorage.getItem('token'); 
+      if (token) {
+        setIsLoggedIn(true); 
+      } else {
+        setIsLoggedIn(false);
+      }
+    };
+
+    checkLoginStatus(); 
+  }, []);
 
   const options = [
     { value: "female", label: "Feminino" },
     { value: "male", label: "Masculino" },
   ];
 
-  const navigate = useNavigate(); // Hook de navegação
+  const navigate = useNavigate();
 
   const handleRegisterClick = () => {
-    navigate('/home'); // Redireciona para a rota /home
+    navigate('/home'); 
   };
+
+  const handleFoodClick = () => {
+    navigate('/food-register');
+  }
+
+  
 
   const fetchUserInfo = async () => {
     const storedUserId = sessionStorage.getItem("id");
@@ -139,6 +170,7 @@ export default function UserPage() {
     setShowPopup(true);
   };
 
+
   return (
     <>
       <div className="wrapper">
@@ -147,8 +179,8 @@ export default function UserPage() {
           <div className="logo">Ceres Vita</div>
           <ul>
             <li onClick={handleRegisterClick}>Home</li>
-            <li>Sobre</li>
-            <li>Contato</li>
+            <li onClick={handleFoodClick}>Registro de Consumo</li>
+            <button id="logout-nav" onClick={handleLogout}>Sair</button>
           </ul>
         </nav>
 

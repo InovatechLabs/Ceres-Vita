@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import './styles/FoodRegister.css';
@@ -8,8 +8,22 @@ import FoodLogTable from './foodLogTable/FoodLogTable';
 import GlobalStyles from './styles/GlobalStyles';
 import { useNavigate } from "react-router-dom";
 import { NutritionalData, NutrientsTableProps } from '../../types/Calculate';
+import { AuthContext } from '../contexts/AuthContext';
 
 const FoodRegister: React.FC = () => {
+
+  const authContext = useContext(AuthContext);
+
+  const handleLogout = () => {
+    if (authContext?.logout) {
+      authContext.logout();
+      navigate("/home");
+    }
+  };
+
+  const handleProfileClick = () => {
+    navigate('/user-page')
+  }
     const userId = sessionStorage.getItem('id');
 
     const [currentDate, setCurrentDate] = useState<string>('');
@@ -206,10 +220,8 @@ const FoodRegister: React.FC = () => {
                 <label className="logo">Ceres Vita</label>
                 <ul>
                     <li onClick={handleRegisterClick}>Home</li>
-                    <li>Missão</li>
-                    <li>Planos</li>
-                    <li>Receitas</li>
-                    <li>Contatos</li>
+                    <li onClick={handleProfileClick}>Meu Perfil</li>
+                    <li onClick={handleLogout}>Sair</li>
                 </ul>
             </nav>
             <div className="main-registerfood">

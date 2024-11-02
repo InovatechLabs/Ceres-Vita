@@ -120,3 +120,8 @@ nav {
     font-weight: 300;
     margin-top: 5px;
   }
+
+  #weight, #height, #sex {
+    max-width: 80%;
+  }
+

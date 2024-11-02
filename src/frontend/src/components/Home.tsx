@@ -9,51 +9,59 @@ import { loginUser } from '../service/index.service';
 import HomeReceipts from './homereceipts/HomeReceipts';
 import { scrollToSection } from '../utils/smoothscroll';
 import Contact from './contact/Contact';
+import { useAuth } from './contexts/AuthContext';
 
 function Home() {
-
- 
   const navigate = useNavigate();
+  const { isAuthenticated, setAuthenticated } = useAuth(); // Hook para acessar o contexto de autenticação
+
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('token'); // Remove o token do sessionStorage
+    sessionStorage.removeItem('id'); // Remove o ID do sessionStorage
+    setAuthenticated(false); // Atualiza o estado de autenticação
+    navigate('/login')
+  };
+
+
   const StyledParagraph = styled.p`
     color: #AF5F18;
     font-family: 'Hubballi', sans-serif;
     margin: 0;
     display: inline-block;
     font-weight: 600;
-  `
-  
+  `;
 
   const handleRegisterClick = () => {
-    navigate('/register'); // redireciona para a rota /register
+    navigate('/register');
   };
+  
   const handleUserPageClick = () => {
-    navigate('/user-page'); // redireciona para a rota /user-page
+    navigate('/user-page');
   };
+  
   const handleRegisterFoodClick = () => {
     navigate('/food-register');
-  }
+  };
+
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible); // alterna o estado da senha visível/invisível
+    setPasswordVisible(!passwordVisible);
   };
 
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
-
     try {
-      // Chama o serviço de login
       const response = await loginUser({ email, password });
       console.log(response);
-  
+
       if (response.token) {
         sessionStorage.setItem('token', response.token);
-        setIsLoggedIn(true);
-       
+        setAuthenticated(true);
       } else {
         setErrorMessage('Login falhou. Verifique suas credenciais.');
       }
@@ -61,84 +69,66 @@ function Home() {
       if (response.user && response.user.id) {
         sessionStorage.setItem('id', response.user.id);
       }
-
     } catch (error) {
       setErrorMessage('Ocorreu um erro no login.');
     }
-
   };
 
-
-
-  useEffect(() => {
-    // Funçao para verificar o token no sessionStorage
-    const checkLoginStatus = () => {
-      const token = sessionStorage.getItem('token'); 
-      if (token) {
-        setIsLoggedIn(true); 
-      } else {
-        setIsLoggedIn(false);
-      }
-    };
-
-    checkLoginStatus(); 
-  }, []);
-  
-    return (
-      <>
-        
-        <div className='topGreenContainer'></div>
-        <nav>
-
+  return (
+    <>
+      <div className='topGreenContainer'></div>
+      <nav>
         <input type="checkbox" id="check" />
         <label htmlFor="check" className="checkbtn">
-        <FontAwesomeIcon icon={faBars} className='fas fa-bars' />
+          <FontAwesomeIcon icon={faBars} className='fas fa-bars' />
         </label>
         <label className="logo">Ceres Vita</label>
         <ul>
-            <li>Home</li>
-            <li onClick={() => scrollToSection('ourGoal')}>Missão</li>
-            <li>Planos</li>
-            <li onClick={() => scrollToSection('receipts')}>Receitas</li>
-            <li onClick={() => scrollToSection('contact')}>Contatos</li>
-            
+          <li>Home</li>
+          <li onClick={() => scrollToSection('ourGoal')}>Missão</li>
+          <li>Planos</li>
+          <li onClick={() => scrollToSection('receipts')}>Receitas</li>
+          <li onClick={() => scrollToSection('contact')}>Contatos</li>
         </ul>
-
-        </nav>
-        <div className='website-development'>
-          <div className='banner-div'>
-        <img src={logo} className='imagem'></img>  
-        <div className='presentation-text-container'>
-        <div className='presentation-text'>
-          <h1 className='banner-title'>Ceres Vita: Seu corpo merece o melhor</h1>
-          <p className='banner-info'>Uma boa alimentação é a base de uma vida equilibrada e cheia de energia.
-            Com auxílio da Ceres Vita, faça escolhas que valorizem seu bem-estar!
-          </p>
-          </div> 
-          <div className='buttons-div'>
-            <p id='register-text'>Não possui uma conta?</p>
-            <button className='register-btn' onClick={handleRegisterClick}>Registre-se</button>
+      </nav>
+      <div className='website-development'>
+        <div className='banner-div'>
+          <img src={logo} className='imagem' alt="Logo" />
+          <div className='presentation-text-container'>
+            <div className='presentation-text'>
+              <h1 className='banner-title'>Ceres Vita: Seu corpo merece o melhor</h1>
+              <p className='banner-info'>
+                Uma boa alimentação é a base de uma vida equilibrada e cheia de energia.
+                Com auxílio da Ceres Vita, faça escolhas que valorizem seu bem-estar!
+              </p>
+            </div>
+            <div className='buttons-div'>
+              <p id='register-text'>Não possui uma conta?</p>
+              <button className='register-btn' onClick={handleRegisterClick}>Registre-se</button>
             </div>
             <div className='buttons-logged-text'>
-            <p id='register-text'>Ou, se você já possui...</p>
-            <div className='buttons-logged-div'>
-            <button className='logged-buttons' onClick={handleUserPageClick}>Meu perfil</button>
-            <button className='logged-buttons' onClick={handleRegisterFoodClick}>Registro de ingestão</button>
-            <button className='logged-buttons'>Dietas</button>
-            </div>
+              <p id='register-text'>Ou, se você já possui...</p>
+              <div className='buttons-logged-div'>
+                <button className='logged-buttons' onClick={handleUserPageClick}>Meu perfil</button>
+                <button className='logged-buttons' onClick={handleRegisterFoodClick}>Registro de ingestão</button>
+                <button className='logged-buttons'>Dietas</button>
+              </div>
             </div>
           </div>
         </div>
-       
-          <div className='login-div'>
-          <form onSubmit={handleLogin} />
-          {isLoggedIn ? (
-            <div style={{ color: 'orange', fontFamily: 'Aldrich', fontSize: '2rem',  position: 'absolute', 
-              left: '50%', 
-              transform: 'translateX(-50%)',
-              letterSpacing: '3px'  }}>
+        <div className='login-div'>
+          {isAuthenticated ? (
+            <>
+            <button id='logout-btn' onClick={handleLogout}>Sair</button>
+            <div style={{
+              color: 'orange', fontFamily: 'Aldrich', fontSize: '2rem',
+              position: 'absolute', left: '50%', transform: 'translateX(-50%)', letterSpacing: '3px'
+            }}>
+              
               <h2>Seja bem-vindo !</h2>
+              
             </div>
+            </>
           ) : (
             <form onSubmit={handleLogin}>
               <input
@@ -158,9 +148,9 @@ function Home() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <button 
-                  className='toggle-password' 
-                  onClick={togglePasswordVisibility} 
+                <button
+                  className='toggle-password'
+                  onClick={togglePasswordVisibility}
                   type="button"
                 >
                   {passwordVisible ? '🙈' : '👁️'}
@@ -170,9 +160,8 @@ function Home() {
             </form>
           )}
         </div>
-      
-        </div>
-        <section className='midsection'>
+      </div>
+      <section className='midsection'>
          <div className='title'>
           <h1>Veja como podemos lhe ajudar!</h1>
          </div>
@@ -218,22 +207,20 @@ function Home() {
             </div>
             <img src='https://i.imgur.com/TAMgOtS.png' className='img-2'/>
         </section>
-        <section id='receipts'>
-          <div className='receipts-title'>
-            <h1>Receitas</h1>
-          </div>
-            <HomeReceipts />
-        </section>
-        <section  className='contact' id='contact'>
-            <Contact />
-            <div className='footer'>
-            &#169; Innovatech Labs. Todos direitos reservados.
-            </div>
-        </section>
-            
-      </>
-    )
-    
-  }
-  
-  export default Home;
+      <section id='receipts'>
+        <div className='receipts-title'>
+          <h1>Receitas</h1>
+        </div>
+        <HomeReceipts />
+      </section>
+      <section className='contact' id='contact'>
+        <Contact />
+        <div className='footer'>
+          &#169; Innovatech Labs. Todos direitos reservados.
+        </div>
+      </section>
+    </>
+  );
+}
+
+export default Home;

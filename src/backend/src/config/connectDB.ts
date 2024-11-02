@@ -6,7 +6,7 @@ const pool = new Pool({
   user: "postgres",
   host: "localhost",
   database: "users_auth",
-  password: "123", 
+  password: "123456", 
   // Add search_path to ensure we use the 'mydb' schema by default
   options: "-c search_path=mydb",
 });
