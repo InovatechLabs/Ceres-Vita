@@ -56,3 +56,28 @@ export const verifyProfile = async (req: Request, res: Response) => {
         return res.status(500).json({ message: "Erro ao consultar dados" });
     }
 };
+
+export const getProfile = async (req: Request, res: Response) => {
+  const { userId } = req.params; // Pega o userId da rota
+
+  if (!userId) {
+      return res.status(400).json({ message: "Forneça seu ID." });
+  }
+
+  try {
+      const query = `
+          SELECT birth_date, weight, height, sex FROM profiles WHERE users_id = $1
+      `;
+
+      const result = await pool.query(query, [userId]);
+
+      if (result && result.rowCount && result.rowCount > 0) {
+          return res.status(200).json({ message: "Perfil encontrado", profile: result.rows[0] });
+      } else {
+          return res.status(404).json({ message: "Perfil não encontrado" });
+      }
+  } catch (error) {
+      console.error("Erro ao consultar perfil:", error);
+      return res.status(500).json({ message: "Erro ao consultar perfil" });
+  }
+};

@@ -1,17 +1,50 @@
-import { Pool } from "pg";
+import { Pool, Client } from "pg";
 import chalk from "chalk";
 
-// Database connection configuration
+// Função para verificar se o banco de dados existe e criá-lo, se necessário
+const ensureDatabaseExists = async (databaseName: string) => {
+  const client = new Client({
+    user: "postgres",
+    host: "localhost",
+    password: "123",
+    database: "postgres", // Conecta ao banco 'postgres' por padrão para checar a existência de outros bancos
+  });
+
+  try {
+    await client.connect();
+    
+    // Verifica se o banco de dados existe
+    const result = await client.query(
+      `SELECT 1 FROM pg_database WHERE datname = $1`,
+      [databaseName]
+    );
+
+    if (result.rowCount === 0) {
+      // Se o banco não existe, cria-o
+      console.log(chalk.blue(`Banco de dados "${databaseName}" não encontrado. Criando banco...`));
+      await client.query(`CREATE DATABASE ${databaseName}`);
+      console.log(chalk.green(`Banco de dados "${databaseName}" criado com sucesso.`));
+    } else {
+      console.log(chalk.yellow(`Banco de dados "${databaseName}" já existe. Continuando...`));
+    }
+  } catch (error) {
+    console.error(chalk.red("Erro ao verificar/criar banco de dados:"), error);
+    throw error;
+  } finally {
+    await client.end();
+  }
+};
+
+// Configuração de conexão do pool com o banco de dados
 const pool = new Pool({
   user: "postgres",
   host: "localhost",
   database: "users_auth",
-  password: "123456", 
-  // Add search_path to ensure we use the 'mydb' schema by default
+  password: "123",
   options: "-c search_path=mydb",
 });
 
-// Function to check if the schema and tables exist
+// Função para verificar a existência do schema
 const schemaExists = async (schemaName: string) => {
   try {
     const result = await pool.query(
@@ -27,29 +60,25 @@ const schemaExists = async (schemaName: string) => {
 
     return result.rows[0].schema_exists;
   } catch (error) {
-    console.error(chalk.red("Error checking schema existence:"), error);
+    console.error(chalk.red("Erro ao verificar existência do schema:"), error);
     throw error;
   }
 };
 
-// Function to create the schema and tables
+// Função para criar o schema e as tabelas
 const createSchemaAndTables = async () => {
   try {
     const schemaName = "mydb";
 
-    // Check if the schema exists
+    // Verifica se o schema existe
     const schemaAlreadyExists = await schemaExists(schemaName);
 
     if (schemaAlreadyExists) {
-      console.log(
-        chalk.yellow(
-          `Schema "${schemaName}" already exists. Skipping creation.`
-        )
-      );
+      console.log(chalk.yellow(`Schema "${schemaName}" já existe. Pulando criação.`));
       return;
     }
 
-    // Create schema and tables if not exists
+    // Cria o schema e as tabelas caso não existam
     await pool.query(`
       DO
       $$
@@ -2233,19 +2262,24 @@ INSERT INTO foods (
 
 // Function to connect to the database and initialize schema
 const connectDB = async () => {
-  try {
-    // Connect to the database
-    await pool.connect();
-    console.log(chalk.greenBright("Database connected successfully"));
-
-    // Initialize schema and tables
-    await createSchemaAndTables();
-  } catch (error) {
-    console.error(
-      chalk.red("Error connecting to database or initializing schema:"),
-      error
-    );
-  }
-};
-
-export { connectDB, pool };
+	try {
+	  const databaseName = "users_auth";
+  
+	  // Garante que o banco de dados existe
+	  await ensureDatabaseExists(databaseName);
+  
+	  // Conecta ao banco de dados
+	  await pool.connect();
+	  console.log(chalk.greenBright("Conexão com o banco de dados estabelecida com sucesso"));
+  
+	  // Inicializa o schema e as tabelas
+	  await createSchemaAndTables();
+	} catch (error) {
+	  console.error(
+		chalk.red("Erro ao conectar ao banco de dados ou inicializar o schema:"),
+		error
+	  );
+	}
+  };
+  
+  export { connectDB, pool };

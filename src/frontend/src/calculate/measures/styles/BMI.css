@@ -1,0 +1,42 @@
+.card {
+    background-color: #ffffff; 
+    border-radius: 20px; /* Aumentei um pouco para melhor visualização */
+    padding: 20px; 
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1); 
+    /* Remova a altura ou min-height se você não precisar */
+    max-height: 350px; /* Exemplo de altura máxima, ajuste conforme necessário */
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    max-width: 600px;
+}
+
+
+
+.placeholder > h1 {
+    margin-bottom: 20px;
+}
+
+#messages {
+    color: #000000;
+    margin-top: 15px;
+}
+
+#imc-result {
+    margin-top: 20px;
+}
+
+.card input {
+    padding: 15px;
+    background-color: #d9d9d9;
+    border-radius: 8px;
+    border: none;
+    margin: 5px;
+    outline: none;
+    font-size: 22px;
+}
+
+.card label {
+    font-size: 22px;
+}
+

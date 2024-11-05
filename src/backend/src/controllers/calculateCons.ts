@@ -7,8 +7,9 @@ export const calculateNutrients = async (req: Request, res: Response) => {
   const { date } = req.params;
 
   try {
-    const result = await pool.query(
-      `SELECT 
+    // Consulta SQL ajustada com base na presença ou ausência de `date`
+    const query = `
+      SELECT 
         SUM(f.energy * ef.quantity) AS total_energy_from_foods,
         SUM(f.protein * ef.quantity) AS total_protein_from_foods,
         SUM(f.total_lipids * ef.quantity) AS total_lipids_from_foods,
@@ -62,15 +63,21 @@ export const calculateNutrients = async (req: Request, res: Response) => {
       LEFT JOIN eat_products ep ON ef.users_id = ep.users_id AND ef.date = ep.date
       LEFT JOIN products p ON ep.products_id = p.id
       WHERE ef.users_id = $1
-      AND ef.date = $2
-      GROUP BY ef.users_id, ef.date`,
-      [userId, date]
-    );
+      ${date ? `AND ef.date = $2` : ""}
+      GROUP BY ef.users_id ${date ? ", ef.date" : ""}
+    `;
+
+    // Parâmetros com ou sem `date`
+    const params = date ? [userId, date] : [userId];
+    const result = await pool.query(query, params);
 
     if (result.rows.length > 0) {
       return res.status(200).json(result.rows[0]);
     } else {
-      return res.status(404).json({ message: "No food logs found for this date." });
+      const message = date
+        ? "No food logs found for this date."
+        : "No food logs found for this user without a date filter.";
+      return res.status(404).json({ message });
     }
   } catch (error) {
     console.error("Error calculating nutrients:", error);

@@ -1,0 +1,62 @@
+* {
+    margin: 0;
+    padding: 0;
+    
+}
+
+
+.welcome-div {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    background-color: #A3B68A;
+    text-align: center;
+  
+}
+
+.welcome-div > h1 {
+    color: #000;
+    background-color: #fff;
+    padding: 10px;
+    padding-bottom: 20px;
+    border-radius: 20px;
+    font-size: 30px;
+   
+}
+
+.imc-div {
+    min-height: 10vh;
+    background-color: #92b16a;
+    display: flex; /* Isso pode causar a expansão do card */
+    flex-direction: row-reverse; /* Pode ser necessário ajustar */
+    align-items: center; /* Alinha os itens ao centro */
+    justify-content: center; /* Centraliza os itens verticalmente */
+    padding: 30px;
+    gap: 80px;
+}
+
+@media (max-width: 1015px) {
+    .imc-div {
+        flex-direction: column;
+    }
+}
+
+.tmb-div {
+    min-height: 10vh;
+    background-color: #aece85;
+    display: flex; /* Isso pode causar a expansão do card */
+    flex-direction: row-reverse; /* Pode ser necessário ajustar */
+    align-items: center; /* Alinha os itens ao centro */
+    justify-content: center; /* Centraliza os itens verticalmente */
+    padding: 30px;
+    gap: 80px;
+}
+
+#svg {
+    width: 300px;
+    height: 300px;
+}
+#svg2 {
+    width: 400px;
+    height: 270px;
+}

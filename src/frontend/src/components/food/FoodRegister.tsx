@@ -47,21 +47,40 @@ const FoodRegister: React.FC = () => {
         return num !== null ? num.toFixed(2) : 0; 
       };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('http://localhost:3030/api/food/calculate-nutrients/1/2024-10-25'); 
-                const data: NutritionalData = await response.json();
-                setNutritionalData(data);
-                console.log(data)
-            } catch (error) {
-                console.error("Erro ao buscar dados:", error);
-                setNutritionalData(null); // ou lidar com erro de outra forma
-            }
-        };
+      const fetchData = async (dateInput: string | undefined) => {
+        try {
+            const response = await fetch(
+                `http://localhost:3030/api/food/calculate-nutrients/${userId}/${dateInput ? dateInput : ""}`
+            );
+            const data = await response.json();
+            setNutritionalData(data);
+            console.log(data);
+        } catch (error) {
+            console.error("Erro ao buscar dados:", error);
+            setNutritionalData(null);
+        }
+    };
 
-        fetchData();
-    }, []);
+    // Definição da função handleCalculateClick
+    const handleCalculateClick = () => {
+      // Se a tabela estiver visível, apenas a oculta
+      if (isTableVisible) {
+          setIsTableVisible(false);
+          return; // Sai da função sem mostrar o prompt
+      }
+  
+
+      // Se a tabela não estiver visível, mostra o prompt
+      const dateInput = prompt("Insira a data no formato YYYY-MM-DD para cálculo específico, ou deixe vazio para calcular todos os dados:");
+
+      if (dateInput === null) {
+        return; // Não faz nada se o usuário cancelar
+    }
+  
+      // Chama fetchData com o input do usuário
+      fetchData(dateInput || undefined);
+      setIsTableVisible(true); // Mostra a tabela após buscar dados
+  };
 
     const navigate = useNavigate(); // Hook de navegação
 
@@ -71,16 +90,6 @@ const FoodRegister: React.FC = () => {
 
     const mealOptions = ['Café da manhã', 'Lanche da manhã', 'Almoço', 'Lanche da tarde', 'Jantar', 'Ceia'];
 
-    const calculateTotal = (field: keyof Food) => {
-        return selectedFoods.reduce((acc, selectedFood) => {
-            const food = foodData.find(f => f.id === selectedFood.foodId);
-            if (food && food[field] !== null) {
-                const quantityFactor = selectedFood.quantity / 100;
-                return acc + (food[field] as number) * quantityFactor;
-            }
-            return acc;
-        }, 0);
-    };
 
     const handleFetchTodayLog = async () => {
         try {
@@ -350,7 +359,7 @@ const FoodRegister: React.FC = () => {
                         <button>Gerar Gráfico de Consumo</button>
                     </div>
 
-                    <button onClick={toggleTableVisibility} id='show-calculate'>
+                    <button onClick={handleCalculateClick} id='show-calculate'>
         {isTableVisible ? 'Ocultar Tabela' : 'mostrar cálculo total de nutrientes'}
       </button>
 
@@ -365,41 +374,7 @@ const FoodRegister: React.FC = () => {
                         </>
                     )}
 
-                    {showFoodLog && (
-                        <div className="summary-table-container">
-                            <h2>Soma Total dos Nutrientes</h2>
-                            <table className="food-table">
-                                <thead>
-                                    <tr>
-                                        <th>Calorias</th>
-                                        <th>Carboidratos (g)</th>
-                                        <th>Proteínas (g)</th>
-                                        <th>Lipídios (g)</th>
-                                        <th>Fibra Dietética (g)</th>
-                                        <th>Açúcares Totais (g)</th>
-                                        <th>Sódio (mg)</th>
-                                        <th>Potássio (mg)</th>
-                                        <th>Cálcio (mg)</th>
-                                        <th>Ferro (mg)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>{calculateTotal('energy')}</td>
-                                        <td>{calculateTotal('carbohydrate')}</td>
-                                        <td>{calculateTotal('protein')}</td>
-                                        <td>{calculateTotal('total_lipids')}</td>
-                                        <td>{calculateTotal('dietary_fiber')}</td>
-                                        <td>{calculateTotal('total_sugars')}</td>
-                                        <td>{calculateTotal('sodium')}</td>
-                                        <td>{calculateTotal('potassium')}</td>
-                                        <td>{calculateTotal('calcium')}</td>
-                                        <td>{calculateTotal('iron')}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    )}
+                    
                     <div>
       {nutritionalData && isTableVisible ? (
          <table>
