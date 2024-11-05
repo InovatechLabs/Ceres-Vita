@@ -1,15 +1,37 @@
-import { scrollToSection } from "../../utils/smoothscroll";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, width } from "@fortawesome/free-solid-svg-icons/faBars";
+import { faBars } from "@fortawesome/free-solid-svg-icons/faBars";
 import BMICalculator from "./BMICalculator";
 import TMBCalculator from "./TMBCalculator";
 import WaterIntakeCalculator from "./WaterIntakeCalculator";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import './styles/Measures.css'
+import Footer from '../../components/contact/Contact'
+import { AuthContext } from "../../components/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Measures() {
 
     const [userInfo, setUserInfo] = useState<{ username: string, email: string } | null>(null);
+    const authContext = useContext(AuthContext);
+    const navigate = useNavigate();
+
+  const handleLogout = () => {
+    if (authContext?.logout) {
+      authContext.logout();
+      navigate("/home");
+    }
+  };
+
+  const handleFoodClick = () => {
+    navigate('/food-register');
+  }
+
+  const handleProfileClick = () => {
+    navigate('/user-page');
+  }
+  const handleHomeClick = () => {
+    navigate('/home');
+  }
 
     const fetchUserInfo = async () => {
         const storedUserId = sessionStorage.getItem("id");
@@ -54,11 +76,10 @@ function Measures() {
         </label>
         <label className="logo">Ceres Vita</label>
         <ul>
-          <li>Home</li>
-          <li onClick={() => scrollToSection('ourGoal')}>Sumário</li>
-          <li>IMC</li>
-          <li onClick={() => scrollToSection('receipts')}>TMB</li>
-          <li onClick={() => scrollToSection('contact')}>Ingestão de Água</li>
+          <li onClick={handleHomeClick}>Home</li>
+          <li onClick={handleProfileClick}>Meu Perfil</li>
+          <li onClick={handleFoodClick}>Registro de Ingestão</li>
+          <li onClick={handleLogout}>Sair</li>
         </ul>
       </nav>
 
@@ -82,7 +103,11 @@ function Measures() {
       </div>
       <div className="waterintake-div">
         <WaterIntakeCalculator />
+        <div className="imc-svg">
+          <img src="https://www.svgart.org/wp-content/uploads/2022/06/water-bottels-01-01.png" id="svg2"/>
+        </div>
       </div>
+      <Footer />
         </>
     )
 }

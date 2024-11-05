@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import './styles/Water.css'
 
 const WaterIntakeCalculator: React.FC = () => {
     const [profile, setProfile] = useState<{ weight: number } | null>(null);
@@ -68,20 +68,26 @@ const WaterIntakeCalculator: React.FC = () => {
         fetchUserInfo();
       }, []);
 
-    return (
+      return (
         <div>
-            <h1>Cálculo da Ingestão de Água</h1>
-            {profile ? (
-                <div className='wat'>
-                    {waterIntake !== null && (
-                        <>
-                        <h2>Ingestão Recomendada de Água: {waterIntake} ml</h2>
-                        </>
-                    )}
-                </div>
-            ) : (
-                <p>Carregando perfil...</p>
-            )}
+            <div className="card-water"> 
+                <h1>Cálculo da Ingestão de Água</h1>
+                {profile ? (
+                    <div className='wat'>
+                        {waterIntake !== null && (
+                            <>
+                                <h2>Ingestão Recomendada de Água: {waterIntake} ml/dia</h2>
+                              
+                                <p id='text-water'>
+                                    Manter-se hidratado é essencial para o bom funcionamento do corpo e da mente. Beber água regularmente ajuda na digestão, melhora a pele, aumenta a energia e contribui para a concentração. Que tal fazer da hidratação uma parte vital do seu dia a dia? Lembre-se: a água é o combustível que seu corpo precisa para funcionar bem!
+                                </p>
+                            </>
+                        )}
+                    </div>
+                ) : (
+                    <p>Carregando perfil...</p>
+                )}
+            </div>
         </div>
     );
 };

@@ -180,7 +180,7 @@ export default function UserPage() {
           <ul>
             <li onClick={handleRegisterClick}>Home</li>
             <li onClick={handleFoodClick}>Registro de Consumo</li>
-            <button id="logout-nav" onClick={handleLogout}>Sair</button>
+            <li onClick={handleLogout}>Sair</li>
           </ul>
         </nav>
 

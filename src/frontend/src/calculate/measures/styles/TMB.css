@@ -1,3 +1,44 @@
 #tmb-p {
     color: black;
 }
+
+.card-tmb {
+    background-color: #ffffff; 
+    border-radius: 20px; 
+    padding: 20px; 
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1); 
+   
+    min-height: 350px; 
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    max-width: 600px;
+    justify-content: center;
+}
+
+.card-tmb input {
+    padding: 15px;
+    background-color: #d9d9d9;
+    border-radius: 8px;
+    border: none;
+    margin: 5px;
+    outline: none;
+    font-size: 22px;
+}
+.card-tmb h1 {
+    margin-bottom: 30px;
+}
+
+.card-tmb select {
+    font-size: 22px;
+    margin-bottom: 40px;
+    background-color: #d9d9d9;
+    border: none;
+    outline: none;
+    padding: 5px;
+}
+
+.card-tmb label {
+    font-size: 22px;
+    margin-right: 5px;
+}

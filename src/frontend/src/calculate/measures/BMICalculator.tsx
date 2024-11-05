@@ -37,7 +37,7 @@ const BMICalculator: React.FC = () => {
     return (
         <div>
             {profile ? (
-                <div className="card">
+                <div className="card-bmi">
                     <div className='placeholder'>
                         <h1>Cálculo do IMC</h1>
                         <label>Peso (kg):</label>
@@ -48,7 +48,7 @@ const BMICalculator: React.FC = () => {
                         <input type="number" value={profile.height} readOnly />
                     </div>
                     {bmi !== null && (
-                        <h2 id='imc-result'>IMC: {bmi.toFixed(2)}</h2>
+                        <h2 id='result'>IMC: {bmi.toFixed(2)}</h2>
                     )}
                     {/* Texto Condicional com base no IMC */}
                     {bmi !== null && (

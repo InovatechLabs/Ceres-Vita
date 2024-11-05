@@ -60,3 +60,48 @@
     width: 400px;
     height: 270px;
 }
+
+@media (max-width: 1015px) {
+    .tmb-div {
+        flex-direction: column;
+    }
+    #svg2 {
+        width: 370px;
+        height: 240px;
+    }
+}
+
+
+@media (max-width: 370px) {
+    
+    #svg2 {
+        width: 290px;
+        height: 170px;
+    }
+    #svg {
+        width: 230px;
+        height: 230px;
+        
+    }
+}
+
+.waterintake-div {
+    min-height: 10vh;
+    background-color: #92b16a;
+    display: flex; /* Isso pode causar a expansão do card */
+    flex-direction: row-reverse; /* Pode ser necessário ajustar */
+    align-items: center; /* Alinha os itens ao centro */
+    justify-content: center; /* Centraliza os itens verticalmente */
+    padding: 30px;
+    gap: 80px;
+}
+
+@media (max-width: 1015px) {
+    .waterintake-div {
+        flex-direction: column;
+    }
+    #svg2 {
+        width: 370px;
+        height: 240px;
+    }
+}

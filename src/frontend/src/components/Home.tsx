@@ -44,6 +44,10 @@ function Home() {
     navigate('/food-register');
   };
 
+  const handleMeasuresClick = () => {
+    navigate('/calcular');
+  };
+
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [email, setEmail] = useState('');
@@ -111,7 +115,7 @@ function Home() {
               <div className='buttons-logged-div'>
                 <button className='logged-buttons' onClick={handleUserPageClick}>Meu perfil</button>
                 <button className='logged-buttons' onClick={handleRegisterFoodClick}>Registro de ingestão</button>
-                <button className='logged-buttons'>Dietas</button>
+                <button className='logged-buttons' onClick={handleMeasuresClick}>Métricas</button>
               </div>
             </div>
           </div>

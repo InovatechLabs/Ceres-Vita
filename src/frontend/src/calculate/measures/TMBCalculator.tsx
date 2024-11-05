@@ -93,7 +93,7 @@ const TMBCalculator = () => {
 
     return (
         <div>
-            <div className="card"> {/* Adicionando o card aqui */}
+            <div className="card-tmb"> {/* Adicionando o card aqui */}
                 <h1>Cálculo de TMB</h1>
                 {profileData && (
                     <div>
@@ -108,9 +108,19 @@ const TMBCalculator = () => {
                     </div>
                 )}
                 {tmb !== null ? (
-                    <p id='tmb-p'>Seu TMB é: {tmb.toFixed(2)} kcal/dia</p>
+                    <>
+                        <h2 id='result'>Seu TMB é: {tmb.toFixed(2)} kcal/dia</h2>
+                        {/* Mensagem personalizada com base no nível de atividade */}
+                        <p id='messages'>
+                            {activityLevel === "sedentary" && "Seu TMB mostra suas necessidades calóricas em repouso. Como você leva um estilo de vida mais sedentário, nossos planos podem ajudar a introduzir gradualmente atividades físicas e dietas adequadas para melhorar sua saúde."}
+                            {activityLevel === "light" && "Com uma leve atividade física, suas necessidades calóricas aumentam um pouco. Explore nossas dietas equilibradas para ajudar a manter energia e disposição ao longo do dia."}
+                            {activityLevel === "moderate" && "Com uma rotina moderada de atividade, seu corpo precisa de mais combustível. Que tal um plano alimentar personalizado para otimizar sua energia e auxiliar no ganho de massa magra?"}
+                            {activityLevel === "active" && "Seu estilo de vida ativo exige energia extra. Nossas dietas de alto desempenho podem te ajudar a alcançar seus objetivos, garantindo nutrientes adequados para um melhor desempenho físico."}
+                            {activityLevel === "very-active" && "Com um nível de atividade muito intenso, seu corpo precisa de bastante energia. Experimente nossos planos avançados para atletas, ajudando na recuperação muscular e na manutenção da performance."}
+                        </p>
+                    </>
                 ) : (
-                    <p id='tmb-p'>Carregando...</p>
+                    <p>Carregando...</p>
                 )}
             </div>
         </div>

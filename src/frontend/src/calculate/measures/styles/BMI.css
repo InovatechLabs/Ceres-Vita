@@ -1,4 +1,4 @@
-.card {
+.card-bmi {
     background-color: #ffffff; 
     border-radius: 20px; /* Aumentei um pouco para melhor visualização */
     padding: 20px; 
@@ -19,14 +19,14 @@
 
 #messages {
     color: #000000;
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 #imc-result {
     margin-top: 20px;
 }
 
-.card input {
+.card-bmi input {
     padding: 15px;
     background-color: #d9d9d9;
     border-radius: 8px;
@@ -36,7 +36,7 @@
     font-size: 22px;
 }
 
-.card label {
+.card-bmi label {
     font-size: 22px;
 }
 
