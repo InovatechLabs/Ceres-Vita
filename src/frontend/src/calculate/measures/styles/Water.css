@@ -9,6 +9,11 @@
     text-align: center;
     max-width: 600px;
     justify-content: center;
+    transition: transform .3s ease;
+}
+
+.card-water:hover {
+    transform: translateY(-8px);
 }
 
 .card-water h1 {

@@ -7,66 +7,69 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import FoodRegister from './components/food/FoodRegister';
 import UserPage from './userpage/UserPage';
 import { AuthProvider } from './components/contexts/AuthContext';
+import { ProfileProvider } from './components/contexts/ProfileContext'; // Importe o ProfileProvider
 import Measures from './calculate/measures/Measures';
 import CustomDiets from './components/diets/CustomDiets';
 
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <Routes>
-          <Route path="/home" element={<Home />} />
-          <Route
-            path="/register"
-            element={
-              <AuthenticatedRoute>
-                <Register />
-              </AuthenticatedRoute>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <AuthenticatedRoute>
-                <Login />
-              </AuthenticatedRoute>
-            }
-          />
-          <Route
-            path="/food-register"
-            element={
-              <ProtectedRoute>
-                <FoodRegister />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/user-page"
-            element={
-              <ProtectedRoute>
-                <UserPage />
-              </ProtectedRoute>
-            }
-          />
-           <Route
-            path="/calcular"
-            element={
-              <ProtectedRoute>
-                <Measures />
-              </ProtectedRoute>
-            }
-          />
-           <Route
-            path="/dietas"
-            element={
-              <ProtectedRoute>
-                <CustomDiets />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="*" element={<Home />} />
-        </Routes>
-      </Router>
+      <ProfileProvider> {/* Envolva com ProfileProvider para compartilhar o contexto */}
+        <Router>
+          <Routes>
+            <Route path="/home" element={<Home />} />
+            <Route
+              path="/register"
+              element={
+                <AuthenticatedRoute>
+                  <Register />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <AuthenticatedRoute>
+                  <Login />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/food-register"
+              element={
+                <ProtectedRoute>
+                  <FoodRegister />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/user-page"
+              element={
+                <ProtectedRoute>
+                  <UserPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/calcular"
+              element={
+                <ProtectedRoute>
+                  <Measures />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dietas"
+              element={
+                <ProtectedRoute>
+                  <CustomDiets />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="*" element={<Home />} />
+          </Routes>
+        </Router>
+      </ProfileProvider>
     </AuthProvider>
   );
 }

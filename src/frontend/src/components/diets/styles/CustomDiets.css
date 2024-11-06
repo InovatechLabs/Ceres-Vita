@@ -1,10 +1,10 @@
 .generate-section {
     min-height: 10vh;
     background-color: #92b16a;
-    display: flex; /* Isso pode causar a expansão do card */
-    flex-direction: column; /* Pode ser necessário ajustar */
-    align-items: center; /* Alinha os itens ao centro */
-    justify-content: center; /* Centraliza os itens verticalmente */
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
     padding-top: 40px;
     gap: 10px;
 
@@ -12,7 +12,7 @@
 
 .card-generate {
     background-color: #fff;
-    max-width: 700px;
+    max-width: 600px;
     border-radius: 10px;
     padding: 30px;
     display: flex;
@@ -49,6 +49,16 @@
     color: #fff;
     cursor: pointer;
     margin-top: 10px;
+    margin-bottom: 20px;
+    transition: .3s;
+}
+
+#generate-btn:hover {
+  background-color: rgb(194, 126, 1);
+}
+
+#obs {
+  width: 70%;
 }
 
 #svg3 {
@@ -197,4 +207,10 @@
     padding: 10px;
     border-radius: 5px;
     
+  }
+
+  #link {
+    color: rgb(94, 210, 248);
+    text-decoration: underline;
+    cursor: pointer;
   }

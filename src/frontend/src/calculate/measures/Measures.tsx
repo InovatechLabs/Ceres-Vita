@@ -26,6 +26,9 @@ function Measures() {
     const handleFoodClick = () => {
         navigate('/food-register');
     }
+    const handleDietsClick = () => {
+        navigate('/dietas');
+    }
 
     const handleProfileClick = () => {
         navigate('/user-page');
@@ -115,7 +118,9 @@ function Measures() {
                     <li onClick={handleHomeClick}>Home</li>
                     <li onClick={handleProfileClick}>Meu Perfil</li>
                     <li onClick={handleFoodClick}>Registro de Ingestão</li>
+                    <li onClick={handleDietsClick}>Dietas</li>
                     <li onClick={handleLogout}>Sair</li>
+                    
                 </ul>
             </nav>
 

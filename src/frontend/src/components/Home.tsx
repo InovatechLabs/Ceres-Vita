@@ -48,6 +48,11 @@ function Home() {
     navigate('/calcular');
   };
 
+  const handleDietsClick = () => {
+    navigate('/dietas');
+    window.scrollTo(0, 0);
+  };
+
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [email, setEmail] = useState('');
@@ -90,7 +95,7 @@ function Home() {
         <ul>
           <li>Home</li>
           <li onClick={() => scrollToSection('ourGoal')}>Missão</li>
-          <li>Planos</li>
+          <li onClick={handleDietsClick}>Dietas</li>
           <li onClick={() => scrollToSection('receipts')}>Receitas</li>
           <li onClick={() => scrollToSection('contact')}>Contatos</li>
         </ul>
@@ -170,7 +175,7 @@ function Home() {
           <h1>Veja como podemos lhe ajudar!</h1>
          </div>
          <div className="grid-container">
-      <div className="card">
+      <div className="card" onClick={handleRegisterFoodClick}>
       <img src='https://i.imgur.com/6H0YmaM.png' className='img1'/>
         <h1>Ingestão de Calorias</h1>
         <p>
@@ -193,7 +198,7 @@ function Home() {
         <h1>Relatórios e Gráficos</h1>
         <p>Gere relatórios gráficos para visualizar seu consumo total de calorias e nutrientes.</p>
       </div>
-      <div className="card">
+      <div className="card" onClick={handleDietsClick}>
         <img src='https://iili.io/drHgGF1.png' className='img1' />
       <h1>Dietas Específicas</h1>
       <p>Escolha um plano alimentar dentre inúmeras opções disponibilizadas em nosso aplicativo.</p>

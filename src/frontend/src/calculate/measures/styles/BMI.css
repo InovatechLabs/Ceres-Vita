@@ -9,6 +9,11 @@
     flex-direction: column;
     text-align: center;
     max-width: 600px;
+    transition: transform .3s ease;
+}
+
+.card-bmi:hover {
+    transform: translateY(-8px);
 }
 
 
