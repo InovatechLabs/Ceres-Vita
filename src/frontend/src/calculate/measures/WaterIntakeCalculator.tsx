@@ -52,7 +52,7 @@ const WaterIntakeCalculator: React.FC = () => {
     
             const data = await response.json();
     
-            console.log(data);
+            // console.log(data);
             setUserInfo(data.userinfo);
             if(userInfo) {
                 

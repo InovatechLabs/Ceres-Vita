@@ -40,7 +40,7 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/api/user", userRouter);
 
 // Food log routes
-app.use('/api/food', foodLogRouter); // Ensure this comes before the unknown route handler
+app.use('/api/food', foodLogRouter); 
 console.log("Food routes registered");
 
 // Register the products routes
@@ -48,6 +48,8 @@ app.use("/api/products", productsRouter);
 
 // Product log routes
 app.use('/api/product', productLogRouter);
+
+
 
 // Unknown route handler
 app.use((req: Request, res: Response) => {

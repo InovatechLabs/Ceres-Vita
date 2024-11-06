@@ -18,4 +18,6 @@ userRouter.post("/verify-profile", verifyProfile);
 
 userRouter.get('/profile/:userId', getProfile);
 
+
+
 export default userRouter;

@@ -7,9 +7,8 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import FoodRegister from './components/food/FoodRegister';
 import UserPage from './userpage/UserPage';
 import { AuthProvider } from './components/contexts/AuthContext';
-import TMBCalculator from './calculate/measures/TMBCalculator';
-import BMICalculator from './calculate/measures/BMICalculator';
 import Measures from './calculate/measures/Measures';
+import CustomDiets from './components/diets/CustomDiets';
 
 function App() {
   return (
@@ -54,6 +53,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Measures />
+              </ProtectedRoute>
+            }
+          />
+           <Route
+            path="/dietas"
+            element={
+              <ProtectedRoute>
+                <CustomDiets />
               </ProtectedRoute>
             }
           />

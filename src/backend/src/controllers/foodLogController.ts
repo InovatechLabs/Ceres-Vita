@@ -90,3 +90,57 @@ export const searchFood = async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Error searching for food", error });
   }
 };
+
+type FoodPeriod = 'breakfast' | 'morningSnack' | 'lunch' | 'afternoonSnack' | 'dinner';
+
+type Food = {
+  id: number;
+  description: string;
+  carbohydrate: number;
+  protein: number;
+  total_lipids: number;
+  // adicione outros campos relevantes do seu banco
+};
+
+type FoodResult = {
+  [key in FoodPeriod]: Food[];
+};
+
+// Implementação da função
+export const getFoodsByDiet = async (req: Request, res: Response) => {
+  const { dietType, query } = req.query;
+
+  // Verificar se os parâmetros estão presentes
+  if (!query || !dietType) {
+    return res.status(400).json({ message: "Por favor, forneça a dieta e a consulta válidas." });
+  }
+
+  // Objeto para armazenar os alimentos filtrados por período
+  const result: FoodResult = {
+    breakfast: [],
+    morningSnack: [],
+    lunch: [],
+    afternoonSnack: [],
+    dinner: []
+  };
+  
+  const queries = [
+    { period: 'breakfast', query: `SELECT * FROM foods WHERE ${query} ORDER BY RANDOM() LIMIT 3` },
+    { period: 'morningSnack', query: `SELECT * FROM foods WHERE ${query} ORDER BY RANDOM() LIMIT 3` },
+    { period: 'lunch', query: `SELECT * FROM foods WHERE ${query} ORDER BY RANDOM() LIMIT 3` },
+    { period: 'afternoonSnack', query: `SELECT * FROM foods WHERE ${query} ORDER BY RANDOM() LIMIT 3` },
+    { period: 'dinner', query: `SELECT * FROM foods WHERE ${query} ORDER BY RANDOM() LIMIT 3` }
+];
+
+  try {
+    for (const { period, query } of queries) {
+      const response = await pool.query(query);  // Executando a consulta com o filtro adequado
+      result[period as FoodPeriod] = response.rows; // Armazenando o resultado da consulta
+    }
+
+    return res.status(200).json(result);  // Retorna o resultado
+  } catch (error) {
+    console.error("Erro ao buscar alimentos:", error);
+    return res.status(500).json({ message: "Erro ao buscar alimentos", error });
+  }
+};
