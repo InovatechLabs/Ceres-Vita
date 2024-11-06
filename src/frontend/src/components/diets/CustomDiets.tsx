@@ -92,25 +92,25 @@ const handleHomeClick = () => {
       // Caso o TMB seja até 1850, ajustes com valores menores
       switch (selectedDiet) {
         case "lowCarb":
-          query = `protein BETWEEN 8 AND 15 AND energy BETWEEN 70 AND 135 AND carbohydrate BETWEEN 4 AND 10`; // Limita carboidratos entre 5g e 15g
+          query = `protein BETWEEN 8 AND 18 AND energy BETWEEN 70 AND 125 AND carbohydrate BETWEEN 4 AND 10`; 
           break;
         case "cetogenica":
-          query = `carbohydrate BETWEEN 5 AND 15 AND total_lipids BETWEEN 10 AND 20`; // Limita carboidratos entre 5g e 15g, lipídios entre 10g e 20g
+          query = `carbohydrate BETWEEN 3 AND 10 AND total_lipids BETWEEN 15 AND 25 AND energy BETWEEN 110 AND 220`; 
           break;
         case "bulking":
-          query = `energy BETWEEN 150 AND 300 AND carbohydrate BETWEEN 10 AND 20`; // Para bulking, calorias entre 150 e 300 e carboidratos entre 10g e 20g
+          query = `energy BETWEEN 130 AND 270 AND carbohydrate BETWEEN 10 AND 20`; 
           break;
         case "vegetariana":
-          query = `energy BETWEEN 150 AND 350 AND category IN ('Hortaliças folhosas, frutosas e outras', 'Frutas', 'Cereais e leguminosas')`; // Energia entre 150 e 350 calorias, apenas alimentos vegetarianos
+          query = `energy BETWEEN 80 AND 230 AND category IN ('Hortaliças folhosas, frutosas e outras', 'Frutas', 'Cereais e leguminosas')`; 
           break;
         case "proteica":
-          query = `protein BETWEEN 12 AND 20 AND carbohydrate BETWEEN 10 AND 15`; // Proteína entre 12g e 20g, carboidratos entre 10g e 15g
+          query = `protein BETWEEN 8 AND 18 AND carbohydrate BETWEEN 6 AND 12`; 
           break;
         case "fibra":
-          query = `dietary_fiber BETWEEN 10 AND 20 AND energy BETWEEN 100 AND 200`; // Fibras entre 10g e 20g, energia entre 100 e 200 calorias
+          query = `dietary_fiber BETWEEN 7 AND 16 AND energy BETWEEN 80 AND 180`; 
           break;
         case "baixaGordura":
-          query = `total_lipids BETWEEN 5 AND 10 AND energy BETWEEN 100 AND 200`; // Lipídios entre 5g e 10g, energia entre 100 e 200 calorias
+          query = `total_lipids BETWEEN 1 AND 5 AND energy BETWEEN 100 AND 200`; 
           break;
         default:
           setError("Por favor, selecione uma dieta.");
@@ -119,25 +119,25 @@ const handleHomeClick = () => {
     } else if (tmbValue <= 2500) {
       switch (selectedDiet) {
         case "lowCarb":
-          query = `protein BETWEEN 8 AND 20 AND energy BETWEEN 80 AND 140 AND carbohydrate BETWEEN 3 AND 10`; // Limita carboidratos entre 10g e 25g
+          query = `protein BETWEEN 8 AND 20 AND energy BETWEEN 80 AND 160 AND carbohydrate BETWEEN 5 AND 11`; 
           break;
         case "cetogenica":
-          query = `carbohydrate BETWEEN 10 AND 25 AND total_lipids BETWEEN 15 AND 30`; // Limita carboidratos entre 10g e 30g, lipídios entre 40g e 60g
+          query = `carbohydrate BETWEEN 3 AND 9 AND total_lipids BETWEEN 10 AND 30 AND energy BETWEEN 90 AND 240`; 
           break;
         case "bulking":
-          query = `energy BETWEEN 250 AND 450 AND carbohydrate BETWEEN 20 AND 40`; // Para bulking, calorias entre 250 e 450 e carboidratos entre 30g e 50g
+          query = `energy BETWEEN 170 AND 390 AND carbohydrate BETWEEN 14 AND 30`; 
           break;
         case "vegetariana":
-          query = `energy BETWEEN 100 AND 600 AND category IN ('Hortaliças folhosas, frutosas e outras', 'Frutas', 'Cereais e leguminosas')`; // Energia entre 400 e 600 calorias, apenas alimentos vegetarianos
+          query = `energy BETWEEN 70 AND 600 AND category IN ('Hortaliças folhosas, frutosas e outras', 'Frutas', 'Cereais e leguminosas')`; 
           break;
         case "proteica":
-          query = `protein BETWEEN 16 AND 30 AND carbohydrate BETWEEN 15 AND 30`; // Proteína entre 40g e 60g, carboidratos entre 20g e 40g
+          query = `protein BETWEEN 8 AND 25 AND carbohydrate BETWEEN 5 AND 11`; 
           break;
         case "fibra":
-          query = `dietary_fiber BETWEEN 20 AND 40 AND energy BETWEEN 200 AND 400`; // Fibras entre 20g e 40g, energia entre 200 e 400 calorias
+          query = `dietary_fiber BETWEEN 8 AND 18 AND energy BETWEEN 70 AND 240`; 
           break;
         case "baixaGordura":
-          query = `total_lipids BETWEEN 10 AND 25 AND energy BETWEEN 200 AND 350`; // Lipídios entre 10g e 25g, energia entre 200 e 350 calorias
+          query = `total_lipids BETWEEN 2 AND 5 AND energy BETWEEN 60 AND 220`; 
           break;
         default:
           setError("Por favor, selecione uma dieta.");
@@ -146,25 +146,25 @@ const handleHomeClick = () => {
     } else if (tmbValue <= 3500) {
       switch (selectedDiet) {
         case "lowCarb":
-          query = `protein BETWEEN 10 AND 25 AND energy BETWEEN 100 AND 200 AND carbohydrate BETWEEN 4 AND 14`; // Limita carboidratos entre 20g e 40g
+          query = `protein BETWEEN 10 AND 25 AND energy BETWEEN 100 AND 200 AND carbohydrate BETWEEN 4 AND 14`; 
           break;
         case "cetogenica":
-          query = `carbohydrate BETWEEN 20 AND 40 AND total_lipids BETWEEN 30 AND 50`; // Limita carboidratos entre 20g e 40g, lipídios entre 30g e 50g
+          query = `carbohydrate BETWEEN 4 AND 10 AND total_lipids BETWEEN 9 AND 26`;
           break;
         case "bulking":
-          query = `energy BETWEEN 150 AND 400 AND carbohydrate BETWEEN 20 AND 40`; // Para bulking, calorias entre 350 e 600 e carboidratos entre 30g e 50g
+          query = `energy BETWEEN 210 AND 450 AND carbohydrate BETWEEN 15 AND 30`; 
           break;
         case "vegetariana":
-          query = `energy BETWEEN 80 AND 210 AND category IN ('Hortaliças folhosas, frutosas e outras', 'Frutas', 'Cereais e leguminosas')`; // Energia entre 200 e 800 calorias, apenas alimentos vegetarianos
+          query = `energy BETWEEN 80 AND 210 AND category IN ('Hortaliças folhosas, frutosas e outras', 'Frutas', 'Cereais e leguminosas')`;
           break;
         case "proteica":
-          query = `protein BETWEEN 12 AND 30 AND carbohydrate BETWEEN 8 AND 18`; // Proteína entre 40g e 60g, carboidratos entre 20g e 40g
+          query = `protein BETWEEN 11 AND 27 AND carbohydrate BETWEEN 6 AND 11 AND total_lipids BETWEEN 4 AND 10`; 
           break;
         case "fibra":
-          query = `dietary_fiber BETWEEN 8 AND 20 AND energy BETWEEN 100 AND 200`; // Fibras entre 25g e 45g, energia entre 250 e 450 calorias
+          query = `dietary_fiber BETWEEN 7 AND 20 AND energy BETWEEN 100 AND 200`; 
           break;
         case "baixaGordura":
-          query = `total_lipids BETWEEN 6 AND 14 AND energy BETWEEN 200 AND 300`; // Lipídios entre 15g e 30g, energia entre 300 e 500 calorias
+          query = `total_lipids BETWEEN 6 AND 14 AND energy BETWEEN 200 AND 300`; 
           break;
         default:
           setError("Por favor, selecione uma dieta.");
@@ -173,25 +173,25 @@ const handleHomeClick = () => {
     } else if (tmbValue <= 5000) {
       switch (selectedDiet) {
         case "lowCarb":
-          query = `protein BETWEEN 20 AND 30 AND energy BETWEEN 100 AND 200 AND carbohydrate BETWEEN 5 AND 20`; // Limita carboidratos entre 30g e 50g
+          query = `protein BETWEEN 10 AND 30 AND energy BETWEEN 120 AND 250 AND carbohydrate BETWEEN 4 AND 11`;
           break;
         case "cetogenica":
-          query = `carbohydrate BETWEEN 30 AND 50 AND total_lipids BETWEEN 40 AND 60`; // Limita carboidratos entre 30g e 50g, lipídios entre 40g e 60g
+          query = `carbohydrate BETWEEN 2 AND 9 AND total_lipids BETWEEN 15 AND 35`; 
           break;
         case "bulking":
-          query = `energy BETWEEN 300 AND 600 AND carbohydrate BETWEEN 24 AND 45`; // Para bulking, calorias entre 500 e 800 e carboidratos entre 40g e 60g
+          query = `energy BETWEEN 300 AND 600 AND carbohydrate BETWEEN 20 AND 45`;
           break;
         case "vegetariana":
-          query = `energy BETWEEN 300 AND 1000 AND category IN ('Hortaliças folhosas, frutosas e outras', 'Frutas', 'Cereais e leguminosas')`; // Energia entre 300 e 1000 calorias, apenas alimentos vegetarianos
+          query = `energy BETWEEN 150 AND 700 AND category IN ('Hortaliças folhosas, frutosas e outras', 'Frutas', 'Cereais e leguminosas')`;
           break;
         case "proteica":
-          query = `protein BETWEEN 20 AND 40 AND carbohydrate BETWEEN 21 AND 29`; // Proteína entre 50g e 80g, carboidratos entre 30g e 50g
+          query = `protein BETWEEN 12 AND 40 AND carbohydrate BETWEEN 4 AND 11`; 
           break;
         case "fibra":
-          query = `dietary_fiber BETWEEN 5 AND 60 AND energy BETWEEN 300 AND 700`; // Fibras entre 30g e 60g, energia entre 300 e 600 calorias
+          query = `dietary_fiber BETWEEN 6 AND 50 AND energy BETWEEN 110 AND 340`; 
           break;
         case "baixaGordura":
-          query = `total_lipids BETWEEN 12 AND 23 AND energy BETWEEN 400 AND 700`; // Lipídios entre 20g e 40g, energia entre 400 e 700 calorias
+          query = `total_lipids BETWEEN 3 AND 10 AND energy BETWEEN 210 AND 440`; 
           break;
         default:
           setError("Por favor, selecione uma dieta.");

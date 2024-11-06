@@ -34,7 +34,14 @@
     appearance: button;
     outline: none;
     margin-top: 20px;
+    cursor: pointer;
+    transition: .3s;
 
+  }
+
+  .card-generate select:hover {
+    background-color: #85e46b;
+    transform: scale(1.02);
   }
 
 
