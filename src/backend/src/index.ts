@@ -3,27 +3,21 @@ import dotenv from "dotenv";
 import cors from "cors";
 import morgan from "morgan";
 import userRouter from "./routes/user.route";
-import { connectDB } from "./config/connectDB";
 import foodLogRouter from './routes/foodLogRoute';
-import productsRouter from './routes/productsRoute';
-import productLogRouter from './routes/productLogRoute';
+import productRouter from './routes/productRoute';  // Import the new product route
+import { connectDB } from "./config/connectDB";
 
-// Initialize dotenv to access environment variables
 dotenv.config();
 
 const app = express();
 
-// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors()); // Enable CORS for all requests
-app.use(morgan("dev")); // Log all requests to the console
+app.use(cors());
+app.use(morgan("dev"));
 
-// Get the PORT from the environment variables
-// Add PORT=3030 to the .env file if not already present
 const PORT = process.env.PORT || 3030;
 
-// Basic route
 app.get("/", (req: Request, res: Response) => {
   try {
     return res.status(200).json({
@@ -36,30 +30,19 @@ app.get("/", (req: Request, res: Response) => {
   }
 });
 
-// User routes
+// Register all routes
 app.use("/api/user", userRouter);
+app.use("/api/food", foodLogRouter);
+app.use("/api", productRouter);  // Use the product router here
 
-// Food log routes
-app.use('/api/food', foodLogRouter); 
-console.log("Food routes registered");
-
-// Register the products routes
-app.use("/api/products", productsRouter);
-
-// Product log routes
-app.use('/api/product', productLogRouter);
-
-
-
-// Unknown route handler
+// Handle unknown routes
 app.use((req: Request, res: Response) => {
   return res.status(404).json({
     message: "Route not found",
   });
 });
 
-// Start the server
 app.listen(PORT, async () => {
   console.log(`Server is running on http://localhost:${PORT}`);
-  await connectDB(); // Connect to the database
+  await connectDB();
 });

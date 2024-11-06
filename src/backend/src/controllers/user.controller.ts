@@ -51,65 +51,66 @@ export const register = async (req: Request, res: Response) => {
 };
 
 // login a user
-export const login = async (req: Request, res: Response) => {
-  try {
-    // get the user data from the request body
-    const { email, password } = req.body;
+export const login = async (req: Request, res: Response): Promise<Response> => {
+  const attemptLogin = async (retryCount: number = 0): Promise<Response> => {
+    try {
+      // get the user data from the request body
+      const { email, password } = req.body;
 
-    // check if user data is provided
-    if (!email || !password) {
-      return res.status(400).json({
-        message: "Por favor, forneça todas informações necessárias!",
+      // check if user data is provided
+      if (!email || !password) {
+        return res.status(400).json({
+          message: "Por favor, forneça todas informações necessárias!",
+        });
+      }
+
+      // check if user exists
+      const user = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
+
+      if (user.rows.length === 0) {
+        return res.status(400).json({
+          message: "Este usuário não existe",
+        });
+      }
+
+      // compare the password
+      const validPassword = await bcrypt.compare(password, user.rows[0].password);
+      if (!validPassword) {
+        if (retryCount >= 3) {
+          return res.status(400).json({
+            message: "Too many invalid attempts",
+          });
+        }
+        // Retry login if password is invalid
+        return attemptLogin(retryCount + 1); // Recursive call with an incremented retryCount
+      }
+
+      const token = jwt.sign(
+        {
+          id: user.rows[0].id,
+          username: user.rows[0].username,
+          email: user.rows[0].email,
+        },
+        JWT_SECRET, // Chave secreta
+        { expiresIn: "1h" } // Expiração do token
+      );
+
+      // Responding with the token and user data
+      return res.status(200).json({
+        message: "Login bem-sucedido",
+        token, 
+        user: {
+          id: user.rows[0].id,
+          username: user.rows[0].username,
+          email: user.rows[0].email,
+        },
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: "Internal Server Error",
       });
     }
+  };
 
-    // check if user exists
-    const user = await pool.query("SELECT * FROM users WHERE email = $1", [
-      email,
-    ]);
-
-    if (user.rows.length === 0) {
-      return res.status(400).json({
-        message: "Este usuário não existe",
-      });
-    }
-
-    // compare the password
-    const validPassword = await bcrypt.compare(password, user.rows[0].password);
-    if (!validPassword) {
-      return res.status(400).json({
-        message: "Senha inválida",
-      });
-    }
-
-    const token = jwt.sign(
-      {
-        id: user.rows[0].id,
-        username: user.rows[0].username,
-        email: user.rows[0].email,
-      },
-      JWT_SECRET, // Chave secreta
-      { expiresIn: "1h" } // Expiração do token
-    );
-
-    // Respondendo com o token e os dados do usuário
-    return res.status(200).json({
-      message: "Login bem-sucedido",
-      token, 
-      user: {
-        id: user.rows[0].id,
-        username: user.rows[0].username,
-        email: user.rows[0].email,
-      },
-    });
-
-  
-
-    
-  } catch (error) {
-    return res.status(500).json({
-      message: "Internal Server Error",
-    });
-  }
-  
+  return attemptLogin(); // Start the login attempt
 };
