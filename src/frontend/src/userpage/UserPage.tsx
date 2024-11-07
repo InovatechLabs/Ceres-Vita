@@ -160,14 +160,42 @@ export default function UserPage() {
   };
 
   const handleDelete = async () => {
-    sessionStorage.removeItem("userProfile");
-    setProfile(null);
-    setBirthDate(null);
-    setWeight("");
-    setHeight("");
-    setSex("");
-    setMessagePopup("Perfil excluído com sucesso");
-    setShowPopup(true);
+    const storedUser = sessionStorage.getItem("id");
+    if (storedUser) {
+      const userId = parseInt(storedUser, 10);
+      
+     
+      try {
+        const response = await fetch(`http://localhost:3030/api/user/delete-profile/${userId}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userId }),
+        });
+  
+        const result = await response.json();
+        
+        if (response.ok) {
+          sessionStorage.removeItem("userProfile");
+          setProfile(null);
+          setBirthDate(null);
+          setWeight("");
+          setHeight("");
+          setSex("");
+          
+          setMessagePopup("Perfil excluído com sucesso");
+          setShowPopup(true);
+        } else {
+          setError(result.message || "Erro ao excluir perfil no servidor");
+        }
+      } catch (error) {
+        console.error("Erro ao se conectar com o servidor:", error);
+        setError("Erro ao se conectar com o servidor");
+      }
+    } else {
+      setError("Usuário não encontrado. Faça login novamente.");
+    }
   };
 
 

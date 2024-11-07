@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getProfile, saveProfile, verifyProfile } from "../controllers/profile.controller";
+import { deleteProfile, getProfile, saveProfile, verifyProfile } from "../controllers/profile.controller";
 import { register, login } from "../controllers/user.controller";
 
 const userRouter = Router();
@@ -17,6 +17,7 @@ userRouter.post("/save-profile", saveProfile);
 userRouter.post("/verify-profile", verifyProfile);
 
 userRouter.get('/profile/:userId', getProfile);
+userRouter.delete('/delete-profile/:userId', deleteProfile)
 
 
 

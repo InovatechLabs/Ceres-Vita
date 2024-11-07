@@ -30,6 +30,33 @@ export const saveProfile = async (req: Request, res: Response) => {
   }
 };
 
+export const deleteProfile = async (req: Request, res: Response) => {
+  const { userId } = req.params;
+
+  if (!userId) {
+    return res.status(400).json({ message: "O ID do usuário é obrigatório" });
+  }
+
+  try {
+    const query = `
+      DELETE FROM profiles WHERE users_id = $1
+    `;
+    const values = [userId];
+    
+    const result = await pool.query(query, values);
+    
+   
+    if (result.rowCount && result.rowCount !== null && result.rowCount > 0) {
+      return res.status(200).json({ message: "Perfil excluído com sucesso" });
+    } else {
+      return res.status(404).json({ message: "Perfil não encontrado" });
+    }
+  } catch (error) {
+    console.error("Erro ao excluir perfil:", error);
+    return res.status(500).json({ message: "Erro no servidor ao excluir perfil" });
+  }
+};
+
 export const verifyProfile = async (req: Request, res: Response) => {
     const { userId } = req.body;
 
