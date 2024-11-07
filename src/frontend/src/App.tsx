@@ -10,6 +10,7 @@ import { AuthProvider } from './components/contexts/AuthContext';
 import { ProfileProvider } from './components/contexts/ProfileContext'; // Importe o ProfileProvider
 import Measures from './calculate/measures/Measures';
 import CustomDiets from './components/diets/CustomDiets';
+import Receipts from './components/receipts/Receipts';
 
 function App() {
   return (
@@ -63,6 +64,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <CustomDiets />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/receitas"
+              element={
+                <ProtectedRoute>
+                  <Receipts />
                 </ProtectedRoute>
               }
             />
