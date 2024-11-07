@@ -47,9 +47,9 @@ export default interface Food {
 export interface NutrientTotals {
   energy: number;
   protein: number;
-  totalLipids: number;
+  total_lipids: number;
   carbohydrate: number;
-  dietaryFiber: number;
+  dietary_fiber: number;
   
 }
 

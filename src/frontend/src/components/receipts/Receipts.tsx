@@ -97,7 +97,7 @@ const handleHomeClick = () => {
         <div
           className={`receipts-text ${isSliding ? (slideDirection === 'left' ? 'slide-out-left' : 'slide-out-right') : ''} ${!isSliding && slideDirection ? (slideDirection === 'left' ? 'slide-in-left' : 'slide-in-right') : ''}`}
         >
-          <h2 className="receipts-title">{currentDiet.title}</h2>
+          <h2 className="receipts-title1">{currentDiet.title}</h2>
           {currentDiet.description.map((paragraph, index) => (
             <p key={index} className="receipts-paragraph">
               {paragraph}

@@ -103,7 +103,7 @@ body {
 #card-title {
   align-self: center;
   text-align: center;
-  font-family: 'Glass Antiqua';
+  font-family: sans-serif;
   margin-bottom: 4%;
   font-size: 3rem;
 }
@@ -130,7 +130,7 @@ body {
   outline: none;
   border-radius: 35px;
   padding: 15px 15px;
-  font-family: 'Aldrich';
+  font-family: sans-serif;
   font-size: 14px;
   font-weight: 100;
   color: #fff;
@@ -149,7 +149,7 @@ body {
   outline: none;
   color: #fff;
   text-transform: uppercase;
-  font-family: 'Aldrich';
+  font-family: sans-serif;
   letter-spacing: 3px;
   cursor: pointer;
 }
@@ -331,7 +331,7 @@ input[type="checkbox"]:checked::after {
   outline: none;
   border-radius: 35px;
   padding: 15px 15px;
-  font-family: 'Aldrich';
+  font-family: sans-serif;
   font-size: 14px;
   font-weight: 100;
   color: #fff;

@@ -41,16 +41,16 @@ const FoodRegister: React.FC = () => {
       energy: Number(localStorage.getItem("energyLimit")) || 0,
       protein: Number(localStorage.getItem("proteinLimit")) || 0,
       carbohydrate: Number(localStorage.getItem("carbohydrateLimit")) || 0,
-      totalLipids: Number(localStorage.getItem("totalLipidsLimit")) || 0,
-      dietaryFiber: Number(localStorage.getItem("dietaryFiberLimit")) || 0,
+      total_lipids: Number(localStorage.getItem("total_lipidsLimit")) || 0,
+      dietary_fiber: Number(localStorage.getItem("dietary_fiberLimit")) || 0,
     });
 
     const [exceededLimits, setExceededLimits] = useState<Record<string, boolean>>({
       energy: false,
       protein: false,
       carbohydrate: false,
-      totalLipids: false,
-      dietaryFiber: false,
+      total_lipids: false,
+      dietary_fiber: false,
     });
 
 
@@ -58,7 +58,7 @@ const FoodRegister: React.FC = () => {
       energy: true,  
       protein: true,
       carbohydrate: true,
-      totalLipids: true,
+      total_lipids: true,
     });
     
     const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>, nutrient: keyof typeof nutrientLimits) => {
@@ -117,8 +117,8 @@ const FoodRegister: React.FC = () => {
         energy: "Calorias",
         protein: "Proteína",
         carbohydrate: "Carboidrato",
-        totalLipids: "Gorduras",
-        dietaryFiber: "Fibra Dietética",
+        total_lipids: "Gorduras",
+        dietary_fiber: "Fibra Dietética",
       };
 
       const getTranslation = (term: string) => {
@@ -131,8 +131,8 @@ const FoodRegister: React.FC = () => {
           energy: Number((document.getElementById('energy') as HTMLInputElement)?.value) || 0,
           protein: Number((document.getElementById('protein') as HTMLInputElement)?.value) || 0,
           carbohydrate: Number((document.getElementById('carbohydrate') as HTMLInputElement)?.value) || 0,
-          totalLipids: Number((document.getElementById('totalLipids') as HTMLInputElement)?.value) || 0,
-          dietaryFiber: Number((document.getElementById('dietaryFiber') as HTMLInputElement)?.value) || 0,
+          total_lipids: Number((document.getElementById('total_lipids') as HTMLInputElement)?.value) || 0,
+          dietary_fiber: Number((document.getElementById('dietary_fiber') as HTMLInputElement)?.value) || 0,
         };
       
         // Salvar no localStorage
@@ -173,8 +173,8 @@ const FoodRegister: React.FC = () => {
           energy: data.total_energy_from_foods > nutrientLimits.energy,
           protein: data.total_protein_from_foods > nutrientLimits.protein,
           carbohydrate: data.total_carbohydrate_from_foods > nutrientLimits.carbohydrate,
-          totalLipids: data.total_lipids_from_foods > nutrientLimits.totalLipids,
-          dietaryFiber: data.total_dietary_fiber_from_foods > nutrientLimits.dietaryFiber,
+          total_lipids: data.total_lipids_from_foods > nutrientLimits.total_lipids,
+          dietary_fiber: data.total_dietary_fiber_from_foods > nutrientLimits.dietary_fiber,
         };
       
         setExceededLimits(limitsExceeded);
@@ -269,13 +269,13 @@ const FoodRegister: React.FC = () => {
             if (foodDataItem) {
               totals.energy += (foodDataItem.energy ?? 0) * factor;
               totals.protein += (foodDataItem.protein ?? 0) * factor;
-              totals.totalLipids += (foodDataItem.total_lipids ?? 0) * factor;
+              totals.total_lipids += (foodDataItem.total_lipids ?? 0) * factor;
               totals.carbohydrate += (foodDataItem.carbohydrate ?? 0) * factor;
-              totals.dietaryFiber += (foodDataItem.dietary_fiber ?? 0) * factor;
+              totals.dietary_fiber += (foodDataItem.dietary_fiber ?? 0) * factor;
             }
             return totals;
           },
-          { energy: 0, protein: 0, totalLipids: 0, carbohydrate: 0, dietaryFiber: 0 }
+          { energy: 0, protein: 0, total_lipids: 0, carbohydrate: 0, dietary_fiber: 0 }
         );
   
         // Verifique se algum nutriente excede os limites e emita alerta
@@ -467,17 +467,17 @@ const FoodRegister: React.FC = () => {
    <span>Limitar gorduras</span>
    <input
       type="checkbox"
-      checked={checkedNutrients.totalLipids}
-      onChange={(e) => handleCheckboxChange(e, 'totalLipids')}
-      id="checkbox-totalLipids"
+      checked={checkedNutrients.total_lipids}
+      onChange={(e) => handleCheckboxChange(e, 'total_lipids')}
+      id="checkbox-total_lipids"
     />
     </div> 
     <input
       type="number"
-      id="totalLipids"
-      value={nutrientLimits.totalLipids > 0 ? nutrientLimits.totalLipids : ""}
-      onChange={(e) => handleLimitChange(e, 'totalLipids')}
-      disabled={!checkedNutrients.totalLipids}
+      id="total_lipids"
+      value={nutrientLimits.total_lipids > 0 ? nutrientLimits.total_lipids : ""}
+      onChange={(e) => handleLimitChange(e, 'total_lipids')}
+      disabled={!checkedNutrients.total_lipids}
     />
     
   
@@ -629,28 +629,46 @@ const FoodRegister: React.FC = () => {
          <tbody>
          <tr>
          <td>Calorias totais dos alimentos</td>
-        <td
-          style={{
-            color: exceededLimits.energy ? "red" : "white", // Alerta vermelho se exceder o limite
-          }}
-        >
-          {formatNumber(nutritionalData.total_energy_from_foods ?? 0)}
-        </td>
-        <td>kcal</td>
+         <td
+    style={{
+      color: exceededLimits.energy ? "red" : "white", // Alerta vermelho se exceder o limite
+    }}
+  >
+    {formatNumber(nutritionalData.total_energy_from_foods ?? 0)}
+  </td>
+  <td>kcal</td>
 </tr>
 <tr>
   <td>Proteína total dos alimentos</td>
-  <td>{formatNumber(nutritionalData.total_protein_from_foods ?? 0)}</td>
+  <td
+    style={{
+      color: exceededLimits.protein ? "red" : "white", // Alerta vermelho se exceder o limite
+    }}
+  >
+    {formatNumber(nutritionalData.total_protein_from_foods ?? 0)}
+  </td>
   <td>g</td>
 </tr>
 <tr>
   <td>Lípidos totais dos alimentos</td>
-  <td>{formatNumber(nutritionalData.total_lipids_from_foods ?? 0)}</td>
+  <td
+    style={{
+      color: exceededLimits.total_lipids ? "red" : "white", // Alerta vermelho se exceder o limite
+    }}
+  >
+    {formatNumber(nutritionalData.total_lipids_from_foods ?? 0)}
+  </td>
   <td>g</td>
 </tr>
 <tr>
   <td>Carboidratos totais dos alimentos</td>
-  <td>{formatNumber(nutritionalData.total_carbohydrate_from_foods ?? 0)}</td>
+  <td
+    style={{
+      color: exceededLimits.carbohydrate ? "red" : "white", // Alerta vermelho se exceder o limite
+    }}
+  >
+    {formatNumber(nutritionalData.total_carbohydrate_from_foods ?? 0)}
+  </td>
   <td>g</td>
 </tr>
 <tr>
