@@ -106,9 +106,7 @@ export default function UserPage() {
     }
   }, []); 
 
-  const saveProfileToSession = (profileData: any) => {
-    sessionStorage.setItem("userProfile", JSON.stringify(profileData));
-  };
+  
 
   const handleSave = async () => {
     if (!birthDate) {
@@ -124,7 +122,6 @@ export default function UserPage() {
     } else {
       const formattedDate = dateFormat(birthDate);
       const updatedProfile = { birth_date: formattedDate, weight, height, sex };
-      saveProfileToSession(updatedProfile);
       setProfile(updatedProfile);
       setMessagePopup("Perfil salvo com sucesso");
       setShowPopup(true);
@@ -202,7 +199,6 @@ export default function UserPage() {
   return (
     <>
       <div className="wrapper">
-        {/* Aqui você adiciona o nav */}
         <nav>
           <div className="logo">Ceres Vita</div>
           <ul>

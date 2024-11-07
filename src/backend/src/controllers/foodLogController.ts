@@ -69,6 +69,8 @@ export const getFoodLog = async (req: Request, res: Response) => {
   }
 };
 
+
+
 // Search for a food by name
 export const searchFood = async (req: Request, res: Response) => {
   let { name } = req.params; 
@@ -144,3 +146,4 @@ export const getFoodsByDiet = async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Erro ao buscar alimentos", error });
   }
 };
+

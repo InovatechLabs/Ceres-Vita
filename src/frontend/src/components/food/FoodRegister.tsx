@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import './styles/FoodRegister.css';
 import axios from 'axios';
-import Food, { FoodLog } from '../../types/Food';
+import Food, { FoodLog, NutrientTotals, SelectedFood } from '../../types/Food';
 import FoodLogTable from './foodLogTable/FoodLogTable';
 import GlobalStyles from './styles/GlobalStyles';
 import { useNavigate } from "react-router-dom";
@@ -37,8 +37,115 @@ const FoodRegister: React.FC = () => {
     const [showHistory, setShowHistory] = useState(false);
     const [isTableVisible, setIsTableVisible] = useState(false);
 
+    const [nutrientLimits, setNutrientLimits] = useState<Record<string, number>>({
+      energy: Number(localStorage.getItem("energyLimit")) || 0,
+      protein: Number(localStorage.getItem("proteinLimit")) || 0,
+      carbohydrate: Number(localStorage.getItem("carbohydrateLimit")) || 0,
+      totalLipids: Number(localStorage.getItem("totalLipidsLimit")) || 0,
+      dietaryFiber: Number(localStorage.getItem("dietaryFiberLimit")) || 0,
+    });
+
+    const [exceededLimits, setExceededLimits] = useState<Record<string, boolean>>({
+      energy: false,
+      protein: false,
+      carbohydrate: false,
+      totalLipids: false,
+      dietaryFiber: false,
+    });
+
+
+    const [checkedNutrients, setCheckedNutrients] = useState<Record<string, boolean>>({
+      energy: true,  
+      protein: true,
+      carbohydrate: true,
+      totalLipids: true,
+    });
+    
+    const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>, nutrient: keyof typeof nutrientLimits) => {
+      const isChecked = e.target.checked;
+      setCheckedNutrients((prevChecked) => ({
+        ...prevChecked,
+        [nutrient]: isChecked,
+      }));
+  
+      if (!isChecked) {
+        // Se desmarcar, zerar o limite.
+        setNutrientLimits((prevLimits) => ({
+          ...prevLimits,
+          [nutrient]: 0, // Zera o limite ao desmarcar
+        }));
+      }
+    };
+  
+    const handleLimitChange = (e: React.ChangeEvent<HTMLInputElement>, nutrient: keyof typeof nutrientLimits) => {
+      const newLimit = parseInt(e.target.value, 10) || 0;
+      setNutrientLimits((prevLimits) => ({
+        ...prevLimits,
+        [nutrient]: newLimit,
+      }));
+  
+      // Atualiza o estado da checkbox dependendo do valor do limite.
+      if (newLimit > 0) {
+        setCheckedNutrients((prevChecked) => ({
+          ...prevChecked,
+          [nutrient]: true, // Marca a checkbox se o limite for maior que 0
+        }));
+      } else {
+        setCheckedNutrients((prevChecked) => ({
+          ...prevChecked,
+          [nutrient]: false, // Desmarca a checkbox se o limite for 0
+        }));
+      }
+    };
+
+    useEffect(() => {
+      const savedLimits = localStorage.getItem('nutrientLimits');
+      if (savedLimits) {
+        setNutrientLimits(JSON.parse(savedLimits));
+      }
+    }, []);
+    
+  
+  const [showLimitsConfig, setShowLimitsConfig] = useState(false);
+
+  
     const toggleTableVisibility = () => {
         setIsTableVisible((prev) => !prev);
+      };
+
+      const translations = {
+        energy: "Calorias",
+        protein: "Proteína",
+        carbohydrate: "Carboidrato",
+        totalLipids: "Gorduras",
+        dietaryFiber: "Fibra Dietética",
+      };
+
+      const getTranslation = (term: string) => {
+        return translations[term as keyof typeof translations] || term; // Se não encontrar a tradução, retorna o termo original
+      };
+
+
+      const handleSaveLimits = () => {
+        const updatedLimits = {
+          energy: Number((document.getElementById('energy') as HTMLInputElement)?.value) || 0,
+          protein: Number((document.getElementById('protein') as HTMLInputElement)?.value) || 0,
+          carbohydrate: Number((document.getElementById('carbohydrate') as HTMLInputElement)?.value) || 0,
+          totalLipids: Number((document.getElementById('totalLipids') as HTMLInputElement)?.value) || 0,
+          dietaryFiber: Number((document.getElementById('dietaryFiber') as HTMLInputElement)?.value) || 0,
+        };
+      
+        // Salvar no localStorage
+        localStorage.setItem('nutrientLimits', JSON.stringify(updatedLimits));
+      
+        // Atualizar o estado
+        setNutrientLimits(updatedLimits);
+      
+        setShowLimitsConfig(false);
+      };
+
+      const handleCloseModal = () => {
+        setShowLimitsConfig(false); 
       };
 
     const [nutritionalData, setNutritionalData] = useState<NutritionalData | null>(null);
@@ -49,17 +156,30 @@ const FoodRegister: React.FC = () => {
 
       const fetchData = async (dateInput: string | undefined) => {
         try {
-            const response = await fetch(
-                `http://localhost:3030/api/food/calculate-nutrients/${userId}/${dateInput ? dateInput : ""}`
-            );
-            const data = await response.json();
-            setNutritionalData(data);
-            console.log(data);
+          const response = await fetch(
+            `http://localhost:3030/api/food/calculate-nutrients/${userId}/${dateInput ? dateInput : ""}`
+          );
+          const data = await response.json();
+          setNutritionalData(data);
+          checkNutrientLimits(data);
         } catch (error) {
-            console.error("Erro ao buscar dados:", error);
-            setNutritionalData(null);
+          console.error("Erro ao buscar dados:", error);
+          setNutritionalData(null);
         }
-    };
+      };
+      
+      const checkNutrientLimits = (data: any) => {
+        const limitsExceeded: Record<string, boolean> = {
+          energy: data.total_energy_from_foods > nutrientLimits.energy,
+          protein: data.total_protein_from_foods > nutrientLimits.protein,
+          carbohydrate: data.total_carbohydrate_from_foods > nutrientLimits.carbohydrate,
+          totalLipids: data.total_lipids_from_foods > nutrientLimits.totalLipids,
+          dietaryFiber: data.total_dietary_fiber_from_foods > nutrientLimits.dietaryFiber,
+        };
+      
+        setExceededLimits(limitsExceeded);
+      };
+
 
     // Definição da função handleCalculateClick
     const handleCalculateClick = () => {
@@ -130,23 +250,53 @@ const FoodRegister: React.FC = () => {
         }
     };
 
+    
+
     const handleSelectFood = (foodId: number, quantity: number, selected: boolean) => {
-        setSelectedFoods(prevSelectedFoods => {
-            if (selected) {
-                const existingFood = prevSelectedFoods.find(food => food.foodId === foodId);
-                if (existingFood) {
-                    // Atualiza a quantidade
-                    return prevSelectedFoods.map(food => food.foodId === foodId ? { ...food, quantity } : food);
-                } else {
-                    // Adiciona novo alimento com quantidade
-                    return [...prevSelectedFoods, { foodId, quantity }];
-                }
-            } else {
-                // Remove o alimento da lista de selecionados
-                return prevSelectedFoods.filter(food => food.foodId !== foodId);
+      setSelectedFoods((prevSelectedFoods) => {
+        const newUpdatedFoods = selected
+          ? prevSelectedFoods.some((food) => food.foodId === foodId)
+            ? prevSelectedFoods.map((food) =>
+                food.foodId === foodId ? { ...food, quantity } : food
+              )
+            : [...prevSelectedFoods, { foodId, quantity }]
+          : prevSelectedFoods.filter((food) => food.foodId !== foodId);
+  
+        const nutrientTotals: NutrientTotals = newUpdatedFoods.reduce(
+          (totals: NutrientTotals, food: SelectedFood) => {
+            const foodDataItem = foodData.find((f) => f.id === food.foodId);
+            const factor = food.quantity / 100;
+            if (foodDataItem) {
+              totals.energy += (foodDataItem.energy ?? 0) * factor;
+              totals.protein += (foodDataItem.protein ?? 0) * factor;
+              totals.totalLipids += (foodDataItem.total_lipids ?? 0) * factor;
+              totals.carbohydrate += (foodDataItem.carbohydrate ?? 0) * factor;
+              totals.dietaryFiber += (foodDataItem.dietary_fiber ?? 0) * factor;
             }
+            return totals;
+          },
+          { energy: 0, protein: 0, totalLipids: 0, carbohydrate: 0, dietaryFiber: 0 }
+        );
+  
+        // Verifique se algum nutriente excede os limites e emita alerta
+        const exceededNutrients = Object.keys(nutrientTotals).filter((nutrient) => {
+          // Só aplica o limite se o valor for maior que 0 (checkbox marcada)
+          if (nutrient in nutrientLimits && nutrientLimits[nutrient] > 0) {
+            const limit = nutrientLimits[nutrient];
+            return nutrientTotals[nutrient as keyof NutrientTotals] > limit;
+          }
+          return false;
         });
+  
+        if (exceededNutrients.length > 0) {
+          const translatedNutrients = exceededNutrients.map(getTranslation);
+          alert(`Limites excedidos para: ${translatedNutrients.join(", ")}`);
+        }
+  
+        return newUpdatedFoods;
+      });
     };
+
 
     const isFoodSelected = (foodId: number) => {
         return selectedFoods.some(food => food.foodId === foodId);
@@ -246,7 +396,98 @@ const FoodRegister: React.FC = () => {
                     <div className="food-buttons">
                         <button className="food-button" onClick={handleSearch}>Alimento</button>
                         <button className="food-product">Produto</button>
+                        <button onClick={() => setShowLimitsConfig(true)}>Configurar Limites de Nutrientes</button>
+
+      {/* Overlay escuro, visível quando o modal estiver aberto */}
+      
                     </div>
+                    {showLimitsConfig && (
+            <div
+                className="overlay visible"
+                onClick={handleCloseModal} // Fecha o modal e o overlay ao clicar fora
+            ></div>
+        )}
+                    {showLimitsConfig && (
+                      
+                      
+                      <div className="modal">
+                      <h3>Configurar limites de nutrientes diários</h3>
+                      <div className='span-div'>
+                      <span>Limitar calorias</span>
+                      <input
+      type="checkbox"
+      checked={checkedNutrients.energy}
+      onChange={(e) => handleCheckboxChange(e, 'energy')}
+      id="checkbox-energy"
+    />   
+    </div>            
+    <input
+      type="number"
+      id="energy"
+      value={nutrientLimits.energy > 0 ? nutrientLimits.energy : ""}
+      onChange={(e) => handleLimitChange(e, 'energy')}
+      disabled={!checkedNutrients.energy} // Desabilita se a checkbox não estiver marcada
+    />
+    
+    <div className='span-div'>
+    <span>Limitar proteínas</span>
+    <input
+      type="checkbox"
+      checked={checkedNutrients.protein}
+      onChange={(e) => handleCheckboxChange(e, 'protein')}
+      id="checkbox-protein"
+    />
+    </div>
+    <input
+      type="number"
+      id="protein"
+      value={nutrientLimits.protein > 0 ? nutrientLimits.protein : ""}
+      onChange={(e) => handleLimitChange(e, 'protein')}
+      disabled={!checkedNutrients.protein}
+    />
+   
+   <div className='span-div'>
+   <span>Limitar carboidratos</span>
+   <input
+      type="checkbox"
+      checked={checkedNutrients.carbohydrate}
+      onChange={(e) => handleCheckboxChange(e, 'carbohydrate')}
+      id="checkbox-carbohydrate"
+    />
+    </div>
+    <input
+      type="number"
+      id="carbohydrate"
+      value={nutrientLimits.carbohydrate > 0 ? nutrientLimits.carbohydrate : ""}
+      onChange={(e) => handleLimitChange(e, 'carbohydrate')}
+      disabled={!checkedNutrients.carbohydrate}
+    />
+   
+   <div className='span-div'>
+   <span>Limitar gorduras</span>
+   <input
+      type="checkbox"
+      checked={checkedNutrients.totalLipids}
+      onChange={(e) => handleCheckboxChange(e, 'totalLipids')}
+      id="checkbox-totalLipids"
+    />
+    </div> 
+    <input
+      type="number"
+      id="totalLipids"
+      value={nutrientLimits.totalLipids > 0 ? nutrientLimits.totalLipids : ""}
+      onChange={(e) => handleLimitChange(e, 'totalLipids')}
+      disabled={!checkedNutrients.totalLipids}
+    />
+    
+  
+              
+                      <div className='buttons-save-nutrient'>
+                        <button id="handlesave" onClick={handleSaveLimits}>Salvar</button>
+                        <button id="handlesave" onClick={handleCloseModal}>Fechar</button>
+                      </div>
+                    </div>
+)}
 
                     <div className="info-group">
                         <label htmlFor="meal-select">Selecione o tipo de refeição:</label>
@@ -387,9 +628,15 @@ const FoodRegister: React.FC = () => {
          </thead>
          <tbody>
          <tr>
-  <td>Calorias totais dos alimentos</td>
-  <td>{formatNumber(nutritionalData.total_energy_from_foods ?? 0)}</td>
-  <td>kcal</td>
+         <td>Calorias totais dos alimentos</td>
+        <td
+          style={{
+            color: exceededLimits.energy ? "red" : "white", // Alerta vermelho se exceder o limite
+          }}
+        >
+          {formatNumber(nutritionalData.total_energy_from_foods ?? 0)}
+        </td>
+        <td>kcal</td>
 </tr>
 <tr>
   <td>Proteína total dos alimentos</td>

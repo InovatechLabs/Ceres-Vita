@@ -11,6 +11,9 @@ router.get('/calculate-nutrients/:userId/:date?', calculateNutrients);
 router.get('/search-food/:name', searchFood); // Endpoint to fetch available foods in database
 router.get('/diet', getFoodsByDiet);
 
+
+
+
 export default router;
 
 /* tutorial for the routes:

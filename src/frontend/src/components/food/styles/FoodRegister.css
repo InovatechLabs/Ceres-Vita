@@ -19,6 +19,76 @@ body {
   justify-content: center;
 }
 
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 40px;
+  background-color: orange;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+
+}
+.modal h3 {
+  margin-top: 0;
+  font-size: 26px;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.span-div {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: start;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.span-div span {
+  margin-left: 5px;
+  color: #000;
+  font-size: 20px;
+}
+.modal label {
+  display: block;
+  margin: 10px 0;
+  font-size: 18px;
+  
+}
+#handlesave {
+  padding: 10px 15px;
+  background-color: #8F3F01;
+  font-family: sans-serif;
+  color: #fff;
+  align-self: center;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 22px;
+  margin-top: 10px;
+}
+
+.modal input {
+  border: none;
+  background-color: #414141;
+  padding: 10px;
+  color: #fff;
+  width: 100%;
+  text-align: center;
+  outline: none;
+  font-size: 22px;
+
+}
+.buttons-save-nutrient {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
 .card-registerfood {
   background-color: rgba(224, 144, 73, 0.6);
   display: flex;

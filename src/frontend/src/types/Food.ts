@@ -44,6 +44,20 @@ export default interface Food {
   vitamin_c: number | null;
 }
 
+export interface NutrientTotals {
+  energy: number;
+  protein: number;
+  totalLipids: number;
+  carbohydrate: number;
+  dietaryFiber: number;
+  
+}
+
+export interface SelectedFood {
+  foodId: number;
+  quantity: number;
+}
+
 export interface FoodLog {
   foods_id: number;
   meal: ReactNode;

@@ -92,7 +92,7 @@ const handleHomeClick = () => {
       // Caso o TMB seja até 1850, ajustes com valores menores
       switch (selectedDiet) {
         case "lowCarb":
-          query = `protein BETWEEN 8 AND 18 AND energy BETWEEN 70 AND 125 AND carbohydrate BETWEEN 4 AND 10`; 
+          query = `protein BETWEEN 8 AND 18 AND energy BETWEEN 60 AND 125 AND carbohydrate BETWEEN 3 AND 8`; 
           break;
         case "cetogenica":
           query = `carbohydrate BETWEEN 3 AND 10 AND total_lipids BETWEEN 15 AND 25 AND energy BETWEEN 110 AND 220`; 
@@ -110,7 +110,7 @@ const handleHomeClick = () => {
           query = `dietary_fiber BETWEEN 7 AND 16 AND energy BETWEEN 80 AND 180`; 
           break;
         case "baixaGordura":
-          query = `total_lipids BETWEEN 1 AND 5 AND energy BETWEEN 100 AND 200`; 
+          query = `total_lipids BETWEEN 1 AND 5 AND energy BETWEEN 80 AND 210`; 
           break;
         default:
           setError("Por favor, selecione uma dieta.");
