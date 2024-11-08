@@ -1,0 +1,66 @@
+.chart-container {
+    position: relative;  /* Para controle do posicionamento dentro do contêiner */
+    width: 100%;         /* O gráfico ocupará toda a largura disponível */
+    max-width: 1000px;    /* Limita a largura máxima para 500px (ajuste conforme necessário) */
+    height: 500px;       /* Define uma altura fixa, mas ajustável conforme a necessidade */
+    margin: 0 auto;      /* Centraliza o gráfico na página */
+    background-color: #505050;
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    
+  }
+
+  
+
+  .chart-all {
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #505050;
+    
+
+  }
+
+  .header-chart {
+    background-color: orange;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+  }
+
+  .btn-chart {
+    background-color: orange;
+    padding: 15px 35px;
+    border-radius: 20px;
+    margin: 25px;
+    border: none;
+    outline: none;
+    color: #fff;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    letter-spacing: 3px;
+    cursor: pointer;
+    transition: .3s;
+  }
+
+  .btn-chart:hover {
+    background-color: rgb(189, 123, 1);
+  }
+
+  .alerts-div {
+    background-color: rgb(255, 57, 57);
+    color: #fff;
+    padding: 10px;
+    margin: 25px;
+  }
+
+  .alerts-div > p {
+    font-weight: 600;
+    margin: 5px;
+  }

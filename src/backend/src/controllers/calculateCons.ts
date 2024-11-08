@@ -46,8 +46,7 @@ export const calculateNutrients = async (req: Request, res: Response) => {
         SUM(f.folate * ef.quantity) AS total_folate_from_foods,
         SUM(f.vitamin_D * ef.quantity) AS total_vitamin_D_from_foods,
         SUM(f.vitamin_E * ef.quantity) AS total_vitamin_E_from_foods,
-        SUM(f.vitamin_C * ef.quantity) AS total_vitamin_C_from_foods,
-        
+        SUM(f.vitamin_C * ef.quantity) AS total_vitamin_C_from_foods,     
         SUM(p.energy * ep.quantity) AS total_energy_from_products,
         SUM(p.protein * ep.quantity) AS total_protein_from_products,
         SUM(p.carbohydrate * ep.quantity) AS total_carbohydrate_from_products,

@@ -760,6 +760,14 @@ ul li:hover::after{
     margin: 0;
     text-transform: uppercase;
     letter-spacing: 10px;
+    transition: .35s;
+  }
+
+  .receipts-title > h1:hover {
+    cursor:pointer;
+    transform: scale(1.05);
+    color: rgb(109, 61, 38);
+    
   }
 
   .contact {

@@ -53,6 +53,11 @@ function Home() {
     window.scrollTo(0, 0);
   };
 
+  const handleReceiptsClick = () => {
+    navigate('/receitas');
+    window.scrollTo(0, 0);
+  };
+
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [email, setEmail] = useState('');
@@ -218,7 +223,7 @@ function Home() {
         </section>
       <section id='receipts'>
         <div className='receipts-title'>
-          <h1>Receitas</h1>
+          <h1 onClick={handleReceiptsClick}>Receitas</h1>
         </div>
         <HomeReceipts />
       </section>

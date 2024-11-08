@@ -9,6 +9,7 @@ import GlobalStyles from './styles/GlobalStyles';
 import { useNavigate } from "react-router-dom";
 import { NutritionalData, NutrientsTableProps } from '../../types/Calculate';
 import { AuthContext } from '../contexts/AuthContext';
+import NutrientGraph from './NutrientGraph';
 
 const FoodRegister: React.FC = () => {
 
@@ -149,6 +150,7 @@ const FoodRegister: React.FC = () => {
       };
 
     const [nutritionalData, setNutritionalData] = useState<NutritionalData | null>(null);
+    
 
     const formatNumber = (num: number) => {
         return num !== null ? num.toFixed(2) : 0; 
@@ -181,6 +183,13 @@ const FoodRegister: React.FC = () => {
       };
 
 
+      const [isDateSpecific, setIsDateSpecific] = useState<boolean>(false);
+
+      const [isGraphVisible, setIsGraphVisible] = useState(false);
+      const handleGraphToggle = () => {
+        setIsGraphVisible(!isGraphVisible);
+      };
+      
     // Definição da função handleCalculateClick
     const handleCalculateClick = () => {
       // Se a tabela estiver visível, apenas a oculta
@@ -188,7 +197,6 @@ const FoodRegister: React.FC = () => {
           setIsTableVisible(false);
           return; // Sai da função sem mostrar o prompt
       }
-  
 
       // Se a tabela não estiver visível, mostra o prompt
       const dateInput = prompt("Insira a data no formato YYYY-MM-DD para cálculo específico, ou deixe vazio para calcular todos os dados:");
@@ -597,7 +605,6 @@ const FoodRegister: React.FC = () => {
 
                     <div className='buttons-export-graph'>
                         <button onClick={handleFetchFoodLog}>Gerar Histórico de Consumo</button>
-                        <button>Gerar Gráfico de Consumo</button>
                     </div>
 
                     <button onClick={handleCalculateClick} id='show-calculate'>
@@ -1026,11 +1033,24 @@ const FoodRegister: React.FC = () => {
       ) : (
         <p></p>
       )}
-      
+      <button onClick={handleGraphToggle} id="show-graph" style={{ marginLeft: "10px" }}>
+        {isGraphVisible ? "Ocultar Gráfico" : "Mostrar Gráfico de Nutrientes"}
+      </button>
     </div>
+   
+
+    {isGraphVisible && (
+  <NutrientGraph
+    nutritionalData={nutritionalData}
+    isDateSpecific={isDateSpecific}
+    exceededLimits={exceededLimits}
+  />
+)}
+    
                 </div>
                 
             </div>
+            
         </>
     );
 };
