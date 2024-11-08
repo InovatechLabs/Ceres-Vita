@@ -1,6 +1,6 @@
 import { faBars } from "@fortawesome/free-solid-svg-icons/faBars";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import './styles/CustomDiets.css';
 import Footer from '../../components/contact/Contact';
 import { useProfile } from "../contexts/ProfileContext";
@@ -31,11 +31,11 @@ const CustomDiets: React.FC = () => {
   const [foodsByPeriod, setFoodsByPeriod] = useState<FoodsByPeriod | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [totalNutrients, setTotalNutrients] = useState({
-    calories: 0,
+    energy: 0,
     protein: 0,
     carbohydrate: 0,
-    lipids: 0,
-    fiber: 0
+    total_lipids: 0,
+    dietary_fiber: 0
   });
 
   const periodTranslation: { [key: string]: string } = {
@@ -45,6 +45,30 @@ const CustomDiets: React.FC = () => {
     afternoonSnack: "Lanche da Tarde",
     dinner: "Jantar"
   };
+
+  const [saveToLocalStorage, setSaveToLocalStorage] = useState<boolean>(false);
+
+  const saveMacronutrientsToLocalStorage = () => {
+    const macronutrients = {
+      energy: totalNutrients.energy,
+      protein: totalNutrients.protein,
+      carbohydrate: totalNutrients.carbohydrate,
+      total_lipids: totalNutrients.total_lipids,
+      dietary_fiber: totalNutrients.dietary_fiber
+    };
+    if (saveToLocalStorage) {
+      localStorage.setItem("macronutrients", JSON.stringify(macronutrients));
+      console.log("Macronutrientes salvos no localStorage:", macronutrients);
+    } else {
+      localStorage.removeItem("macronutrients");
+      console.log("Macronutrientes removidos do localStorage");
+    }
+  };
+
+  useEffect(() => {
+   
+    saveMacronutrientsToLocalStorage();
+  }, [saveToLocalStorage, totalNutrients]);
 
   const authContext = useContext(AuthContext)
 
@@ -230,11 +254,11 @@ const handleHomeClick = () => {
       const roundToTwoDecimalPlaces = (value: number) => Math.round(value * 100) / 100;
 
       setTotalNutrients({
-        calories: roundToTwoDecimalPlaces(totalCalories),
+        energy: roundToTwoDecimalPlaces(totalCalories),
         protein: roundToTwoDecimalPlaces(totalProtein),
         carbohydrate: roundToTwoDecimalPlaces(totalCarbohydrate),
-        lipids: roundToTwoDecimalPlaces(totalLipids),
-        fiber: roundToTwoDecimalPlaces(totalFiber),
+        total_lipids: roundToTwoDecimalPlaces(totalLipids),
+        dietary_fiber: roundToTwoDecimalPlaces(totalFiber),
       });
 
       setError(null);
@@ -325,7 +349,7 @@ const handleHomeClick = () => {
   <div className="total-nutrients">
     <h2>Totais de Macronutrientes</h2>
     <div className="nutrient">
-      <strong>Calorias Totais:</strong> {totalNutrients.calories} kcal
+      <strong>Calorias Totais:</strong> {totalNutrients.energy} kcal
     </div>
     <div className="nutrient">
       <strong>Proteínas Totais:</strong> {totalNutrients.protein} g
@@ -334,10 +358,22 @@ const handleHomeClick = () => {
       <strong>Carboidratos Totais:</strong> {totalNutrients.carbohydrate} g
     </div>
     <div className="nutrient">
-      <strong>Gorduras Totais:</strong> {totalNutrients.lipids !== null ? totalNutrients.lipids : "0"} g
+      <strong>Gorduras Totais:</strong> {totalNutrients.total_lipids !== null ? totalNutrients.total_lipids : "0"} g
     </div>
     <div className="nutrient">
-      <strong>Fibras Totais:</strong> {totalNutrients.fiber} g
+      <strong>Fibras Totais:</strong> {totalNutrients.dietary_fiber} g
+    </div>
+
+    {/* Checkbox para salvar no localStorage */}
+    <div className="save-checkbox">
+      <label>
+        <input
+          type="checkbox"
+          checked={saveToLocalStorage}
+          onChange={(e) => setSaveToLocalStorage(e.target.checked)}
+        />
+        Salvar macronutrientes em alerta?
+      </label>
     </div>
   </div>
 )}

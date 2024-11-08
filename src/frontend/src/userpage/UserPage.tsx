@@ -32,7 +32,6 @@ export default function UserPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // Funçao para verificar o token no sessionStorage
     const checkLoginStatus = () => {
       const token = sessionStorage.getItem('token'); 
       if (token) {
@@ -60,8 +59,6 @@ export default function UserPage() {
     navigate('/food-register');
   }
 
-  
-
   const fetchUserInfo = async () => {
     const storedUserId = sessionStorage.getItem("id");
     if (storedUserId) {
@@ -75,14 +72,12 @@ export default function UserPage() {
           body: JSON.stringify({ userId })
         });
 
-        if (!response.ok) {
+        if (response.ok) {
+          const data = await response.json();
+          setUserInfo(data.userinfo);
+        } else {
           console.log("Erro ao buscar dados do usuário");
         }
-
-        const data = await response.json();
-
-        console.log(data);
-        setUserInfo(data.userinfo);
 
       } catch (error) {
         console.error("Erro ao buscar dados do usuário:", error);
@@ -90,23 +85,46 @@ export default function UserPage() {
     }
   };
 
-  useEffect(() => {
-    fetchUserInfo();
-  }, []);
+  const fetchProfileInfo = async () => {
+    const userId = sessionStorage.getItem('id');
+    try {
+        const response = await fetch(`http://localhost:3030/api/user/profile/${userId}`);
+        
+        if (response.ok) {
+            const data = await response.json();
+            setProfile(data.profile);
 
-  useEffect(() => {
-    const storedProfile = sessionStorage.getItem("userProfile");
-    if (storedProfile) {
-      const parsedProfile = JSON.parse(storedProfile);
-      setProfile(parsedProfile);
-      setBirthDate(new Date(`${parsedProfile.birth_date} 00:00:00`));
-      setWeight(parsedProfile.weight);
-      setHeight(parsedProfile.height);
-      setSex(parsedProfile.sex);
+            if (data.profile.birth_date) {
+                // Converter birth_date para Date e ajustar para UTC sem horário
+                const parsedDate = new Date(data.profile.birth_date);
+                if (!isNaN(parsedDate.getTime())) {
+                    // Ajuste para remover a hora
+                    parsedDate.setUTCHours(0, 0, 0, 0);
+                    setBirthDate(parsedDate); // Definir como Date, sem horário
+                } else {
+                    console.error("Formato de data de nascimento inválido do servidor:", data.profile.birth_date);
+                    setBirthDate(null); // Define como null se a data for inválida
+                }
+            } else {
+                setBirthDate(null); // Caso não tenha data de nascimento
+            }
+
+            setWeight(data.profile.weight || ""); // Padrão vazio se indefinido
+            setHeight(data.profile.height || "");
+            setSex(data.profile.sex || "");
+        } else {
+            console.log("Erro ao buscar dados do perfil do usuário");
+        }
+        
+    } catch (error) {
+        console.error("Erro ao buscar dados do perfil do usuário:", error);
     }
-  }, []); 
+};
 
-  
+  useEffect(() => {
+    fetchUserInfo(); // Pega o username e email do usuário
+    fetchProfileInfo(); // Pega os dados do perfil
+  }, []);
 
   const handleSave = async () => {
     if (!birthDate) {
@@ -161,7 +179,6 @@ export default function UserPage() {
     if (storedUser) {
       const userId = parseInt(storedUser, 10);
       
-     
       try {
         const response = await fetch(`http://localhost:3030/api/user/delete-profile/${userId}`, {
           method: "DELETE",
@@ -195,7 +212,6 @@ export default function UserPage() {
     }
   };
 
-
   return (
     <>
       <div className="wrapper">
@@ -216,7 +232,7 @@ export default function UserPage() {
           {/* Lado Esquerdo - Perfil */}
           <div className="container-left">
             <h3>Perfil</h3>
-            <img src="https://avatars.githubusercontent.com/u/19499228?v=4" alt="Foto do usuário" id="profile-pic"/>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png" alt="Foto do usuário" id="profile-pic"/>
             {/* Exibir nome de usuário e e-mail */}
             {userInfo && (
               <>

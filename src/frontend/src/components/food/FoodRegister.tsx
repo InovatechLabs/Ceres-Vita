@@ -25,6 +25,14 @@ const FoodRegister: React.FC = () => {
   const handleProfileClick = () => {
     navigate('/user-page')
   }
+
+  const handleDietsClick = () => {
+    navigate('/dietas')
+  }
+
+  const handleCalcularClick = () => {
+    navigate('/calcular')
+  }
     const userId = sessionStorage.getItem('id');
 
     const [currentDate, setCurrentDate] = useState<string>('');
@@ -100,9 +108,14 @@ const FoodRegister: React.FC = () => {
     };
 
     useEffect(() => {
-      const savedLimits = localStorage.getItem('nutrientLimits');
-      if (savedLimits) {
-        setNutrientLimits(JSON.parse(savedLimits));
+      const savedLimits: any = localStorage.getItem('nutrientLimits');
+      const savedPreviousLimits = localStorage.getItem('macronutrients')
+      if (savedLimits && savedPreviousLimits) {
+        setNutrientLimits(JSON.parse(savedPreviousLimits));
+      } else {
+          if(savedLimits || savedPreviousLimits) {
+            setNutrientLimits(JSON.parse(savedLimits))
+          }
       }
     }, []);
     
@@ -388,6 +401,8 @@ const FoodRegister: React.FC = () => {
                 <ul>
                     <li onClick={handleRegisterClick}>Home</li>
                     <li onClick={handleProfileClick}>Meu Perfil</li>
+                    <li onClick={handleDietsClick}>Dietas</li>
+                    <li onClick={handleCalcularClick}>Métricas</li>
                     <li onClick={handleLogout}>Sair</li>
                 </ul>
             </nav>
