@@ -14,7 +14,7 @@ Somos a Innovatech Labs, um grupo de desenvolvimento de software focado em criar
 - **Melhorar a Qualidade de Vida:** Facilitar o acesso a informações nutricionais.
 - **Apoio ao Usuário:** Proporcionar ferramentas para gestão da alimentação.
 
-### 🟨 Status do Projeto: Em Andamento❗
+### 💚 Status do Projeto: Concluído
 
 # :bookmark_tabs: Entregas de Sprints
 
@@ -24,7 +24,7 @@ Os entregáveis serão realizados conforme as datas previamente acordadas com o 
 | ------- | --------------------- | --------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------- |
 | :one:   | :calendar: 20/09/2024 | :green_square: Concluído          | :round_pushpin: [Ver Relatório](./docs/spb1.md)           | :round_pushpin: [Concluído](./docs/spr1.md)                   |
 | :two:   | :calendar: 11/10/2024 | :green_square: Concluído          | :round_pushpin: [Ver Relatório](./docs/spb2.md)           | :round_pushpin: [Concluído](./docs/spr2.md)                   |
-| :three: | :calendar: 08/11/2024 | :yellow_square: Em Andamento      | :round_pushpin: [Ver Relatório](./docs/sprintbacklog3.md) | :round_pushpin: [Pendente](./docs/spr3.md)                    |
+| :three: | :calendar: 08/11/2024 | :green_square: Concluído      | :round_pushpin: [Ver Relatório](./docs/sprintbacklog3.md) | :round_pushpin: [Pendente](./docs/spr3.md)                    |
 
 # :triangular_flag_on_post: Backlog do Produto
 
@@ -46,8 +46,8 @@ Os entregáveis serão realizados conforme as datas previamente acordadas com o 
 | Burndown                                       | Link de Acesso                                                        |
 |------------------------------------------------|-----------------------------------------------------------------------|
 | :green_square: Sprint 1 (Concluído)            | :round_pushpin: [Ver Relatório](/docs/burndown_ceres_vita.pdf)        |
-| :red_square: Sprint 2 (Pendente)               | :round_pushpin: [Ver Relatório](/documentos/GBS2.jpg)                 |
-| :red_square: Sprint 3 (Pendente)               | :round_pushpin: [Ver Relatório](/documentos/GBS3.png)                 |
+| :green_square: Sprint 2 (Concluído)               | :round_pushpin: [Ver Relatório](/documentos/GBS2.jpg)                 |
+| :green_square: Sprint 3 (Concluído)               | :round_pushpin: [Ver Relatório](/documentos/GBS3.png)                 |
 
 # 💠 Linguagem de Modelagem Unificada (UML)
 
