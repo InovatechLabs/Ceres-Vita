@@ -46,8 +46,8 @@ Os entregáveis serão realizados conforme as datas previamente acordadas com o 
 | Burndown                                          | Link de Acesso                                                        |
 |---------------------------------------------------|-----------------------------------------------------------------------|
 | :green_square: Sprint 1 (Concluído)               | :round_pushpin: [Ver Relatório](/docs/burndown_ceres_vita.pdf)        |
-| :green_square: Sprint 2 (Concluído)               | :round_pushpin: [Ver Relatório](/docs/burndown_ceres_vita.pdf)        |
-| :green_square: Sprint 3 (Concluído)               | :round_pushpin: [Ver Relatório](/docs/burndown_ceres_vita.pdf)        |
+| :green_square: Sprint 2 (Concluído)               | :round_pushpin: [Ver Relatório](/docs/bdcv2.png)                      |
+| :green_square: Sprint 3 (Concluído)               | :round_pushpin: [Ver Relatório](/docs/bdcv3.png)                      |
 
 # 📰 Modelo Entidade Relacionamento
 
