@@ -4,10 +4,11 @@ import chalk from "chalk";
 // Função para verificar se o banco de dados existe e criá-lo, se necessário
 const ensureDatabaseExists = async (databaseName: string) => {
   const client = new Client({
-    user: "postgres",
-    host: "localhost",
-    password: "123",
-    database: "postgres", // Conecta ao banco 'postgres' por padrão para checar a existência de outros bancos
+	user: 'ceres',                       
+	host: 'dpg-cu3c8cdumphs73b778kg-a',     
+	password: 'IVr1MMARxhNcabSxtcnerC4J283uNQSe',           
+	database: 'ceresdb_vmzr',             
+	port: 5432 
   });
 
   try {
@@ -37,10 +38,10 @@ const ensureDatabaseExists = async (databaseName: string) => {
 
 // Configuração de conexão do pool com o banco de dados
 const pool = new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "users_auth",
-  password: "123",
+  user: "ceres",
+  host: "dpg-cu3c8cdumphs73b778kg-a",
+  database: "ceresdb_vmzr",
+  password: "IVr1MMARxhNcabSxtcnerC4J283uNQSe",
   options: "-c search_path=mydb",
 });
 
@@ -2263,7 +2264,7 @@ INSERT INTO foods (
 // Function to connect to the database and initialize schema
 const connectDB = async () => {
 	try {
-	  const databaseName = "users_auth";
+	  const databaseName = "ceresdb_vmzr";
   
 	  // Garante que o banco de dados existe
 	  await ensureDatabaseExists(databaseName);
