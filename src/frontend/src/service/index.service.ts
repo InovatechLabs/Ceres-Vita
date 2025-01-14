@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = "http://localhost:3030/api/";
+const apiUrl = "https://ceres-api-j8le.onrender.com/api/";
 
 interface User {
   username: string;

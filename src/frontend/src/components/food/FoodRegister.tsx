@@ -172,7 +172,7 @@ const FoodRegister: React.FC = () => {
       const fetchData = async (dateInput: string | undefined) => {
         try {
           const response = await fetch(
-            `http://localhost:3030/api/food/calculate-nutrients/${userId}/${dateInput ? dateInput : ""}`
+            `https://ceres-api-j8le.onrender.com/api/food/calculate-nutrients/${userId}/${dateInput ? dateInput : ""}`
           );
           const data = await response.json();
           setNutritionalData(data);
@@ -234,7 +234,7 @@ const FoodRegister: React.FC = () => {
 
     const handleFetchTodayLog = async () => {
         try {
-            const response = await axios.get<FoodLog[]>(`http://localhost:3030/api/food/get-food-log/${userId}/${originalDate}`);
+            const response = await axios.get<FoodLog[]>(`https://ceres-api-j8le.onrender.com/api/food/get-food-log/${userId}/${originalDate}`);
             setFoodLog(response.data);
             setShowFoodLog(true);
         } catch (error) {
@@ -245,7 +245,7 @@ const FoodRegister: React.FC = () => {
 
     const handleFetchFoodLog = async () => {
         try {
-            const response = await axios.get<FoodLog[]>(`http://localhost:3030/api/food/get-food-log/${userId}`);
+            const response = await axios.get<FoodLog[]>(`https://ceres-api-j8le.onrender.com/api/food/get-food-log/${userId}`);
             const sortedData = response.data.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
             setFoodLog(sortedData);
             setShowFoodLog(true);
@@ -258,7 +258,7 @@ const FoodRegister: React.FC = () => {
 
     const handleSearch = async () => {
         try {
-            const response = await axios.get(`http://localhost:3030/api/food/search-food/${foodName}`);
+            const response = await axios.get(`https://ceres-api-j8le.onrender.com/api/food/search-food/${foodName}`);
             if (Array.isArray(response.data)) {
                 setFoodData(response.data);
             } else {
@@ -340,7 +340,7 @@ const FoodRegister: React.FC = () => {
         try {
             for (const food of selectedFoods) {
                 const quantityDivided = food.quantity / 100;
-                await axios.post('http://localhost:3030/api/food/log-food', {
+                await axios.post('https://ceres-api-j8le.onrender.com/api/food/log-food', {
                     foodId: food.foodId,
                     userId,
                     date: currentDate,

@@ -10,7 +10,7 @@ const BMICalculator: React.FC = () => {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const response = await fetch(`http://localhost:3030/api/user/profile/${userId}`);
+                const response = await fetch(`https://ceres-api-j8le.onrender.com/api/user/profile/${userId}`);
                 if (!response.ok) {
                     throw new Error('Erro ao buscar perfil');
                 }

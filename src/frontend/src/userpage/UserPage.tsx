@@ -64,7 +64,7 @@ export default function UserPage() {
     if (storedUserId) {
       const userId = parseInt(storedUserId, 10);
       try {
-        const response = await fetch("http://localhost:3030/api/user/verify-profile", {
+        const response = await fetch("https://ceres-api-j8le.onrender.com/api/user/verify-profile", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -88,7 +88,7 @@ export default function UserPage() {
   const fetchProfileInfo = async () => {
     const userId = sessionStorage.getItem('id');
     try {
-        const response = await fetch(`http://localhost:3030/api/user/profile/${userId}`);
+        const response = await fetch(`https://ceres-api-j8le.onrender.com/api/user/profile/${userId}`);
         
         if (response.ok) {
             const data = await response.json();
@@ -149,7 +149,7 @@ export default function UserPage() {
         const userId = parseInt(storedUser, 10);
   
         try {
-          const response = await fetch("http://localhost:3030/api/user/save-profile", {
+          const response = await fetch("https://ceres-api-j8le.onrender.com/api/user/save-profile", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -180,7 +180,7 @@ export default function UserPage() {
       const userId = parseInt(storedUser, 10);
       
       try {
-        const response = await fetch(`http://localhost:3030/api/user/delete-profile/${userId}`, {
+        const response = await fetch(`https://ceres-api-j8le.onrender.com/api/user/delete-profile/${userId}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",

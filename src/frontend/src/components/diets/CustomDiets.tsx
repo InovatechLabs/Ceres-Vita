@@ -224,7 +224,7 @@ const handleHomeClick = () => {
     } 
 
     try {
-      const response = await fetch(`http://localhost:3030/api/food/diet/?query=${encodeURIComponent(query)}&dietType=${encodeURIComponent(dietType)}`);
+      const response = await fetch(`https://ceres-api-j8le.onrender.com/api/food/diet/?query=${encodeURIComponent(query)}&dietType=${encodeURIComponent(dietType)}`);
       if (!response.ok) {
         throw new Error("Erro ao buscar alimentos para a dieta selecionada.");
       }

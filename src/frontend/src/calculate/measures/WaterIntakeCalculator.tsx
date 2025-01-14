@@ -11,7 +11,7 @@ const WaterIntakeCalculator: React.FC = () => {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const response = await fetch(`http://localhost:3030/api/user/profile/${userId}`);
+                const response = await fetch(`https://ceres-api-j8le.onrender.com/api/user/profile/${userId}`);
                 if (!response.ok) {
                     throw new Error('Erro ao buscar perfil');
                 }
@@ -38,7 +38,7 @@ const WaterIntakeCalculator: React.FC = () => {
         if (storedUserId) {
           const userId = parseInt(storedUserId, 10);
           try {
-            const response = await fetch("http://localhost:3030/api/user/verify-profile", {
+            const response = await fetch("https://ceres-api-j8le.onrender.com/api/user/verify-profile", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json"

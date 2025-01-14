@@ -43,7 +43,7 @@ function Measures() {
         if (storedUserId) {
             const userId = parseInt(storedUserId, 10);
             try {
-                const response = await fetch("http://localhost:3030/api/user/verify-profile", {
+                const response = await fetch("https://ceres-api-j8le.onrender.com/api/user/verify-profile", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -68,7 +68,7 @@ function Measures() {
     // Função para verificar a existência do perfil
     const fetchProfile = async () => {
         try {
-            const response = await fetch(`http://localhost:3030/api/user/profile/${userId}`);
+            const response = await fetch(`https://ceres-api-j8le.onrender.com/api/user/profile/${userId}`);
             
             if (response.status === 404) { // Ajuste para o status de perfil inexistente
                 setShowPopup(true); // Mostra o popup quando o perfil não existe

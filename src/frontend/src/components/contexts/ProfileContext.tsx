@@ -32,7 +32,7 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ child
         const userId = sessionStorage.getItem('id');
         const fetchProfileData = async () => {
             try {
-                const response = await fetch(`http://localhost:3030/api/user/profile/${userId}`);
+                const response = await fetch(`https://ceres-api-j8le.onrender.com/api/user/profile/${userId}`);
                 const data = await response.json();
                 if (data && data.profile) {
                     const formattedProfile: Profile = {
